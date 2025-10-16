@@ -4,7 +4,7 @@
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -18,10 +18,12 @@
                          ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                    core/config_manager.py                        │
-│                  (Configuration Management)                      │
-│  - Load JSON configuration                                       │
-│  - Per-linter settings                                          │
-│  - Per-rule settings                                            │
+│              (Hierarchical Configuration Management)             │
+│  - Load root config (configs/lint_config.json)                  │
+│  - Link to individual linter configs                            │
+│  - Per-linter settings (enable/disable)                         │
+│  - Per-rule settings (severity, enabled)                        │
+│  - Environment variable support (VERIBLE_HOME, etc.)            │
 └────────────────────────┬────────────────────────────────────────┘
                          │
                          ▼
@@ -54,7 +56,7 @@
 
 ---
 
-## 📦 Component Diagram
+##  Component Diagram
 
 ```
 ┌──────────────────────── CORE FRAMEWORK ────────────────────────┐
@@ -127,7 +129,7 @@
 
 ---
 
-## 🔄 Data Flow
+## Data Flow
 
 ```
 1. USER INPUT
@@ -183,7 +185,7 @@
 
 ---
 
-## 🔌 Plugin System
+##  Plugin System
 
 ### Registration Mechanism
 
@@ -309,7 +311,7 @@ linter = registry.get_linter("mylinter", config)
 
 ---
 
-## 🎯 Key Design Patterns
+##  Key Design Patterns
 
 ### 1. **Plugin Architecture**
 - Linters register themselves via decorator
@@ -338,7 +340,7 @@ linter = registry.get_linter("mylinter", config)
 
 ---
 
-## 💾 Configuration Hierarchy
+## Configuration Hierarchy
 
 ```
 lint_config_modular.json
@@ -368,7 +370,7 @@ lint_config_modular.json
 
 ---
 
-## 🔍 Extensibility Points
+## Extensibility Points
 
 ### Add New Rule
 1. Create `rules/naturaldocs/my_rule.py`
@@ -394,7 +396,7 @@ lint_config_modular.json
 
 ---
 
-## 📊 Comparison with Legacy
+##  Comparison with Legacy
 
 | Aspect | Legacy | Modular |
 |--------|--------|---------|
@@ -409,7 +411,7 @@ lint_config_modular.json
 
 ---
 
-## 🎓 Architecture Benefits
+##  Architecture Benefits
 
 ### Modularity
 - Small, focused files
@@ -438,6 +440,6 @@ lint_config_modular.json
 
 ---
 
-Copyright (c) 2025 **BTA Design Services**  | October 2025
-**Version:** 2.0-modular
+Copyright (c) 2025 **BTA Design Services** | October 16, 2025  
+**Version:** 3.0-hierarchical
 

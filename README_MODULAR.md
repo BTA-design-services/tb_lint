@@ -8,7 +8,7 @@
 
 ---
 
-## 📍 Overview
+##  Overview
 
 This is a **modular, plugin-based linting framework** that provides a flexible architecture for adding and managing multiple linters and rules.
 
@@ -23,23 +23,28 @@ This is a **modular, plugin-based linting framework** that provides a flexible a
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ### Directory Structure
 
 ```
 tb_lint/
+├── configs/                       # Configuration files
+│   ├── lint_config.json          # Root config (default, hierarchical)
+│   ├── naturaldocs.json          # NaturalDocs linter config
+│   └── verible.json              # Verible linter config
+│
 ├── core/                          # Core framework
 │   ├── __init__.py
 │   ├── base_rule.py              # Abstract base for rules
 │   ├── base_linter.py            # Abstract base for linters
 │   ├── linter_registry.py        # Plugin registry
-│   └── config_manager.py         # Configuration management
+│   └── config_manager.py         # Configuration management (hierarchical)
 │
 ├── linters/                       # Linter implementations
 │   ├── __init__.py
-│   ├── naturaldocs_linter.py     # NaturalDocs linter adapter
-│   └── verible_linter.py         # Verible linter adapter
+│   ├── naturaldocs_linter.py     # NaturalDocs linter adapter (AST-based)
+│   └── verible_linter.py         # Verible linter adapter (external tool)
 │
 ├── rules/                         # Rule implementations
 │   ├── naturaldocs/              # NaturalDocs rules (one per file)
@@ -55,21 +60,33 @@ tb_lint/
 │   │   ├── variable_docs.py      # Variable documentation
 │   │   └── parameter_docs.py     # Parameter documentation
 │   │
-│   └── verible/                  # Verible rules (future)
-│       └── __init__.py
+│   └── verible/                  # Verible rules (external tool)
+│       └── .gitkeep
 │
-├── unified_linter.py             # Main unified linter orchestrator
-├── lint_config_modular.json      # Modular configuration file
+├── example/                       # Examples for developers
+│   ├── example_custom_rule.py    # Example: Custom rule
+│   ├── example_custom_linter.py  # Example: Custom linter
+│   └── README.md                 # Developer guide
 │
-└── (legacy files preserved)
-    ├── naturaldocs_lint.py       # Original monolithic implementation
-    ├── verible_lint.py           # Original verible wrapper
-    └── tb_lint.py                # Original unified script
+├── test/                          # Test files
+│   ├── good_example.sv           # Valid SystemVerilog
+│   ├── bad_example*.sv           # Invalid SystemVerilog examples
+│   ├── *_violations_test.sv      # Intentional violation tests
+│   ├── sv_files.txt              # File list (8 files)
+│   └── test_files.txt            # File list (2 files)
+│
+├── unified_linter.py              # Main entry point
+├── run_all_tests.sh               # One-line test runner
+├── verible_verilog_syntax.py      # Verible syntax wrapper
+├── QUICKSTART.md                  # Quick start guide
+├── ARCHITECTURE.md                # Architecture documentation
+├── README_MODULAR.md              # Complete user guide (this file)
+└── README.md                      # Main documentation index
 ```
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Basic Usage
 
@@ -297,7 +314,7 @@ That's it! Your new rule is now integrated.
 
 ---
 
-## 🆕 Adding a New Linter
+##  Adding a New Linter
 
 ### Step 1: Create Linter Class
 
@@ -366,7 +383,7 @@ The linter is automatically discovered and can be used immediately!
 
 ---
 
-## 📊 Output Formats
+##  Output Formats
 
 ### Human-Readable Output
 
@@ -421,7 +438,7 @@ Info: 0
 
 ---
 
-## 🎯 Rule Naming Convention
+##  Rule Naming Convention
 
 Rules follow a consistent naming pattern:
 
@@ -433,33 +450,9 @@ Rules follow a consistent naming pattern:
   - `[VB_LINE_LENGTH]` - Verible line length violation
 
 ---
-
-## 🔄 Migration from Legacy
-
-### Using Both Systems
-
-Both the legacy (`naturaldocs_lint.py`, `tb_lint.py`) and modular (`unified_linter.py`) systems are available. The modular system is recommended for new work.
-
-### Key Differences
-
-| Feature | Legacy | Modular |
-|---------|--------|---------|
-| Rules | Monolithic file | One file per rule |
-| Configuration | Single JSON | Hierarchical per-linter |
-| Extensibility | Modify source | Add new files |
-| Linters | Hard-coded | Plugin-based |
-| Rule Management | Manual | Automatic discovery |
-
-### Gradual Migration
-
-1. Start using `unified_linter.py` for new checks
-2. Add new rules using the modular system
-3. Legacy scripts remain functional
-4. Eventually deprecate legacy scripts
-
 ---
 
-## 🧪 Testing
+##  Testing
 
 ### Test a Single Rule
 
@@ -485,7 +478,7 @@ print(f"Errors: {result.error_count}, Warnings: {result.warning_count}")
 
 ---
 
-## 📚 API Reference
+## API Reference
 
 ### BaseRule
 
@@ -531,7 +524,7 @@ class MyLinter(BaseLinter):
 
 ---
 
-## 🎓 Best Practices
+##  Best Practices
 
 ### Rule Development
 
@@ -559,18 +552,8 @@ class MyLinter(BaseLinter):
 
 ---
 
-## 📞 Support
 
-For questions or issues:
-
-1. Review this documentation
-2. Check rule/linter source code
-3. Review configuration examples
-4. Contact BTA DV team
-
----
-
-## 🔗 Related Files
+##  Related Files
 
 - **Legacy Documentation:** `README.md`
 - **Configuration:** `lint_config_modular.json`

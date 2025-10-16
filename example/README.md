@@ -1,12 +1,12 @@
 # Adding Linters and Rules - Complete Guide
 
 **BTA Design Services | DV Environment**  
-**Version:** 2.0-modular  
+**Version:** 3.0-hierarchical  
 **Date:** October 16, 2025
 
 ---
 
-## 📚 Table of Contents
+##  Table of Contents
 
 1. [Overview](#overview)
 2. [Adding a New Rule](#adding-a-new-rule)

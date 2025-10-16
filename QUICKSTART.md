@@ -6,7 +6,7 @@
 
 ---
 
-## ⚡ Quick Start (30 seconds)
+## Quick Start (30 seconds)
 
 ```bash
 # Navigate to directory
@@ -18,13 +18,13 @@ cd /home/vbesyakov/project/tb_lint
 # Option 2: Run linter directly
 python3 unified_linter.py -f test/test_files.txt --color
 
-# Option 3: Use hierarchical configuration
-python3 unified_linter.py -c lint_config_hierarchical.json -f test/test_files.txt --color
+# Option 3: Use custom configuration
+python3 unified_linter.py -c configs/lint_config.json -f test/test_files.txt --color
 ```
 
 ---
 
-## 📋 Common Commands
+## Common Commands
 
 | Command | Description |
 |---------|-------------|
@@ -39,38 +39,13 @@ python3 unified_linter.py -c lint_config_hierarchical.json -f test/test_files.tx
 
 ---
 
-## 📁 Configuration Options
+##  Configuration Structure
 
-### Option 1: Monolithic Configuration (Simple)
+### Hierarchical Configuration (Recommended)
 
-Use `lint_config_modular.json` - all settings in one file:
+The framework uses a **hierarchical configuration** system:
 
-```json
-{
-  "linters": {
-    "naturaldocs": {
-      "enabled": true,
-      "file_header": { ... },
-      "rules": { ... }
-    },
-    "verible": {
-      "enabled": true,
-      "rules": { ... }
-    }
-  }
-}
-```
-
-**Usage:**
-```bash
-python3 unified_linter.py -c lint_config_modular.json -f files.txt
-```
-
-### Option 2: Hierarchical Configuration (Recommended)
-
-Use `lint_config_hierarchical.json` - root config links to individual linter configs:
-
-**Root Config** (`lint_config_hierarchical.json`):
+**Root Config** (`configs/lint_config.json`) - Controls which linters are enabled:
 ```json
 {
   "linters": {
@@ -103,19 +78,23 @@ Use `lint_config_hierarchical.json` - root config links to individual linter con
 **Note:** The actual `configs/naturaldocs.json` is the original `lint_naturaldocs.json` file moved to the configs directory.
 
 **Benefits:**
-- ✅ Enable/disable linters from root config
-- ✅ Separate linter-specific settings
-- ✅ Easy to maintain and share configs
-- ✅ Team can customize individual linters
+-  Enable/disable linters from root config
+-  Separate linter-specific settings
+-  Easy to maintain and share configs
+-  Team can customize individual linters
 
 **Usage:**
 ```bash
-python3 unified_linter.py -c lint_config_hierarchical.json -f files.txt
+# Default (automatically uses configs/lint_config.json)
+python3 unified_linter.py -f files.txt
+
+# Explicit config file
+python3 unified_linter.py -c configs/lint_config.json -f files.txt
 ```
 
 ---
 
-## 🎯 Basic Usage Patterns
+##  Basic Usage Patterns
 
 ### Check Files from List
 
@@ -169,9 +148,9 @@ python3 run_tests.py --linter naturaldocs --summary
 
 ---
 
-## ✅ Correct vs ❌ Wrong Usage
+##  Correct vs  Wrong Usage
 
-### ✅ Correct
+### Correct
 
 ```bash
 # Use -f flag for file lists
@@ -184,7 +163,7 @@ python3 unified_linter.py -c lint_config_hierarchical.json -f files.txt
 python3 unified_linter.py file1.sv file2.sv
 ```
 
-### ❌ Common Mistakes
+### Common Mistakes
 
 ```bash
 # Missing -f flag (will show helpful error)
@@ -195,20 +174,15 @@ python3 unified_linter.py sv_files.txt
 
 ---
 
-## 🔧 Setup Environment
+## Setup Environment
 
 ```bash
-# Option 1: If setup script exists
-source setup_env.sh
-
-# Option 2: Manual setup
-export PATH=/scratch/tools/external_lib/verible/verible-v0.0-4023-gc1271a00/bin:$PATH
-export PYTHONPATH=/scratch/tools/external_lib/verible/verible-v0.0-4023-gc1271a00/lib/python3.6/site-packages:$PYTHONPATH
+export PATH=<verible>/bin:$PATH
 ```
 
 ---
 
-## 📊 Understanding Output
+## Understanding Output
 
 ### Human-Readable Format (Default)
 
@@ -257,23 +231,23 @@ Info: 0
 ## 🎓 Next Steps
 
 ### For Users
-1. ✅ Run linter on your files: `python3 unified_linter.py -f your_files.txt`
-2. ✅ Review violations and fix code
-3. ✅ Integrate into your workflow
+1. Run linter on your files: `python3 unified_linter.py -f your_files.txt`
+2. Review violations and fix code
+3. Integrate into your workflow
 
 ### For Developers
-1. ✅ Read [example/README.md](example/README.md) - How to add linters and rules
-2. ✅ Review [ARCHITECTURE.md](ARCHITECTURE.md) - System design
-3. ✅ Study examples in `example/example_custom_rule.py`
+1. Read [example/README.md](example/README.md) - How to add linters and rules
+2. Review [ARCHITECTURE.md](ARCHITECTURE.md) - System design
+3. Study examples in `example/example_custom_rule.py`
 
 ### Advanced Configuration
-1. ✅ Create hierarchical config for your team
-2. ✅ Customize rule severity levels
-3. ✅ Enable/disable specific linters or rules
+1. Create hierarchical config for your team
+2. Customize rule severity levels
+3. Enable/disable specific linters or rules
 
 ---
 
-## 📝 Configuration Examples
+## Configuration Examples
 
 ### Disable a Linter
 
@@ -318,7 +292,7 @@ In `configs/naturaldocs.json`:
 
 ---
 
-## 🎯 File Organization
+##  File Organization
 
 ```
 tb_lint/
@@ -342,7 +316,7 @@ tb_lint/
 
 ---
 
-## 💡 Pro Tips
+##  Pro Tips
 
 1. **Use hierarchical configs** for team projects - easier to manage
 2. **Use --color** during development for better readability
@@ -353,11 +327,11 @@ tb_lint/
 
 ---
 
-## 🆘 Troubleshooting
+##  Troubleshooting
 
 ### Error: Verible not found
 ```bash
-export PATH=/scratch/tools/external_lib/verible/verible-v0.0-4023-gc1271a00/bin:$PATH
+export PATH=<verible>/bin:$PATH
 ```
 
 ### Error: Config file not found
@@ -382,16 +356,16 @@ python3 unified_linter.py -f files.txt
 | **example/README.md** | How to add linters and rules |
 | **ARCHITECTURE.md** | System design and structure |
 | **README_MODULAR.md** | Complete framework documentation |
-| **INDEX.md** | Documentation index |
+| **README.md** | Documentation index |
 
 ---
 
-## 🔗 Quick Links
+## Quick Links
 
 - **Add Rules/Linters**: [example/README.md](example/README.md)
 - **System Design**: [ARCHITECTURE.md](ARCHITECTURE.md)
 - **Full Documentation**: [README_MODULAR.md](README_MODULAR.md)
-- **Documentation Index**: [INDEX.md](INDEX.md)
+- **Documentation Index**: [README.md](README.md)
 
 ---
 
