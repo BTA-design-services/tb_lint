@@ -1,0 +1,28 @@
+{
+  "project": {
+    "name": "Design Verification Environment",
+    "company": "BTA Design Services",
+    "description": "SystemVerilog Design Verification Environment"
+  },
+  "global": {
+    "strict_mode": false,
+    "use_color": true
+  },
+  "linters": {
+    "naturaldocs": {
+      "enabled": true,
+      "config_file": "configs/naturaldocs.json"
+    },
+    "verible": {
+      "enabled": true,
+      "config_file": "configs/verible.json"
+    }
+  },
+  "metadata": {
+    "config_version": "3.0-hierarchical",
+    "last_updated": "2025-10-16",
+    "maintainer": "BTA Design Services",
+    "description": "Hierarchical configuration linking individual linter configs"
+  }
+}
+

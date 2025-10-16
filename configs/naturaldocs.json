@@ -1,0 +1,77 @@
+{
+  "project": {
+    "name": " Design Verification Environment",
+    "company": "BTA Design Services",
+    "description": "SystemVerilog Design Verification Environment"
+  },
+  "file_header": {
+    "required_fields": [
+      "File"
+    ],
+    "recommended_fields": [
+      "Company",
+      "Author"
+    ],
+    "company_name": "BTA Design Services",
+    "company_pattern": "BTA",
+    "email_domain": "@btadesignservices.com",
+    "file_header_template": [
+      "// File: <filename>",
+      "// Company: BTA Design Services",
+      "// Author: <name> <email@btadesignservices.com>",
+      "// Date: <date>",
+      "// Description: <description>"
+    ]
+  },
+  "linter_rules": {
+    "[ND_FILE_HDR]": true,
+    "[ND_INCLUDE_GRD]": true,
+    "[ND_PKG]": true,
+    "[ND_CLASS]": true,
+    "[ND_FUNC]": true,
+    "[ND_TASK]": true,
+    "[ND_CONST]": true,
+    "[ND_TYPEDEF]": true,
+    "[ND_VAR]": true,
+    "[ND_PARAM]": true
+  },
+  "severity_levels": {
+    "[ND_FILE_HDR_MISS]": "ERROR",
+    "[ND_COMPANY_MISS]": "WARNING",
+    "[ND_AUTHOR_MISS]": "WARNING",
+    "[ND_GUARD_MISS]": "ERROR",
+    "[ND_GUARD_FMT]": "ERROR",
+    "[ND_PKG_MISS]": "ERROR",
+    "[ND_CLASS_MISS]": "ERROR",
+    "[ND_FUNC_MISS]": "ERROR",
+    "[ND_TASK_MISS]": "ERROR",
+    "[ND_CONST_MISS]": "ERROR",
+    "[ND_TYPEDEF_MISS]": "ERROR",
+    "[ND_VAR_MISS]": "ERROR",
+    "[ND_PARAM_MISS]": "ERROR",
+    "[ND_NAME_MISMATCH]": "ERROR",
+    "[ND_WRONG_KW]": "ERROR",
+    "[ND_INVALID_KW]": "ERROR"
+  },
+  "naming_conventions": {
+    "prefix_package": "bta_",
+    "suffix_package": "_pkg",
+    "prefix_class": "bta_",
+    "prefix_interface": "",
+    "suffix_interface": "_if",
+    "prefix_member_variable": "m_",
+    "suffix_constraint": "_c",
+    "suffix_type": "_t"
+  },
+  "output": {
+    "use_color": false,
+    "verbose": false,
+    "show_context": true
+  },
+  "metadata": {
+    "config_version": "1.0",
+    "last_updated": "2025-10-03",
+    "maintainer": "BTA Design Services"
+  }
+}
+

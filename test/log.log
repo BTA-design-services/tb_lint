@@ -1,0 +1,618 @@
+================================================================================
+TB_LINT - Unified Linter Framework
+================================================================================
+
+Unified Linter Command:
+  python3 unified_linter.py -f test/sv_files.txt -o log.log
+
+Configuration:
+  configs/lint_config.json (default)
+
+Enabled Linters:
+  • naturaldocs:
+    /scratch/tools/external_lib/verible/verible-v0.0-4023-gc1271a00/bin/verible-verilog-syntax --export_json $(cat test/sv_files.txt)
+    Note: AST-based linting using Verible parser
+  • verible:
+    /scratch/tools/external_lib/verible/verible-v0.0-4023-gc1271a00/bin/verible-verilog-lint $(cat test/sv_files.txt)
+================================================================================
+
+
+File: test/bad_example.sv
+  test/bad_example.sv:1:0: [ND_FILE_HDR_MISS] ERROR: Missing 'File:' keyword in header
+  test/bad_example.sv:1:0: [ND_COMPANY_MISS] WARNING: Missing or incomplete 'Company: BTA Design Services' in header
+  test/bad_example.sv:1:0: [ND_AUTHOR_MISS] WARNING: Missing 'Author:' with @btadesignservices.com email
+  test/bad_example.sv:17:0: [ND_PKG_MISS] ERROR: Package 'TestPackage' without 'Package:' documentation
+  test/bad_example.sv:24:0: [ND_TYPEDEF_MISS] WARNING: Typedef 'StateEnum' without documentation
+  test/bad_example.sv:29:0: [ND_CLASS_MISS] ERROR: Class 'BadDriver' without 'Class:' documentation
+  test/bad_example.sv:45:0: [ND_CONST_MISS] ERROR: Constraint 'valid_data_constraint' without 'define:' or 'Variable:' documentation
+  test/bad_example.sv:62:0: [ND_TASK_MISS] ERROR: Task 'run_phase' without 'Function:' documentation (NaturalDocs uses Function for tasks)
+  test/bad_example.sv:72:0: [ND_FUNC_MISS] ERROR: Function 'new' without 'Function:' documentation
+  test/bad_example.sv:81:0: [ND_CLASS_MISS] ERROR: Class 'ConfigObject' without 'Class:' documentation
+  test/bad_example.sv:93:0: [ND_CLASS_MISS] ERROR: Class 'MyConfig' without 'Class:' documentation
+  test/bad_example.sv:98:0: [ND_CONST_MISS] ERROR: Constraint 'timing' without 'define:' or 'Variable:' documentation
+  test/bad_example.sv:102:0: [ND_CLASS_MISS] ERROR: Class 'TestSequence' without 'Class:' documentation
+  test/bad_example.sv:109:0: [ND_FUNC_MISS] ERROR: Function 'new' without 'Function:' documentation
+  test/bad_example.sv:113:0: [ND_TASK_MISS] ERROR: Task 'body' without 'Function:' documentation (NaturalDocs uses Function for tasks)
+
+File: test/bad_example_sandbox.sv
+  test/bad_example_sandbox.sv:1:0: [ND_FILE_HDR_MISS] ERROR: Missing 'File:' keyword in header
+  test/bad_example_sandbox.sv:1:0: [ND_COMPANY_MISS] WARNING: Missing or incomplete 'Company: BTA Design Services' in header
+  test/bad_example_sandbox.sv:1:0: [ND_AUTHOR_MISS] WARNING: Missing 'Author:' with @btadesignservices.com email
+  test/bad_example_sandbox.sv:17:0: [ND_PKG_MISS] ERROR: Package 'TestPackage' without 'Package:' documentation
+  test/bad_example_sandbox.sv:24:0: [ND_TYPEDEF_MISS] WARNING: Typedef 'StateEnum' without documentation
+  test/bad_example_sandbox.sv:29:0: [ND_CLASS_MISS] ERROR: Class 'BadDriver' without 'Class:' documentation
+  test/bad_example_sandbox.sv:45:0: [ND_CONST_MISS] ERROR: Constraint 'valid_data_constraint' without 'define:' or 'Variable:' documentation
+  test/bad_example_sandbox.sv:62:0: [ND_TASK_MISS] ERROR: Task 'run_phase' without 'Function:' documentation (NaturalDocs uses Function for tasks)
+  test/bad_example_sandbox.sv:72:0: [ND_FUNC_MISS] ERROR: Function 'new' without 'Function:' documentation
+  test/bad_example_sandbox.sv:81:0: [ND_CLASS_MISS] ERROR: Class 'ConfigObject' without 'Class:' documentation
+  test/bad_example_sandbox.sv:93:0: [ND_CLASS_MISS] ERROR: Class 'MyConfig' without 'Class:' documentation
+  test/bad_example_sandbox.sv:98:0: [ND_CONST_MISS] ERROR: Constraint 'timing' without 'define:' or 'Variable:' documentation
+  test/bad_example_sandbox.sv:102:0: [ND_CLASS_MISS] ERROR: Class 'TestSequence' without 'Class:' documentation
+  test/bad_example_sandbox.sv:109:0: [ND_FUNC_MISS] ERROR: Function 'new' without 'Function:' documentation
+  test/bad_example_sandbox.sv:113:0: [ND_TASK_MISS] ERROR: Task 'body' without 'Function:' documentation (NaturalDocs uses Function for tasks)
+
+File: test/bad_example_valid_syntax.sv
+  test/bad_example_valid_syntax.sv:1:0: [ND_FILE_HDR_MISS] ERROR: Missing 'File:' keyword in header
+  test/bad_example_valid_syntax.sv:1:0: [ND_COMPANY_MISS] WARNING: Missing or incomplete 'Company: BTA Design Services' in header
+  test/bad_example_valid_syntax.sv:1:0: [ND_AUTHOR_MISS] WARNING: Missing 'Author:' with @btadesignservices.com email
+  test/bad_example_valid_syntax.sv:12:0: [ND_PKG_MISS] ERROR: Package 'TestPackage' without 'Package:' documentation
+  test/bad_example_valid_syntax.sv:21:0: [ND_TYPEDEF_MISS] WARNING: Typedef 'StateEnum' without documentation
+  test/bad_example_valid_syntax.sv:26:0: [ND_CLASS_MISS] ERROR: Class 'BadDriver' without 'Class:' documentation
+  test/bad_example_valid_syntax.sv:43:0: [ND_CONST_MISS] ERROR: Constraint 'valid_data_constraint' without 'define:' or 'Variable:' documentation
+  test/bad_example_valid_syntax.sv:58:0: [ND_FUNC_MISS] ERROR: Function 'new' without 'Function:' documentation
+  test/bad_example_valid_syntax.sv:67:0: [ND_CLASS_MISS] ERROR: Class 'ConfigObject' without 'Class:' documentation
+  test/bad_example_valid_syntax.sv:76:0: [ND_CONST_MISS] ERROR: Constraint 'addr_range' without 'define:' or 'Variable:' documentation
+  test/bad_example_valid_syntax.sv:82:0: [ND_FUNC_MISS] ERROR: Function 'new' without 'Function:' documentation
+  test/bad_example_valid_syntax.sv:89:0: [ND_CLASS_MISS] ERROR: Class 'MyConfig' without 'Class:' documentation
+  test/bad_example_valid_syntax.sv:94:0: [ND_CONST_MISS] ERROR: Constraint 'timing' without 'define:' or 'Variable:' documentation
+  test/bad_example_valid_syntax.sv:98:0: [ND_FUNC_MISS] ERROR: Function 'new' without 'Function:' documentation
+  test/bad_example_valid_syntax.sv:104:0: [ND_CLASS_MISS] ERROR: Class 'TestSequence' without 'Class:' documentation
+  test/bad_example_valid_syntax.sv:111:0: [ND_FUNC_MISS] ERROR: Function 'new' without 'Function:' documentation
+  test/bad_example_valid_syntax.sv:115:0: [ND_TASK_MISS] ERROR: Task 'body' without 'Function:' documentation (NaturalDocs uses Function for tasks)
+
+File: test/bad_example_valid_syntax_fixed.sv
+  test/bad_example_valid_syntax_fixed.sv:1:0: [ND_FILE_HDR_MISS] ERROR: Missing 'File:' keyword in header
+  test/bad_example_valid_syntax_fixed.sv:1:0: [ND_COMPANY_MISS] WARNING: Missing or incomplete 'Company: BTA Design Services' in header
+  test/bad_example_valid_syntax_fixed.sv:1:0: [ND_AUTHOR_MISS] WARNING: Missing 'Author:' with @btadesignservices.com email
+  test/bad_example_valid_syntax_fixed.sv:5:0: [ND_PKG_MISS] ERROR: Package 'TestPackage' without 'Package:' documentation
+  test/bad_example_valid_syntax_fixed.sv:14:0: [ND_TYPEDEF_MISS] WARNING: Typedef 'StateEnum' without documentation
+  test/bad_example_valid_syntax_fixed.sv:19:0: [ND_CLASS_MISS] ERROR: Class 'BadDriver' without 'Class:' documentation
+  test/bad_example_valid_syntax_fixed.sv:36:0: [ND_CONST_MISS] ERROR: Constraint 'valid_data_constraint' without 'define:' or 'Variable:' documentation
+  test/bad_example_valid_syntax_fixed.sv:51:0: [ND_FUNC_MISS] ERROR: Function 'new' without 'Function:' documentation
+  test/bad_example_valid_syntax_fixed.sv:60:0: [ND_CLASS_MISS] ERROR: Class 'ConfigObject' without 'Class:' documentation
+  test/bad_example_valid_syntax_fixed.sv:69:0: [ND_CONST_MISS] ERROR: Constraint 'addr_range' without 'define:' or 'Variable:' documentation
+  test/bad_example_valid_syntax_fixed.sv:75:0: [ND_FUNC_MISS] ERROR: Function 'new' without 'Function:' documentation
+  test/bad_example_valid_syntax_fixed.sv:82:0: [ND_CLASS_MISS] ERROR: Class 'MyConfig' without 'Class:' documentation
+  test/bad_example_valid_syntax_fixed.sv:87:0: [ND_CONST_MISS] ERROR: Constraint 'timing' without 'define:' or 'Variable:' documentation
+  test/bad_example_valid_syntax_fixed.sv:91:0: [ND_FUNC_MISS] ERROR: Function 'new' without 'Function:' documentation
+  test/bad_example_valid_syntax_fixed.sv:97:0: [ND_CLASS_MISS] ERROR: Class 'TestSequence' without 'Class:' documentation
+  test/bad_example_valid_syntax_fixed.sv:104:0: [ND_FUNC_MISS] ERROR: Function 'new' without 'Function:' documentation
+  test/bad_example_valid_syntax_fixed.sv:108:0: [ND_TASK_MISS] ERROR: Task 'body' without 'Function:' documentation (NaturalDocs uses Function for tasks)
+
+File: test/bad_example_wrong_keywords.sv
+  test/bad_example_wrong_keywords.sv:1:0: [ND_COMPANY_MISS] WARNING: Missing or incomplete 'Company: BTA Design Services' in header
+  test/bad_example_wrong_keywords.sv:1:0: [ND_AUTHOR_MISS] WARNING: Missing 'Author:' with @btadesignservices.com email
+  test/bad_example_wrong_keywords.sv:17:0: [ND_PKG_MISS] ERROR: Package 'bta_invalid_pkg' without 'Package:' documentation
+  test/bad_example_wrong_keywords.sv:21:0: [ND_TYPEDEF_MISS] WARNING: Typedef 'custom_type_t' without documentation
+  test/bad_example_wrong_keywords.sv:25:0: [ND_CLASS_MISS] ERROR: Class 'bta_invalid_class' without 'Class:' documentation
+  test/bad_example_wrong_keywords.sv:33:0: [ND_FUNC_MISS] ERROR: Function 'new' without 'Function:' documentation
+  test/bad_example_wrong_keywords.sv:46:0: [ND_PKG_MISS] ERROR: Package 'bta_wrong_pkg' without 'Package:' documentation
+  test/bad_example_wrong_keywords.sv:50:0: [ND_TYPEDEF_MISS] WARNING: Typedef 'addr_t' without documentation
+  test/bad_example_wrong_keywords.sv:58:0: [ND_CLASS_MISS] ERROR: Class 'bta_wrong_class' without 'Class:' documentation
+  test/bad_example_wrong_keywords.sv:72:0: [ND_TASK_MISS] ERROR: Task 'increment' without 'Function:' documentation (NaturalDocs uses Function for tasks)
+  test/bad_example_wrong_keywords.sv:78:0: [ND_CONST_MISS] ERROR: Constraint 'valid_range_c' without 'define:' or 'Variable:' documentation
+  test/bad_example_wrong_keywords.sv:98:0: [ND_TASK_MISS] ERROR: Task 'my_task' without 'Function:' documentation (NaturalDocs uses Function for tasks)
+  test/bad_example_wrong_keywords.sv:104:0: [ND_TASK_MISS] ERROR: Task 'another_task' without 'Function:' documentation (NaturalDocs uses Function for tasks)
+  test/bad_example_wrong_keywords.sv:126:0: [ND_CLASS_MISS] ERROR: Class 'bta_mixed_class' without 'Class:' documentation
+  test/bad_example_wrong_keywords.sv:140:0: [ND_TASK_MISS] ERROR: Task 'reset' without 'Function:' documentation (NaturalDocs uses Function for tasks)
+  test/bad_example_wrong_keywords.sv:146:0: [ND_CONST_MISS] ERROR: Constraint 'id_range_c' without 'define:' or 'Variable:' documentation
+
+File: test/bad_example_wrong_name.sv
+  test/bad_example_wrong_name.sv:259:0: [ND_TASK_MISS] ERROR: Task 'body' without 'Function:' documentation (NaturalDocs uses Function for tasks)
+  test/bad_example_wrong_name.sv:336:0: [ND_TASK_MISS] ERROR: Task 'run_phase' without 'Function:' documentation (NaturalDocs uses Function for tasks)
+  test/bad_example_wrong_name.sv:353:0: [ND_TASK_MISS] ERROR: Task 'drive_transaction' without 'Function:' documentation (NaturalDocs uses Function for tasks)
+  test/bad_example_wrong_name.sv:427:0: [ND_TASK_MISS] ERROR: Task 'run_phase' without 'Function:' documentation (NaturalDocs uses Function for tasks)
+  test/bad_example_wrong_name.sv:445:0: [ND_TASK_MISS] ERROR: Task 'collect_transaction' without 'Function:' documentation (NaturalDocs uses Function for tasks)
+
+File: test/bad_example_keyword_test.sv
+  test/bad_example_keyword_test.sv:1:0: [ND_COMPANY_MISS] WARNING: Missing or incomplete 'Company: BTA Design Services' in header
+  test/bad_example_keyword_test.sv:1:0: [ND_AUTHOR_MISS] WARNING: Missing 'Author:' with @btadesignservices.com email
+  test/bad_example_keyword_test.sv:11:0: [ND_TASK_MISS] ERROR: Task 'bad_task' without 'Function:' documentation (NaturalDocs uses Function for tasks)
+  test/bad_example_keyword_test.sv:18:0: [ND_CLASS_MISS] ERROR: Class 'test_class' without 'Class:' documentation
+  test/bad_example_keyword_test.sv:24:0: [ND_CONST_MISS] ERROR: Constraint 'range_c' without 'define:' or 'Variable:' documentation
+
+================================================================================
+naturaldocs Summary
+================================================================================
+Files checked: 8
+Errors: 72
+Warnings: 18
+Info: 0
+
+File: test/bad_example.sv
+  test/bad_example.sv:10:11: [VB_INTERFACE_NAME_STYLE] WARNING: Interface name does not match the naming convention defined by regex pattern: [a-z_0-9]+(_if)
+  test/bad_example.sv:17:21: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:24:35: [VB_ENUM_NAME_STYLE] WARNING: Enum type name does not match the naming convention defined by regex pattern: [a-z_0-9]+(_t|_e)
+  test/bad_example.sv:30:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:32:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:33:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:34:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:35:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:36:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:38:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:39:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:40:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:40:20: [VB_PARAMETER_NAME_STYLE] WARNING: Localparam name does not match the naming convention defined by regex pattern: (([A-Z0-9]+[a-z0-9]*)+(_[0-9]+)?)
+  test/bad_example.sv:42:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:43:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:44:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:45:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:45:13: [VB_CONSTRAINT_NAME_STYLE] WARNING: Constraint names must obey the following regex: ([a-z0-9]+_)+c
+  test/bad_example.sv:46:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:47:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:48:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:50:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:51:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:52:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:53:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:54:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:55:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:56:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:57:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:58:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:60:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:61:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:62:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:63:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:64:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:65:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:66:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:66:16: [VB_INVALID_SYSTEM_TASK_FUNCTION] WARNING: $random is a forbidden system function or task, please use $urandom instead
+  test/bad_example.sv:67:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:68:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:70:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:71:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:72:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:73:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:74:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:75:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:82:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:84:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:85:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:87:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:94:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:95:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:97:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:98:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:98:13: [VB_CONSTRAINT_NAME_STYLE] WARNING: Constraint names must obey the following regex: ([a-z0-9]+_)+c
+  test/bad_example.sv:103:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:105:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:106:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:107:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:109:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:110:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:111:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:113:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:114:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:115:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:116:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:117:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:118:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:119:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:126:9: [VB_MACRO_NAME_STYLE] WARNING: Macro name does not match the naming convention defined by regex pattern: [A-Z_0-9]+
+  test/bad_example.sv:127:99: [VB_LINE_LENGTH] WARNING: Line length exceeds max: 100; is: 118
+  test/bad_example.sv:130:15: [VB_EXPLICIT_FUNCTION_LIFETIME] WARNING: Explicitly define static or automatic lifetime for non-class functions
+  test/bad_example.sv:131:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:132:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:132:6: [VB_INVALID_SYSTEM_TASK_FUNCTION] WARNING: $psprintf is a forbidden system function or task, please use $sformatf instead
+  test/bad_example.sv:133:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:133:10: [VB_INVALID_SYSTEM_TASK_FUNCTION] WARNING: $random is a forbidden system function or task, please use $urandom instead
+  test/bad_example.sv:141:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:141:12: [VB_EXPLICIT_PARAMETER_STORAGE_TYPE] WARNING: Explicitly define a storage type for every parameter and localparam, (WIDTH).
+  test/bad_example.sv:143:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:144:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:145:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:145:38: [VB_GENERATE_LABEL] WARNING: All generate block statements must have a label
+  test/bad_example.sv:146:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:147:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:148:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:149:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:151:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:152:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:153:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:153:2: [VB_ALWAYS_COMB] WARNING: Use 'always_comb' instead of 'always @*'.
+  test/bad_example.sv:154:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:155:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:157:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:158:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:159:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:159:3: [VB_CASE_MISSING_DEFAULT] WARNING: Explicitly define a default case for every case statement or add `unique` qualifier to the case statement.
+  test/bad_example.sv:160:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:160:11: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example.sv:161:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:161:11: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example.sv:162:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:162:11: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example.sv:163:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:164:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:165:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:167:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:168:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:169:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:169:3: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example.sv:170:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:172:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:173:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example.sv:173:15: [VB_FORBID_CONSECUTIVE_NULL_STATEMENTS] WARNING: Do not use consecutive null statements like ';;'.
+  test/bad_example.sv:175:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+
+File: test/bad_example_sandbox.sv
+  test/bad_example_sandbox.sv:10:11: [VB_INTERFACE_NAME_STYLE] WARNING: Interface name does not match the naming convention defined by regex pattern: [a-z_0-9]+(_if)
+  test/bad_example_sandbox.sv:17:21: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:24:35: [VB_ENUM_NAME_STYLE] WARNING: Enum type name does not match the naming convention defined by regex pattern: [a-z_0-9]+(_t|_e)
+  test/bad_example_sandbox.sv:30:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:32:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:33:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:34:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:35:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:36:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:38:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:39:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:40:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:40:20: [VB_PARAMETER_NAME_STYLE] WARNING: Localparam name does not match the naming convention defined by regex pattern: (([A-Z0-9]+[a-z0-9]*)+(_[0-9]+)?)
+  test/bad_example_sandbox.sv:42:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:43:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:44:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:45:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:45:13: [VB_CONSTRAINT_NAME_STYLE] WARNING: Constraint names must obey the following regex: ([a-z0-9]+_)+c
+  test/bad_example_sandbox.sv:46:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:47:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:48:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:50:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:51:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:52:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:53:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:54:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:55:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:56:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:57:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:58:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:60:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:61:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:62:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:63:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:64:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:65:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:66:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:66:16: [VB_INVALID_SYSTEM_TASK_FUNCTION] WARNING: $random is a forbidden system function or task, please use $urandom instead
+  test/bad_example_sandbox.sv:67:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:68:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:70:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:71:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:72:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:73:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:74:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:75:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:82:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:84:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:85:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:87:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:94:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:95:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:97:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:98:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:98:13: [VB_CONSTRAINT_NAME_STYLE] WARNING: Constraint names must obey the following regex: ([a-z0-9]+_)+c
+  test/bad_example_sandbox.sv:103:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:105:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:106:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:107:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:109:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:110:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:111:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:113:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:114:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:115:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:116:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:117:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:118:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:119:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:126:9: [VB_MACRO_NAME_STYLE] WARNING: Macro name does not match the naming convention defined by regex pattern: [A-Z_0-9]+
+  test/bad_example_sandbox.sv:127:99: [VB_LINE_LENGTH] WARNING: Line length exceeds max: 100; is: 118
+  test/bad_example_sandbox.sv:130:15: [VB_EXPLICIT_FUNCTION_LIFETIME] WARNING: Explicitly define static or automatic lifetime for non-class functions
+  test/bad_example_sandbox.sv:131:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:132:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:132:6: [VB_INVALID_SYSTEM_TASK_FUNCTION] WARNING: $psprintf is a forbidden system function or task, please use $sformatf instead
+  test/bad_example_sandbox.sv:133:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:133:10: [VB_INVALID_SYSTEM_TASK_FUNCTION] WARNING: $random is a forbidden system function or task, please use $urandom instead
+  test/bad_example_sandbox.sv:141:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:141:12: [VB_EXPLICIT_PARAMETER_STORAGE_TYPE] WARNING: Explicitly define a storage type for every parameter and localparam, (WIDTH).
+  test/bad_example_sandbox.sv:143:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:144:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:145:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:145:38: [VB_GENERATE_LABEL] WARNING: All generate block statements must have a label
+  test/bad_example_sandbox.sv:146:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:147:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:148:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:149:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:151:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:152:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:153:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:153:2: [VB_ALWAYS_COMB] WARNING: Use 'always_comb' instead of 'always @*'.
+  test/bad_example_sandbox.sv:154:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:155:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:157:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:158:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:159:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:159:3: [VB_CASE_MISSING_DEFAULT] WARNING: Explicitly define a default case for every case statement or add `unique` qualifier to the case statement.
+  test/bad_example_sandbox.sv:160:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:160:11: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example_sandbox.sv:161:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:161:11: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example_sandbox.sv:162:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:162:11: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example_sandbox.sv:163:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:164:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:165:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:167:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:168:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:169:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:169:3: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example_sandbox.sv:170:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:172:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:173:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_sandbox.sv:173:15: [VB_FORBID_CONSECUTIVE_NULL_STATEMENTS] WARNING: Do not use consecutive null statements like ';;'.
+  test/bad_example_sandbox.sv:175:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+
+File: test/bad_example_valid_syntax.sv
+  test/bad_example_valid_syntax.sv:6:11: [VB_INTERFACE_NAME_STYLE] WARNING: Interface name does not match the naming convention defined by regex pattern: [a-z_0-9]+(_if)
+  test/bad_example_valid_syntax.sv:21:35: [VB_ENUM_NAME_STYLE] WARNING: Enum type name does not match the naming convention defined by regex pattern: [a-z_0-9]+(_t|_e)
+  test/bad_example_valid_syntax.sv:27:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:28:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:30:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:31:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:32:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:33:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:34:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:36:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:37:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:38:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:38:12: [VB_EXPLICIT_PARAMETER_STORAGE_TYPE] WARNING: Explicitly define a storage type for every parameter and localparam, (MaxSize).
+  test/bad_example_valid_syntax.sv:39:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:39:13: [VB_EXPLICIT_PARAMETER_STORAGE_TYPE] WARNING: Explicitly define a storage type for every parameter and localparam, (default_name).
+  test/bad_example_valid_syntax.sv:41:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:42:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:43:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:43:13: [VB_CONSTRAINT_NAME_STYLE] WARNING: Constraint names must obey the following regex: ([a-z0-9]+_)+c
+  test/bad_example_valid_syntax.sv:44:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:45:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:46:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:48:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:49:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:50:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:51:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:52:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:53:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:54:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:55:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:57:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:58:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:59:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:60:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:61:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:68:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:69:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:71:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:72:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:74:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:75:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:76:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:76:13: [VB_CONSTRAINT_NAME_STYLE] WARNING: Constraint names must obey the following regex: ([a-z0-9]+_)+c
+  test/bad_example_valid_syntax.sv:77:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:78:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:80:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:82:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:83:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:84:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:90:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:91:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:93:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:94:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:94:13: [VB_CONSTRAINT_NAME_STYLE] WARNING: Constraint names must obey the following regex: ([a-z0-9]+_)+c
+  test/bad_example_valid_syntax.sv:95:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:96:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:98:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:99:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:100:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:105:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:106:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:107:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:109:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:111:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:112:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:113:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:115:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:116:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:117:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:121:9: [VB_MACRO_NAME_STYLE] WARNING: Macro name does not match the naming convention defined by regex pattern: [A-Z_0-9]+
+  test/bad_example_valid_syntax.sv:129:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:130:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:130:6: [VB_INVALID_SYSTEM_TASK_FUNCTION] WARNING: $psprintf is a forbidden system function or task, please use $sformatf instead
+  test/bad_example_valid_syntax.sv:131:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:142:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:143:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:144:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:145:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:145:21: [VB_UNPACKED_DIMENSIONS_RANGE_ORDERING] WARNING: Unpacked dimension range must be declared in big-endian ([0:N-1]) order.  Declare zero-based big-endian unpacked dimensions sized as [N].
+  test/bad_example_valid_syntax.sv:146:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:148:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:149:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:149:2: [VB_ALWAYS_COMB] WARNING: Use 'always_comb' instead of 'always @*'.
+  test/bad_example_valid_syntax.sv:150:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:151:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:153:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:154:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:155:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:155:3: [VB_CASE_MISSING_DEFAULT] WARNING: Explicitly define a default case for every case statement or add `unique` qualifier to the case statement.
+  test/bad_example_valid_syntax.sv:156:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:156:11: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example_valid_syntax.sv:157:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:157:11: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example_valid_syntax.sv:158:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:158:11: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example_valid_syntax.sv:159:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:160:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:162:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:163:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:164:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:165:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:165:4: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example_valid_syntax.sv:166:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:167:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:167:4: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example_valid_syntax.sv:168:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:170:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:171:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:172:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:172:34: [VB_GENERATE_LABEL] WARNING: All generate block statements must have a label
+  test/bad_example_valid_syntax.sv:173:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:174:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:175:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:177:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:178:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax.sv:178:18: [VB_FORBID_CONSECUTIVE_NULL_STATEMENTS] WARNING: Do not use consecutive null statements like ';;'.
+  test/bad_example_valid_syntax.sv:180:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+
+File: test/bad_example_valid_syntax_fixed.sv
+  test/bad_example_valid_syntax_fixed.sv:14:35: [VB_ENUM_NAME_STYLE] WARNING: Enum type name does not match the naming convention defined by regex pattern: [a-z_0-9]+(_t|_e)
+  test/bad_example_valid_syntax_fixed.sv:20:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:21:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:23:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:24:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:25:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:26:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:27:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:29:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:30:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:31:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:31:12: [VB_EXPLICIT_PARAMETER_STORAGE_TYPE] WARNING: Explicitly define a storage type for every parameter and localparam, (MaxSize).
+  test/bad_example_valid_syntax_fixed.sv:32:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:32:13: [VB_EXPLICIT_PARAMETER_STORAGE_TYPE] WARNING: Explicitly define a storage type for every parameter and localparam, (default_name).
+  test/bad_example_valid_syntax_fixed.sv:34:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:35:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:36:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:36:13: [VB_CONSTRAINT_NAME_STYLE] WARNING: Constraint names must obey the following regex: ([a-z0-9]+_)+c
+  test/bad_example_valid_syntax_fixed.sv:37:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:38:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:39:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:41:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:42:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:43:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:44:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:45:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:46:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:47:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:48:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:50:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:51:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:52:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:53:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:54:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:61:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:62:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:64:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:65:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:67:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:68:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:69:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:69:13: [VB_CONSTRAINT_NAME_STYLE] WARNING: Constraint names must obey the following regex: ([a-z0-9]+_)+c
+  test/bad_example_valid_syntax_fixed.sv:70:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:71:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:73:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:75:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:76:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:77:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:83:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:84:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:86:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:87:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:87:13: [VB_CONSTRAINT_NAME_STYLE] WARNING: Constraint names must obey the following regex: ([a-z0-9]+_)+c
+  test/bad_example_valid_syntax_fixed.sv:88:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:89:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:91:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:92:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:93:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:98:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:99:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:100:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:102:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:104:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:105:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:106:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:108:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:109:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:110:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:114:9: [VB_MACRO_NAME_STYLE] WARNING: Macro name does not match the naming convention defined by regex pattern: [A-Z_0-9]+
+  test/bad_example_valid_syntax_fixed.sv:122:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:123:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:123:6: [VB_INVALID_SYSTEM_TASK_FUNCTION] WARNING: $psprintf is a forbidden system function or task, please use $sformatf instead
+  test/bad_example_valid_syntax_fixed.sv:124:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:137:11: [VB_INTERFACE_NAME_STYLE] WARNING: Interface name does not match the naming convention defined by regex pattern: [a-z_0-9]+(_if)
+  test/bad_example_valid_syntax_fixed.sv:152:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:153:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:154:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:155:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:155:21: [VB_UNPACKED_DIMENSIONS_RANGE_ORDERING] WARNING: Unpacked dimension range must be declared in big-endian ([0:N-1]) order.  Declare zero-based big-endian unpacked dimensions sized as [N].
+  test/bad_example_valid_syntax_fixed.sv:156:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:158:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:159:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:159:2: [VB_ALWAYS_COMB] WARNING: Use 'always_comb' instead of 'always @*'.
+  test/bad_example_valid_syntax_fixed.sv:160:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:161:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:163:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:164:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:165:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:165:3: [VB_CASE_MISSING_DEFAULT] WARNING: Explicitly define a default case for every case statement or add `unique` qualifier to the case statement.
+  test/bad_example_valid_syntax_fixed.sv:166:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:166:11: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example_valid_syntax_fixed.sv:167:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:167:11: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example_valid_syntax_fixed.sv:168:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:168:11: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example_valid_syntax_fixed.sv:169:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:170:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:172:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:173:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:174:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:175:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:175:4: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example_valid_syntax_fixed.sv:176:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:177:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:177:4: [VB_ALWAYS_FF_NON_BLOCKING] WARNING: Use blocking assignments, at most, for locals inside 'always_ff' sequential blocks.
+  test/bad_example_valid_syntax_fixed.sv:178:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:180:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:181:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:182:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:182:34: [VB_GENERATE_LABEL] WARNING: All generate block statements must have a label
+  test/bad_example_valid_syntax_fixed.sv:183:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:184:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:185:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:187:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:188:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+  test/bad_example_valid_syntax_fixed.sv:188:18: [VB_FORBID_CONSECUTIVE_NULL_STATEMENTS] WARNING: Do not use consecutive null statements like ';;'.
+  test/bad_example_valid_syntax_fixed.sv:190:1: [VB_NO_TABS] WARNING: Use spaces, not tabs.
+
+File: test/bad_example_keyword_test.sv
+  test/bad_example_keyword_test.sv:11:8: [VB_EXPLICIT_TASK_LIFETIME] WARNING: Explicitly define static or automatic lifetime for non-class tasks
+  test/bad_example_keyword_test.sv:31:16: [VB_EXPLICIT_FUNCTION_LIFETIME] WARNING: Explicitly define static or automatic lifetime for non-class functions
+
+================================================================================
+verible Summary
+================================================================================
+Files checked: 8
+Errors: 0
+Warnings: 466
+Info: 0
+
+================================================================================
+TB_LINT : FAILED
+================================================================================

@@ -1,0 +1,18 @@
+# SystemVerilog File List
+# Generated for:/dv/verif_lib/scripts/tb_lint
+# Total files: 8
+# Usage: python3 naturaldocs_lint.py -f sv_files.txt
+
+# Example test files - all located in test/ subdirectory
+
+# Good example (clean documentation)
+test/good_example.sv
+
+# Bad examples (intentional violations for testing)
+test/bad_example.sv
+test/bad_example_sandbox.sv
+test/bad_example_valid_syntax.sv
+test/bad_example_valid_syntax_fixed.sv
+test/bad_example_wrong_keywords.sv
+test/bad_example_wrong_name.sv
+test/bad_example_keyword_test.sv
