@@ -14,12 +14,12 @@ This is a **modular, plugin-based linting framework** that provides a flexible a
 
 ### Key Features
 
-✅ **Modular Architecture** - Each rule is in its own file
-✅ **Plugin System** - Easy to add new linters
-✅ **Configuration-Driven** - Enable/disable rules via JSON
-✅ **Unified Interface** - Consistent API across all linters
-✅ **Per-Rule Configuration** - Fine-grained control over severity and behavior
-✅ **Extensible** - Simple to add custom rules and linters
+- **Modular Architecture** - Each rule is in its own file
+- **Plugin System** - Easy to add new linters
+- **Configuration-Driven** - Enable/disable rules via JSON
+- **Unified Interface** - Consistent API across all linters
+- **Per-Rule Configuration** - Fine-grained control over severity and behavior
+- **Extensible** - Simple to add custom rules and linters
 
 ---
 
@@ -121,7 +121,7 @@ python3 unified_linter.py -f files.txt -o results.txt
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 ### Configuration Approaches
 
@@ -208,11 +208,11 @@ Root config links to individual linter configs for better organization.
 ```
 
 **Benefits of Hierarchical:**
-- ✅ Easy to enable/disable linters from root config
-- ✅ Separate linter-specific settings into dedicated files
-- ✅ Teams can customize individual linters independently
-- ✅ Better organization for large projects
-- ✅ Settings from linked configs are merged automatically
+- Easy to enable/disable linters from root config
+- Separate linter-specific settings into dedicated files
+- Teams can customize individual linters independently
+- Better organization for large projects
+- Settings from linked configs are merged automatically
 
 ### Per-Rule Configuration
 
@@ -233,7 +233,7 @@ Each rule can be configured independently:
 
 ---
 
-## 🔧 Adding a New Rule
+## Adding a New Rule
 
 ### Step 1: Create Rule File
 

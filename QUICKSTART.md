@@ -228,7 +228,7 @@ Info: 0
 
 ---
 
-## 🎓 Next Steps
+## Next Steps
 
 ### For Users
 1. Run linter on your files: `python3 unified_linter.py -f your_files.txt`
@@ -348,7 +348,7 @@ python3 unified_linter.py -f files.txt
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 | Document | Purpose |
 |----------|---------|

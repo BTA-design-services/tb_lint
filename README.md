@@ -26,8 +26,6 @@ Uses [Verible’s](https://chipsalliance.github.io/verible/) AST to enforce Syst
 This index provides quick navigation to all documentation for the modular linting framework.
 
 ---
-
----
 ## Getting Started
 
 ### For Users
@@ -250,18 +248,13 @@ See `rules/naturaldocs/*.py` for complete implementations:
 - **Purpose:** SystemVerilog parser and linter
 
 ### NaturalDocs
-- **Location:** `https://www.naturaldocs.org/`
+- **Location:** https://www.naturaldocs.org/
 - **Documentation:** https://www.naturaldocs.org/reference/
 - **Purpose:** Natural Docs is an open source documentation generator for multiple programming languages
 
 ### Python
 - **Required:** Python 3.6+
 - **Modules:** `verible_verilog_syntax`
-
-### Related Docs
-- `docs/coding_standards.md` - Coding standards
-- `docs/naturaldocs_patterns.md` - NaturalDocs patterns
-- `docs/naturaldocs_keywords_reference.md` - Valid keywords
 
 ---
 
@@ -275,10 +268,9 @@ See `rules/naturaldocs/*.py` for complete implementations:
 
 
 ### For Issues
-1. Check [MIGRATION_SUMMARY.md](MIGRATION_SUMMARY.md) for known issues
-2. Review [ARCHITECTURE.md](ARCHITECTURE.md) for design rationale
-3. Study source code
-4. Open [Issue](https://github.com/BTA-design-services/tb_lint/issues)
+1. Review [ARCHITECTURE.md](ARCHITECTURE.md) for design rationale
+2. Study source code
+3. Open [Issue](https://github.com/BTA-design-services/tb_lint/issues)
 
 ---
 ---
