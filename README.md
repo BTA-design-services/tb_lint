@@ -11,6 +11,11 @@ This project builds on the work of [Srinivasan Venkataramanan](https://www.linke
 The syntax and style checks in this linter are built on [Verible](https://github.com/chipsalliance/verible), the open‑source SystemVerilog parsing and linting engine maintained by Google and the CHIPS Alliance community..
 
 ---
+## License
+
+Released under the MIT License. See [LICENSE](https://github.com/BTA-design-services/tb_lint/blob/main/LICENSE) file for details.
+
+---
 ## Included Linters
 
 **NaturalDocs Linter**
