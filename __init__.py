@@ -2,7 +2,7 @@
 tb_lint: A simple Python linting toolkit.
 """
 
-__version__ = "0.1.0"
+__version__ = "3.0.1"
 __author__  = "Victor Besyakov"
 __license__ = "MIT"
 
