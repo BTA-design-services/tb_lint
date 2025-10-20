@@ -6,7 +6,7 @@
 ---
 ## Acknowledgements
 
-This project builds on the work of [Srinivasan Venkataramanan](https://www.linkedin.com/in/svenka3) and AsFigo. Their pioneering efforts in open‑source SystemVerilog linting, particularly the BYOL (“Build Your Own Linter”) philosophy and [SVALint](https://github.com/AsFigo/SVALint), inspired this project.
+This project was inspired by the work of [Srinivasan Venkataramanan](https://www.linkedin.com/in/svenka3) and AsFigo. Their pioneering efforts in open‑source SystemVerilog linting, particularly the BYOL (“Build Your Own Linter”) philosophy and [SVALint](https://github.com/AsFigo/SVALint), provided the foundation for this project.
 
 The syntax and style checks in this linter are built on [Verible](https://github.com/chipsalliance/verible), the open‑source SystemVerilog parsing and linting engine maintained by Google and the CHIPS Alliance community..
 
