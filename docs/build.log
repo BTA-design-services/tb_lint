@@ -1,0 +1,117 @@
+Running Sphinx v7.4.7
+loading translations [en]... done
+making output directory... done
+[autosummary] generating autosummary for: index.rst, modules.rst, tb_lint.core.rst, tb_lint.linters.rst, tb_lint.rst, tb_lint.rules.naturaldocs.rst, tb_lint.rules.rst, tb_lint.rules.verible.rst
+building [mo]: targets for 0 po files that are out of date
+writing output... 
+building [html]: targets for 8 source files that are out of date
+updating environment: [new config] 8 added, 0 changed, 0 removed
+reading sources... [ 12%] index
+reading sources... [ 25%] modules
+reading sources... [ 38%] tb_lint
+reading sources... [ 50%] tb_lint.core
+reading sources... [ 62%] tb_lint.linters
+reading sources... [ 75%] tb_lint.rules
+reading sources... [ 88%] tb_lint.rules.naturaldocs
+reading sources... [100%] tb_lint.rules.verible
+
+/home/vbesyakov/project/tb_lint/verible_verilog_syntax.py:docstring of tb_lint.verible_verilog_syntax.BranchNode.iter_find_all:5: ERROR: Unexpected indentation.
+/home/vbesyakov/project/tb_lint/verible_verilog_syntax.py:docstring of tb_lint.verible_verilog_syntax.BranchNode.iter_find_all:6: WARNING: Block quote ends without a blank line; unexpected unindent.
+/home/vbesyakov/project/tb_lint/verible_verilog_syntax.py:docstring of tb_lint.verible_verilog_syntax.BranchNode.find:5: ERROR: Unexpected indentation.
+/home/vbesyakov/project/tb_lint/verible_verilog_syntax.py:docstring of tb_lint.verible_verilog_syntax.BranchNode.find:6: WARNING: Block quote ends without a blank line; unexpected unindent.
+/home/vbesyakov/project/tb_lint/verible_verilog_syntax.py:docstring of tb_lint.verible_verilog_syntax.BranchNode.find_all:5: ERROR: Unexpected indentation.
+/home/vbesyakov/project/tb_lint/verible_verilog_syntax.py:docstring of tb_lint.verible_verilog_syntax.BranchNode.find_all:6: WARNING: Block quote ends without a blank line; unexpected unindent.
+/home/vbesyakov/project/tb_lint/verible_verilog_syntax.py:docstring of tb_lint.verible_verilog_syntax.VeribleVerilogSyntax.parse_files:6: ERROR: Unexpected indentation.
+/home/vbesyakov/project/tb_lint/verible_verilog_syntax.py:docstring of tb_lint.verible_verilog_syntax.VeribleVerilogSyntax.parse_files:10: WARNING: Block quote ends without a blank line; unexpected unindent.
+/home/vbesyakov/project/tb_lint/verible_verilog_syntax.py:docstring of tb_lint.verible_verilog_syntax.VeribleVerilogSyntax.parse_file:6: ERROR: Unexpected indentation.
+/home/vbesyakov/project/tb_lint/verible_verilog_syntax.py:docstring of tb_lint.verible_verilog_syntax.VeribleVerilogSyntax.parse_file:10: WARNING: Block quote ends without a blank line; unexpected unindent.
+/home/vbesyakov/project/tb_lint/verible_verilog_syntax.py:docstring of tb_lint.verible_verilog_syntax.VeribleVerilogSyntax.parse_string:6: ERROR: Unexpected indentation.
+/home/vbesyakov/project/tb_lint/verible_verilog_syntax.py:docstring of tb_lint.verible_verilog_syntax.VeribleVerilogSyntax.parse_string:10: WARNING: Block quote ends without a blank line; unexpected unindent.
+/home/vbesyakov/project/tb_lint/core/base_linter.py:docstring of tb_lint.core.base_linter.LinterResult.linter_name:1: WARNING: duplicate object description of tb_lint.core.base_linter.LinterResult.linter_name, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_linter.py:docstring of tb_lint.core.base_linter.LinterResult.files_checked:1: WARNING: duplicate object description of tb_lint.core.base_linter.LinterResult.files_checked, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_linter.py:docstring of tb_lint.core.base_linter.LinterResult.files_failed:1: WARNING: duplicate object description of tb_lint.core.base_linter.LinterResult.files_failed, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_linter.py:docstring of tb_lint.core.base_linter.LinterResult.violations:1: WARNING: duplicate object description of tb_lint.core.base_linter.LinterResult.violations, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_linter.py:docstring of tb_lint.core.base_linter.LinterResult.errors:1: WARNING: duplicate object description of tb_lint.core.base_linter.LinterResult.errors, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_rule.py:docstring of tb_lint.core.base_rule.RuleViolation.file:1: WARNING: duplicate object description of tb_lint.core.base_rule.RuleViolation.file, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_rule.py:docstring of tb_lint.core.base_rule.RuleViolation.line:1: WARNING: duplicate object description of tb_lint.core.base_rule.RuleViolation.line, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_rule.py:docstring of tb_lint.core.base_rule.RuleViolation.column:1: WARNING: duplicate object description of tb_lint.core.base_rule.RuleViolation.column, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_rule.py:docstring of tb_lint.core.base_rule.RuleViolation.severity:1: WARNING: duplicate object description of tb_lint.core.base_rule.RuleViolation.severity, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_rule.py:docstring of tb_lint.core.base_rule.RuleViolation.message:1: WARNING: duplicate object description of tb_lint.core.base_rule.RuleViolation.message, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_rule.py:docstring of tb_lint.core.base_rule.RuleViolation.rule_id:1: WARNING: duplicate object description of tb_lint.core.base_rule.RuleViolation.rule_id, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_rule.py:docstring of tb_lint.core.base_rule.RuleViolation.context:1: WARNING: duplicate object description of tb_lint.core.base_rule.RuleViolation.context, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/config_manager.py:docstring of tb_lint.core.config_manager.ConfigManager:14: ERROR: Unexpected indentation.
+/home/vbesyakov/project/tb_lint/core/config_manager.py:docstring of tb_lint.core.config_manager.ConfigManager:18: WARNING: Definition list ends without a blank line; unexpected unindent.
+/home/vbesyakov/project/tb_lint/core/config_manager.py:docstring of tb_lint.core.config_manager.ConfigManager:20: ERROR: Unexpected indentation.
+/home/vbesyakov/project/tb_lint/core/config_manager.py:docstring of tb_lint.core.config_manager.ConfigManager:22: WARNING: Block quote ends without a blank line; unexpected unindent.
+/home/vbesyakov/project/tb_lint/core/config_manager.py:docstring of tb_lint.core.config_manager.ConfigManager:23: WARNING: Definition list ends without a blank line; unexpected unindent.
+/home/vbesyakov/project/tb_lint/core/config_manager.py:docstring of tb_lint.core.config_manager.ConfigManager:24: WARNING: Block quote ends without a blank line; unexpected unindent.
+/home/vbesyakov/project/tb_lint/core/linter_registry.py:docstring of tb_lint.core.linter_registry.register_linter:6: ERROR: Unexpected indentation.
+/home/vbesyakov/project/tb_lint/core/base_linter.py:docstring of tb_lint.core.LinterResult.linter_name:1: WARNING: duplicate object description of tb_lint.core.LinterResult.linter_name, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_linter.py:docstring of tb_lint.core.LinterResult.files_checked:1: WARNING: duplicate object description of tb_lint.core.LinterResult.files_checked, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_linter.py:docstring of tb_lint.core.LinterResult.files_failed:1: WARNING: duplicate object description of tb_lint.core.LinterResult.files_failed, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_linter.py:docstring of tb_lint.core.LinterResult.violations:1: WARNING: duplicate object description of tb_lint.core.LinterResult.violations, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_linter.py:docstring of tb_lint.core.LinterResult.errors:1: WARNING: duplicate object description of tb_lint.core.LinterResult.errors, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_rule.py:docstring of tb_lint.core.RuleViolation.file:1: WARNING: duplicate object description of tb_lint.core.RuleViolation.file, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_rule.py:docstring of tb_lint.core.RuleViolation.line:1: WARNING: duplicate object description of tb_lint.core.RuleViolation.line, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_rule.py:docstring of tb_lint.core.RuleViolation.column:1: WARNING: duplicate object description of tb_lint.core.RuleViolation.column, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_rule.py:docstring of tb_lint.core.RuleViolation.severity:1: WARNING: duplicate object description of tb_lint.core.RuleViolation.severity, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_rule.py:docstring of tb_lint.core.RuleViolation.message:1: WARNING: duplicate object description of tb_lint.core.RuleViolation.message, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_rule.py:docstring of tb_lint.core.RuleViolation.rule_id:1: WARNING: duplicate object description of tb_lint.core.RuleViolation.rule_id, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/base_rule.py:docstring of tb_lint.core.RuleViolation.context:1: WARNING: duplicate object description of tb_lint.core.RuleViolation.context, other instance in tb_lint.core, use :no-index: for one of them
+/home/vbesyakov/project/tb_lint/core/__init__.py:docstring of tb_lint.core.linter_registry.register_linter:6: ERROR: Unexpected indentation.
+/home/vbesyakov/project/tb_lint/core/config_manager.py:docstring of tb_lint.core.config_manager.ConfigManager:14: ERROR: Unexpected indentation.
+/home/vbesyakov/project/tb_lint/core/config_manager.py:docstring of tb_lint.core.config_manager.ConfigManager:18: WARNING: Definition list ends without a blank line; unexpected unindent.
+/home/vbesyakov/project/tb_lint/core/config_manager.py:docstring of tb_lint.core.config_manager.ConfigManager:20: ERROR: Unexpected indentation.
+/home/vbesyakov/project/tb_lint/core/config_manager.py:docstring of tb_lint.core.config_manager.ConfigManager:22: WARNING: Block quote ends without a blank line; unexpected unindent.
+/home/vbesyakov/project/tb_lint/core/config_manager.py:docstring of tb_lint.core.config_manager.ConfigManager:23: WARNING: Definition list ends without a blank line; unexpected unindent.
+/home/vbesyakov/project/tb_lint/core/config_manager.py:docstring of tb_lint.core.config_manager.ConfigManager:24: WARNING: Block quote ends without a blank line; unexpected unindent.
+/home/vbesyakov/project/tb_lint/rules/naturaldocs/include_guards.py:docstring of tb_lint.rules.naturaldocs.include_guards.IncludeGuardsRule:3: WARNING: Inline interpreted text or phrase reference start-string without end-string.
+/home/vbesyakov/project/tb_lint/rules/naturaldocs/include_guards.py:docstring of tb_lint.rules.naturaldocs.include_guards.IncludeGuardsRule:3: WARNING: Inline interpreted text or phrase reference start-string without end-string.
+/home/vbesyakov/project/tb_lint/rules/naturaldocs/include_guards.py:docstring of tb_lint.rules.naturaldocs.include_guards.IncludeGuardsRule:3: WARNING: Inline interpreted text or phrase reference start-string without end-string.
+/home/vbesyakov/project/tb_lint/rules/naturaldocs/include_guards.py:docstring of tb_lint.rules.naturaldocs.include_guards.IncludeGuardsRule:3: WARNING: Inline interpreted text or phrase reference start-string without end-string.
+/home/vbesyakov/project/tb_lint/rules/naturaldocs/include_guards.py:docstring of tb_lint.rules.naturaldocs.include_guards.IncludeGuardsRule:3: WARNING: Inline interpreted text or phrase reference start-string without end-string.
+/home/vbesyakov/project/tb_lint/rules/naturaldocs/include_guards.py:docstring of tb_lint.rules.naturaldocs.include_guards.IncludeGuardsRule:3: WARNING: Inline interpreted text or phrase reference start-string without end-string.
+looking for now-outdated files... none found
+pickling environment... done
+checking consistency... done
+preparing documents... done
+copying assets... 
+copying static files... done
+copying extra files... done
+copying assets: done
+writing output... [ 12%] index
+writing output... [ 25%] modules
+writing output... [ 38%] tb_lint
+writing output... [ 50%] tb_lint.core
+writing output... [ 62%] tb_lint.linters
+writing output... [ 75%] tb_lint.rules
+writing output... [ 88%] tb_lint.rules.naturaldocs
+writing output... [100%] tb_lint.rules.verible
+
+generating indices... genindex py-modindex done
+highlighting module code... [  5%] tb_lint
+highlighting module code... [ 11%] tb_lint.core.base_linter
+highlighting module code... [ 16%] tb_lint.core.base_rule
+highlighting module code... [ 21%] tb_lint.core.config_manager
+highlighting module code... [ 26%] tb_lint.core.linter_registry
+highlighting module code... [ 32%] tb_lint.linters.naturaldocs_linter
+highlighting module code... [ 37%] tb_lint.linters.verible_linter
+highlighting module code... [ 42%] tb_lint.rules.naturaldocs.class_docs
+highlighting module code... [ 47%] tb_lint.rules.naturaldocs.constraint_docs
+highlighting module code... [ 53%] tb_lint.rules.naturaldocs.file_header
+highlighting module code... [ 58%] tb_lint.rules.naturaldocs.function_docs
+highlighting module code... [ 63%] tb_lint.rules.naturaldocs.include_guards
+highlighting module code... [ 68%] tb_lint.rules.naturaldocs.package_docs
+highlighting module code... [ 74%] tb_lint.rules.naturaldocs.parameter_docs
+highlighting module code... [ 79%] tb_lint.rules.naturaldocs.task_docs
+highlighting module code... [ 84%] tb_lint.rules.naturaldocs.typedef_docs
+highlighting module code... [ 89%] tb_lint.rules.naturaldocs.variable_docs
+highlighting module code... [ 95%] tb_lint.tb_lint
+highlighting module code... [100%] tb_lint.verible_verilog_syntax
+
+writing additional pages... search done
+dumping search index in English (code: en)... done
+dumping object inventory... done
+build succeeded, 56 warnings.
+
+The HTML pages are in build/html.

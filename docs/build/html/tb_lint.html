@@ -1,0 +1,1410 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tb_lint package &mdash; tb_lint 3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=110ea713"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tb_lint.core package" href="tb_lint.core.html" />
+    <link rel="prev" title="tb_lint" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            tb_lint
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">tb_lint</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">tb_lint package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html">tb_lint.core package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html">tb_lint.linters package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.html">tb_lint.rules package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tb_lint.tb_lint">tb_lint.tb_lint module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.tb_lint.Colors"><code class="docutils literal notranslate"><span class="pre">Colors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.tb_lint.UnifiedLinter"><code class="docutils literal notranslate"><span class="pre">UnifiedLinter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.tb_lint.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tb_lint.verible_verilog_syntax">tb_lint.verible_verilog_syntax module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.PreOrderTreeIterator"><code class="docutils literal notranslate"><span class="pre">PreOrderTreeIterator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.PostOrderTreeIterator"><code class="docutils literal notranslate"><span class="pre">PostOrderTreeIterator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.LevelOrderTreeIterator"><code class="docutils literal notranslate"><span class="pre">LevelOrderTreeIterator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node"><code class="docutils literal notranslate"><span class="pre">Node</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.BranchNode"><code class="docutils literal notranslate"><span class="pre">BranchNode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.RootNode"><code class="docutils literal notranslate"><span class="pre">RootNode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.LeafNode"><code class="docutils literal notranslate"><span class="pre">LeafNode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.TokenNode"><code class="docutils literal notranslate"><span class="pre">TokenNode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Token"><code class="docutils literal notranslate"><span class="pre">Token</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Error"><code class="docutils literal notranslate"><span class="pre">Error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.SyntaxData"><code class="docutils literal notranslate"><span class="pre">SyntaxData</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.VeribleVerilogSyntax"><code class="docutils literal notranslate"><span class="pre">VeribleVerilogSyntax</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tb_lint">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.Colors"><code class="docutils literal notranslate"><span class="pre">Colors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.UnifiedLinter"><code class="docutils literal notranslate"><span class="pre">UnifiedLinter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tb_lint.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tb_lint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">tb_lint</a></li>
+      <li class="breadcrumb-item active">tb_lint package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tb_lint.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tb-lint-package">
+<h1>tb_lint package<a class="headerlink" href="#tb-lint-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tb_lint.core.html">tb_lint.core package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.core.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.core.html#module-tb_lint.core.base_linter">tb_lint.core.base_linter module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.LinterResult"><code class="docutils literal notranslate"><span class="pre">LinterResult</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.LinterResult.linter_name"><code class="docutils literal notranslate"><span class="pre">LinterResult.linter_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.LinterResult.files_checked"><code class="docutils literal notranslate"><span class="pre">LinterResult.files_checked</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.LinterResult.files_failed"><code class="docutils literal notranslate"><span class="pre">LinterResult.files_failed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.LinterResult.violations"><code class="docutils literal notranslate"><span class="pre">LinterResult.violations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.LinterResult.errors"><code class="docutils literal notranslate"><span class="pre">LinterResult.errors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id0"><code class="docutils literal notranslate"><span class="pre">LinterResult.linter_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id1"><code class="docutils literal notranslate"><span class="pre">LinterResult.files_checked</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id2"><code class="docutils literal notranslate"><span class="pre">LinterResult.files_failed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id3"><code class="docutils literal notranslate"><span class="pre">LinterResult.violations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id4"><code class="docutils literal notranslate"><span class="pre">LinterResult.errors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.LinterResult.error_count"><code class="docutils literal notranslate"><span class="pre">LinterResult.error_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.LinterResult.warning_count"><code class="docutils literal notranslate"><span class="pre">LinterResult.warning_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.LinterResult.info_count"><code class="docutils literal notranslate"><span class="pre">LinterResult.info_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.LinterResult.add_violation"><code class="docutils literal notranslate"><span class="pre">LinterResult.add_violation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.LinterResult.add_error"><code class="docutils literal notranslate"><span class="pre">LinterResult.add_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.LinterResult.__init__"><code class="docutils literal notranslate"><span class="pre">LinterResult.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.BaseLinter"><code class="docutils literal notranslate"><span class="pre">BaseLinter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.BaseLinter.__init__"><code class="docutils literal notranslate"><span class="pre">BaseLinter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.BaseLinter.name"><code class="docutils literal notranslate"><span class="pre">BaseLinter.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.BaseLinter.supported_extensions"><code class="docutils literal notranslate"><span class="pre">BaseLinter.supported_extensions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.BaseLinter.prepare_context"><code class="docutils literal notranslate"><span class="pre">BaseLinter.prepare_context()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.BaseLinter.lint_file"><code class="docutils literal notranslate"><span class="pre">BaseLinter.lint_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.BaseLinter.lint_files"><code class="docutils literal notranslate"><span class="pre">BaseLinter.lint_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.BaseLinter.add_rule"><code class="docutils literal notranslate"><span class="pre">BaseLinter.add_rule()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.core.html#module-tb_lint.core.base_rule">tb_lint.core.base_rule module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.RuleSeverity"><code class="docutils literal notranslate"><span class="pre">RuleSeverity</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.RuleSeverity.ERROR"><code class="docutils literal notranslate"><span class="pre">RuleSeverity.ERROR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.RuleSeverity.WARNING"><code class="docutils literal notranslate"><span class="pre">RuleSeverity.WARNING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.RuleSeverity.INFO"><code class="docutils literal notranslate"><span class="pre">RuleSeverity.INFO</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.RuleViolation"><code class="docutils literal notranslate"><span class="pre">RuleViolation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.RuleViolation.file"><code class="docutils literal notranslate"><span class="pre">RuleViolation.file</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.RuleViolation.line"><code class="docutils literal notranslate"><span class="pre">RuleViolation.line</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.RuleViolation.column"><code class="docutils literal notranslate"><span class="pre">RuleViolation.column</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.RuleViolation.severity"><code class="docutils literal notranslate"><span class="pre">RuleViolation.severity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.RuleViolation.message"><code class="docutils literal notranslate"><span class="pre">RuleViolation.message</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.RuleViolation.rule_id"><code class="docutils literal notranslate"><span class="pre">RuleViolation.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.RuleViolation.context"><code class="docutils literal notranslate"><span class="pre">RuleViolation.context</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id5"><code class="docutils literal notranslate"><span class="pre">RuleViolation.file</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id6"><code class="docutils literal notranslate"><span class="pre">RuleViolation.line</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id7"><code class="docutils literal notranslate"><span class="pre">RuleViolation.column</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id8"><code class="docutils literal notranslate"><span class="pre">RuleViolation.severity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id9"><code class="docutils literal notranslate"><span class="pre">RuleViolation.message</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id10"><code class="docutils literal notranslate"><span class="pre">RuleViolation.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id11"><code class="docutils literal notranslate"><span class="pre">RuleViolation.context</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.RuleViolation.__init__"><code class="docutils literal notranslate"><span class="pre">RuleViolation.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.BaseRule"><code class="docutils literal notranslate"><span class="pre">BaseRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.BaseRule.__init__"><code class="docutils literal notranslate"><span class="pre">BaseRule.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.BaseRule.rule_id"><code class="docutils literal notranslate"><span class="pre">BaseRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.BaseRule.description"><code class="docutils literal notranslate"><span class="pre">BaseRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.BaseRule.default_severity"><code class="docutils literal notranslate"><span class="pre">BaseRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.BaseRule.check"><code class="docutils literal notranslate"><span class="pre">BaseRule.check()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.BaseRule.enabled"><code class="docutils literal notranslate"><span class="pre">BaseRule.enabled</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.BaseRule.severity"><code class="docutils literal notranslate"><span class="pre">BaseRule.severity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_rule.BaseRule.create_violation"><code class="docutils literal notranslate"><span class="pre">BaseRule.create_violation()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.core.html#module-tb_lint.core.config_manager">tb_lint.core.config_manager module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.config_manager.ConfigManager"><code class="docutils literal notranslate"><span class="pre">ConfigManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.__init__"><code class="docutils literal notranslate"><span class="pre">ConfigManager.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.get_linter_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_linter_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.is_linter_enabled"><code class="docutils literal notranslate"><span class="pre">ConfigManager.is_linter_enabled()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.get_rule_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_rule_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.is_rule_enabled"><code class="docutils literal notranslate"><span class="pre">ConfigManager.is_rule_enabled()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.get_rule_severity"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_rule_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.get_global_setting"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_global_setting()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.get_project_info"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_project_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.save_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.save_config()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.core.html#module-tb_lint.core.linter_registry">tb_lint.core.linter_registry module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.linter_registry.LinterRegistry"><code class="docutils literal notranslate"><span class="pre">LinterRegistry</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.linter_registry.LinterRegistry.__init__"><code class="docutils literal notranslate"><span class="pre">LinterRegistry.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.linter_registry.LinterRegistry.register"><code class="docutils literal notranslate"><span class="pre">LinterRegistry.register()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.linter_registry.LinterRegistry.get_linter"><code class="docutils literal notranslate"><span class="pre">LinterRegistry.get_linter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.linter_registry.LinterRegistry.get_all_linters"><code class="docutils literal notranslate"><span class="pre">LinterRegistry.get_all_linters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.linter_registry.LinterRegistry.list_linters"><code class="docutils literal notranslate"><span class="pre">LinterRegistry.list_linters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.linter_registry.LinterRegistry.is_registered"><code class="docutils literal notranslate"><span class="pre">LinterRegistry.is_registered()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.linter_registry.register_linter"><code class="docutils literal notranslate"><span class="pre">register_linter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.linter_registry.get_registry"><code class="docutils literal notranslate"><span class="pre">get_registry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.core.html#module-tb_lint.core">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.BaseLinter"><code class="docutils literal notranslate"><span class="pre">BaseLinter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.BaseLinter.__init__"><code class="docutils literal notranslate"><span class="pre">BaseLinter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.BaseLinter.name"><code class="docutils literal notranslate"><span class="pre">BaseLinter.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.BaseLinter.supported_extensions"><code class="docutils literal notranslate"><span class="pre">BaseLinter.supported_extensions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.BaseLinter.prepare_context"><code class="docutils literal notranslate"><span class="pre">BaseLinter.prepare_context()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.BaseLinter.lint_file"><code class="docutils literal notranslate"><span class="pre">BaseLinter.lint_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.BaseLinter.lint_files"><code class="docutils literal notranslate"><span class="pre">BaseLinter.lint_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.BaseLinter.add_rule"><code class="docutils literal notranslate"><span class="pre">BaseLinter.add_rule()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterResult"><code class="docutils literal notranslate"><span class="pre">LinterResult</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterResult.linter_name"><code class="docutils literal notranslate"><span class="pre">LinterResult.linter_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterResult.files_checked"><code class="docutils literal notranslate"><span class="pre">LinterResult.files_checked</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterResult.files_failed"><code class="docutils literal notranslate"><span class="pre">LinterResult.files_failed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterResult.violations"><code class="docutils literal notranslate"><span class="pre">LinterResult.violations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterResult.errors"><code class="docutils literal notranslate"><span class="pre">LinterResult.errors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id12"><code class="docutils literal notranslate"><span class="pre">LinterResult.linter_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id13"><code class="docutils literal notranslate"><span class="pre">LinterResult.files_checked</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id14"><code class="docutils literal notranslate"><span class="pre">LinterResult.files_failed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id15"><code class="docutils literal notranslate"><span class="pre">LinterResult.violations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id16"><code class="docutils literal notranslate"><span class="pre">LinterResult.errors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterResult.error_count"><code class="docutils literal notranslate"><span class="pre">LinterResult.error_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterResult.warning_count"><code class="docutils literal notranslate"><span class="pre">LinterResult.warning_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterResult.info_count"><code class="docutils literal notranslate"><span class="pre">LinterResult.info_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterResult.add_violation"><code class="docutils literal notranslate"><span class="pre">LinterResult.add_violation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterResult.add_error"><code class="docutils literal notranslate"><span class="pre">LinterResult.add_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterResult.__init__"><code class="docutils literal notranslate"><span class="pre">LinterResult.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.BaseRule"><code class="docutils literal notranslate"><span class="pre">BaseRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.BaseRule.__init__"><code class="docutils literal notranslate"><span class="pre">BaseRule.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.BaseRule.rule_id"><code class="docutils literal notranslate"><span class="pre">BaseRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.BaseRule.description"><code class="docutils literal notranslate"><span class="pre">BaseRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.BaseRule.default_severity"><code class="docutils literal notranslate"><span class="pre">BaseRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.BaseRule.check"><code class="docutils literal notranslate"><span class="pre">BaseRule.check()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.BaseRule.enabled"><code class="docutils literal notranslate"><span class="pre">BaseRule.enabled</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.BaseRule.severity"><code class="docutils literal notranslate"><span class="pre">BaseRule.severity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.BaseRule.create_violation"><code class="docutils literal notranslate"><span class="pre">BaseRule.create_violation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.RuleViolation"><code class="docutils literal notranslate"><span class="pre">RuleViolation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.RuleViolation.file"><code class="docutils literal notranslate"><span class="pre">RuleViolation.file</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.RuleViolation.line"><code class="docutils literal notranslate"><span class="pre">RuleViolation.line</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.RuleViolation.column"><code class="docutils literal notranslate"><span class="pre">RuleViolation.column</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.RuleViolation.severity"><code class="docutils literal notranslate"><span class="pre">RuleViolation.severity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.RuleViolation.message"><code class="docutils literal notranslate"><span class="pre">RuleViolation.message</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.RuleViolation.rule_id"><code class="docutils literal notranslate"><span class="pre">RuleViolation.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.RuleViolation.context"><code class="docutils literal notranslate"><span class="pre">RuleViolation.context</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id17"><code class="docutils literal notranslate"><span class="pre">RuleViolation.file</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id18"><code class="docutils literal notranslate"><span class="pre">RuleViolation.line</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id19"><code class="docutils literal notranslate"><span class="pre">RuleViolation.column</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id20"><code class="docutils literal notranslate"><span class="pre">RuleViolation.severity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id21"><code class="docutils literal notranslate"><span class="pre">RuleViolation.message</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id22"><code class="docutils literal notranslate"><span class="pre">RuleViolation.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#id23"><code class="docutils literal notranslate"><span class="pre">RuleViolation.context</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.RuleViolation.__init__"><code class="docutils literal notranslate"><span class="pre">RuleViolation.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.RuleSeverity"><code class="docutils literal notranslate"><span class="pre">RuleSeverity</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.RuleSeverity.ERROR"><code class="docutils literal notranslate"><span class="pre">RuleSeverity.ERROR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.RuleSeverity.WARNING"><code class="docutils literal notranslate"><span class="pre">RuleSeverity.WARNING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.RuleSeverity.INFO"><code class="docutils literal notranslate"><span class="pre">RuleSeverity.INFO</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterRegistry"><code class="docutils literal notranslate"><span class="pre">LinterRegistry</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterRegistry.__init__"><code class="docutils literal notranslate"><span class="pre">LinterRegistry.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterRegistry.register"><code class="docutils literal notranslate"><span class="pre">LinterRegistry.register()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterRegistry.get_linter"><code class="docutils literal notranslate"><span class="pre">LinterRegistry.get_linter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterRegistry.get_all_linters"><code class="docutils literal notranslate"><span class="pre">LinterRegistry.get_all_linters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterRegistry.list_linters"><code class="docutils literal notranslate"><span class="pre">LinterRegistry.list_linters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.LinterRegistry.is_registered"><code class="docutils literal notranslate"><span class="pre">LinterRegistry.is_registered()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.get_registry"><code class="docutils literal notranslate"><span class="pre">get_registry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.register_linter"><code class="docutils literal notranslate"><span class="pre">register_linter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.ConfigManager"><code class="docutils literal notranslate"><span class="pre">ConfigManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.ConfigManager.__init__"><code class="docutils literal notranslate"><span class="pre">ConfigManager.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.ConfigManager.get_linter_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_linter_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.ConfigManager.is_linter_enabled"><code class="docutils literal notranslate"><span class="pre">ConfigManager.is_linter_enabled()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.ConfigManager.get_rule_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_rule_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.ConfigManager.is_rule_enabled"><code class="docutils literal notranslate"><span class="pre">ConfigManager.is_rule_enabled()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.ConfigManager.get_rule_severity"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_rule_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.ConfigManager.get_global_setting"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_global_setting()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.ConfigManager.get_project_info"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_project_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.ConfigManager.save_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.save_config()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tb_lint.linters.html">tb_lint.linters package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.linters.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.linters.html#module-tb_lint.linters.naturaldocs_linter">tb_lint.linters.naturaldocs_linter module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.naturaldocs_linter.ASTContext"><code class="docutils literal notranslate"><span class="pre">ASTContext</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.naturaldocs_linter.ASTContext.tree"><code class="docutils literal notranslate"><span class="pre">ASTContext.tree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.naturaldocs_linter.ASTContext.file_bytes"><code class="docutils literal notranslate"><span class="pre">ASTContext.file_bytes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.naturaldocs_linter.ASTContext.__init__"><code class="docutils literal notranslate"><span class="pre">ASTContext.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.naturaldocs_linter.NaturalDocsLinter"><code class="docutils literal notranslate"><span class="pre">NaturalDocsLinter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.naturaldocs_linter.NaturalDocsLinter.name"><code class="docutils literal notranslate"><span class="pre">NaturalDocsLinter.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.naturaldocs_linter.NaturalDocsLinter.supported_extensions"><code class="docutils literal notranslate"><span class="pre">NaturalDocsLinter.supported_extensions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.naturaldocs_linter.NaturalDocsLinter.__init__"><code class="docutils literal notranslate"><span class="pre">NaturalDocsLinter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.naturaldocs_linter.NaturalDocsLinter.prepare_context"><code class="docutils literal notranslate"><span class="pre">NaturalDocsLinter.prepare_context()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.linters.html#module-tb_lint.linters.verible_linter">tb_lint.linters.verible_linter module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.verible_linter.VeribleLinter"><code class="docutils literal notranslate"><span class="pre">VeribleLinter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.verible_linter.VeribleLinter.name"><code class="docutils literal notranslate"><span class="pre">VeribleLinter.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.verible_linter.VeribleLinter.supported_extensions"><code class="docutils literal notranslate"><span class="pre">VeribleLinter.supported_extensions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.verible_linter.VeribleLinter.__init__"><code class="docutils literal notranslate"><span class="pre">VeribleLinter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.verible_linter.VeribleLinter.prepare_context"><code class="docutils literal notranslate"><span class="pre">VeribleLinter.prepare_context()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.verible_linter.VeribleLinter.lint_file"><code class="docutils literal notranslate"><span class="pre">VeribleLinter.lint_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.linters.html#module-tb_lint.linters">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.NaturalDocsLinter"><code class="docutils literal notranslate"><span class="pre">NaturalDocsLinter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.NaturalDocsLinter.name"><code class="docutils literal notranslate"><span class="pre">NaturalDocsLinter.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.NaturalDocsLinter.supported_extensions"><code class="docutils literal notranslate"><span class="pre">NaturalDocsLinter.supported_extensions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.NaturalDocsLinter.__init__"><code class="docutils literal notranslate"><span class="pre">NaturalDocsLinter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.NaturalDocsLinter.prepare_context"><code class="docutils literal notranslate"><span class="pre">NaturalDocsLinter.prepare_context()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.VeribleLinter"><code class="docutils literal notranslate"><span class="pre">VeribleLinter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.VeribleLinter.name"><code class="docutils literal notranslate"><span class="pre">VeribleLinter.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.VeribleLinter.supported_extensions"><code class="docutils literal notranslate"><span class="pre">VeribleLinter.supported_extensions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.VeribleLinter.__init__"><code class="docutils literal notranslate"><span class="pre">VeribleLinter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.VeribleLinter.prepare_context"><code class="docutils literal notranslate"><span class="pre">VeribleLinter.prepare_context()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html#tb_lint.linters.VeribleLinter.lint_file"><code class="docutils literal notranslate"><span class="pre">VeribleLinter.lint_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tb_lint.rules.html">tb_lint.rules package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.rules.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html">tb_lint.rules.naturaldocs package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.class_docs">tb_lint.rules.naturaldocs.class_docs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.constraint_docs">tb_lint.rules.naturaldocs.constraint_docs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.file_header">tb_lint.rules.naturaldocs.file_header module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.function_docs">tb_lint.rules.naturaldocs.function_docs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.include_guards">tb_lint.rules.naturaldocs.include_guards module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.package_docs">tb_lint.rules.naturaldocs.package_docs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.parameter_docs">tb_lint.rules.naturaldocs.parameter_docs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.task_docs">tb_lint.rules.naturaldocs.task_docs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.typedef_docs">tb_lint.rules.naturaldocs.typedef_docs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.variable_docs">tb_lint.rules.naturaldocs.variable_docs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.verible.html">tb_lint.rules.verible package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.verible.html#module-tb_lint.rules.verible">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.rules.html#module-tb_lint.rules">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-tb_lint.tb_lint">
+<span id="tb-lint-tb-lint-module"></span><h2>tb_lint.tb_lint module<a class="headerlink" href="#module-tb_lint.tb_lint" title="Link to this heading"></a></h2>
+<p>Unified Linter - Modular Linting Framework</p>
+<dl class="simple">
+<dt>Company: Copyright (c) 2025  BTA Design Services</dt><dd><p>Licensed under the MIT License.</p>
+</dd>
+</dl>
+<p>Description: Flexible, plugin-based linting system supporting multiple linters</p>
+<dl>
+<dt>Usage:</dt><dd><p>python3 tb_lint.py [options] &lt;file.sv&gt; [&lt;file2.sv&gt; …]</p>
+</dd>
+<dt>Options:</dt><dd><dl class="option-list">
+<dt><kbd><span class="option">--help</span></kbd></dt>
+<dd><p>Show this help message</p>
+</dd>
+<dt><kbd><span class="option">--config <var>FILE</var></span></kbd></dt>
+<dd><p>Configuration file (JSON)</p>
+</dd>
+<dt><kbd><span class="option">--linter <var>NAME</var></span></kbd></dt>
+<dd><p>Run specific linter (default: all)</p>
+</dd>
+<dt><kbd><span class="option">--list-linters</span></kbd></dt>
+<dd><p>List available linters</p>
+</dd>
+<dt><kbd><span class="option">--strict</span></kbd></dt>
+<dd><p>Treat warnings as errors</p>
+</dd>
+<dt><kbd><span class="option">--json</span></kbd></dt>
+<dd><p>Output in JSON format</p>
+</dd>
+<dt><kbd><span class="option">--color</span></kbd></dt>
+<dd><p>Enable colored output</p>
+</dd>
+<dt><kbd><span class="option">-f <var>FILE_LIST</var></span></kbd></dt>
+<dd><p>File containing list of files (one per line)</p>
+</dd>
+<dt><kbd><span class="option">-o <var>OUTPUT_FILE</var></span></kbd></dt>
+<dd><p>Output file for results</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># Run all linters
+python3 tb_lint.py -f file_list.txt</p>
+<p># Run only NaturalDocs linter
+python3 tb_lint.py –linter naturaldocs file.sv</p>
+<p># Use custom config
+python3 tb_lint.py –config my_config.json -f files.txt</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.Colors">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.tb_lint.</span></span><span class="sig-name descname"><span class="pre">Colors</span></span><a class="reference internal" href="_modules/tb_lint/tb_lint.html#Colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.tb_lint.Colors" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>ANSI color codes</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.Colors.RED">
+<span class="sig-name descname"><span class="pre">RED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;31m'</span></em><a class="headerlink" href="#tb_lint.tb_lint.Colors.RED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.Colors.GREEN">
+<span class="sig-name descname"><span class="pre">GREEN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;32m'</span></em><a class="headerlink" href="#tb_lint.tb_lint.Colors.GREEN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.Colors.YELLOW">
+<span class="sig-name descname"><span class="pre">YELLOW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;33m'</span></em><a class="headerlink" href="#tb_lint.tb_lint.Colors.YELLOW" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.Colors.BLUE">
+<span class="sig-name descname"><span class="pre">BLUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;34m'</span></em><a class="headerlink" href="#tb_lint.tb_lint.Colors.BLUE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.Colors.CYAN">
+<span class="sig-name descname"><span class="pre">CYAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;36m'</span></em><a class="headerlink" href="#tb_lint.tb_lint.Colors.CYAN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.Colors.BOLD">
+<span class="sig-name descname"><span class="pre">BOLD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1m'</span></em><a class="headerlink" href="#tb_lint.tb_lint.Colors.BOLD" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.Colors.NC">
+<span class="sig-name descname"><span class="pre">NC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0m'</span></em><a class="headerlink" href="#tb_lint.tb_lint.Colors.NC" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.UnifiedLinter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.tb_lint.</span></span><span class="sig-name descname"><span class="pre">UnifiedLinter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/tb_lint.html#UnifiedLinter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.tb_lint.UnifiedLinter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Unified linting orchestrator</p>
+<p>Manages multiple linters and aggregates results</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.UnifiedLinter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/tb_lint.html#UnifiedLinter.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.tb_lint.UnifiedLinter.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize unified linter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config_file</strong> – Path to configuration file</p></li>
+<li><p><strong>use_color</strong> – Enable colored output</p></li>
+<li><p><strong>strict_mode</strong> – Treat warnings as errors</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.UnifiedLinter.list_linters">
+<span class="sig-name descname"><span class="pre">list_linters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tb_lint/tb_lint.html#UnifiedLinter.list_linters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.tb_lint.UnifiedLinter.list_linters" title="Link to this definition"></a></dt>
+<dd><p>Get list of available linters</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.UnifiedLinter.run_linter">
+<span class="sig-name descname"><span class="pre">run_linter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.LinterResult" title="tb_lint.core.base_linter.LinterResult"><span class="pre">LinterResult</span></a></span></span><a class="reference internal" href="_modules/tb_lint/tb_lint.html#UnifiedLinter.run_linter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.tb_lint.UnifiedLinter.run_linter" title="Link to this definition"></a></dt>
+<dd><p>Run a specific linter on files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>linter_name</strong> – Name of linter to run</p></li>
+<li><p><strong>file_paths</strong> – List of files to check</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>LinterResult with violations found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.UnifiedLinter.run_all_linters">
+<span class="sig-name descname"><span class="pre">run_all_linters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/tb_lint/tb_lint.html#UnifiedLinter.run_all_linters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.tb_lint.UnifiedLinter.run_all_linters" title="Link to this definition"></a></dt>
+<dd><p>Run all enabled linters on files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_paths</strong> – List of files to check</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary mapping linter names to results</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.UnifiedLinter.print_result">
+<span class="sig-name descname"><span class="pre">print_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.LinterResult" title="tb_lint.core.base_linter.LinterResult"><span class="pre">LinterResult</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/tb_lint.html#UnifiedLinter.print_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.tb_lint.UnifiedLinter.print_result" title="Link to this definition"></a></dt>
+<dd><p>Print linter results in human-readable format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> – LinterResult to print</p></li>
+<li><p><strong>output_file</strong> – File handle for output (default: stdout)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.UnifiedLinter.print_json">
+<span class="sig-name descname"><span class="pre">print_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/tb_lint.html#UnifiedLinter.print_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.tb_lint.UnifiedLinter.print_json" title="Link to this definition"></a></dt>
+<dd><p>Print results in JSON format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> – Dictionary of linter results</p></li>
+<li><p><strong>output_file</strong> – File handle for output (default: stdout)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.UnifiedLinter.print_command_info">
+<span class="sig-name descname"><span class="pre">print_command_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files_to_check</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/tb_lint.html#UnifiedLinter.print_command_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.tb_lint.UnifiedLinter.print_command_info" title="Link to this definition"></a></dt>
+<dd><p>Print command line information for tb_lint and each enabled linter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – Command line arguments</p></li>
+<li><p><strong>files_to_check</strong> – List of files to check</p></li>
+<li><p><strong>output_file</strong> – File handle for output (default: stdout)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.UnifiedLinter.print_final_summary">
+<span class="sig-name descname"><span class="pre">print_final_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/tb_lint.html#UnifiedLinter.print_final_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.tb_lint.UnifiedLinter.print_final_summary" title="Link to this definition"></a></dt>
+<dd><p>Print final TB_LINT summary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> – Dictionary of linter results</p></li>
+<li><p><strong>output_file</strong> – File handle for output (default: stdout)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.UnifiedLinter.get_exit_code">
+<span class="sig-name descname"><span class="pre">get_exit_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/tb_lint/tb_lint.html#UnifiedLinter.get_exit_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.tb_lint.UnifiedLinter.get_exit_code" title="Link to this definition"></a></dt>
+<dd><p>Determine exit code based on results</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>results</strong> – Dictionary of linter results</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if all passed, 1 if violations found</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tb_lint.tb_lint.main">
+<span class="sig-prename descclassname"><span class="pre">tb_lint.tb_lint.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/tb_lint.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.tb_lint.main" title="Link to this definition"></a></dt>
+<dd><p>Main entry point</p>
+</dd></dl>
+
+</section>
+<section id="module-tb_lint.verible_verilog_syntax">
+<span id="tb-lint-verible-verilog-syntax-module"></span><h2>tb_lint.verible_verilog_syntax module<a class="headerlink" href="#module-tb_lint.verible_verilog_syntax" title="Link to this heading"></a></h2>
+<p>Wrapper for <code class="docutils literal notranslate"><span class="pre">verible-verilog-syntax</span> <span class="pre">--export_json</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.PreOrderTreeIterator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.verible_verilog_syntax.</span></span><span class="sig-name descname"><span class="pre">PreOrderTreeIterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse_children</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#PreOrderTreeIterator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.PreOrderTreeIterator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TreeIteratorBase</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.PostOrderTreeIterator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.verible_verilog_syntax.</span></span><span class="sig-name descname"><span class="pre">PostOrderTreeIterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse_children</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#PostOrderTreeIterator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.PostOrderTreeIterator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TreeIteratorBase</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.LevelOrderTreeIterator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.verible_verilog_syntax.</span></span><span class="sig-name descname"><span class="pre">LevelOrderTreeIterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse_children</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#LevelOrderTreeIterator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.LevelOrderTreeIterator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TreeIteratorBase</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Node">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.verible_verilog_syntax.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#Node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Node" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NodeMixin</span></code></p>
+<p>Base VeribleVerilogSyntax syntax tree node.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Node.parent">
+<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Node.parent" title="Link to this definition"></a></dt>
+<dd><p>Parent node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[<a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node">Node</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Node.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#Node.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Node.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Node.syntax_data">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">syntax_data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.SyntaxData" title="tb_lint.verible_verilog_syntax.SyntaxData"><span class="pre">SyntaxData</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Node.syntax_data" title="Link to this definition"></a></dt>
+<dd><p>Parent SyntaxData</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Node.start">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Node.start" title="Link to this definition"></a></dt>
+<dd><p>Byte offset of node’s first character in source text</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Node.end">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">end</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Node.end" title="Link to this definition"></a></dt>
+<dd><p>Byte offset of a character just past the node in source text.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Node.text">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Node.text" title="Link to this definition"></a></dt>
+<dd><p>Source code fragment spanning all tokens in a node.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Node.to_formatted_string">
+<span class="sig-name descname"><span class="pre">to_formatted_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#Node.to_formatted_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Node.to_formatted_string" title="Link to this definition"></a></dt>
+<dd><p>Print node representation formatted for printing in terminal.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.BranchNode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.verible_verilog_syntax.</span></span><span class="sig-name descname"><span class="pre">BranchNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">children</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#BranchNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.BranchNode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+<p>Syntax tree branch node</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.BranchNode.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><a class="headerlink" href="#tb_lint.verible_verilog_syntax.BranchNode.tag" title="Link to this definition"></a></dt>
+<dd><p>Node tag.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.BranchNode.children">
+<span class="sig-name descname"><span class="pre">children</span></span><a class="headerlink" href="#tb_lint.verible_verilog_syntax.BranchNode.children" title="Link to this definition"></a></dt>
+<dd><p>Child nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[<a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node">Node</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.BranchNode.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">children</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#BranchNode.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.BranchNode.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.BranchNode.start">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.BranchNode.start" title="Link to this definition"></a></dt>
+<dd><p>Byte offset of node’s first character in source text</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.BranchNode.end">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">end</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.BranchNode.end" title="Link to this definition"></a></dt>
+<dd><p>Byte offset of a character just past the node in source text.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.BranchNode.iter_find_all">
+<span class="sig-name descname"><span class="pre">iter_find_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">filter_:</span> <span class="pre">~typing.Callable[[~tb_lint.verible_verilog_syntax.Node],</span> <span class="pre">bool]</span> <span class="pre">|</span> <span class="pre">~typing.Dict[str,</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">~typing.List[str]]</span> <span class="pre">|</span> <span class="pre">None,</span> <span class="pre">max_count:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">iter_:</span> <span class="pre">~tb_lint.verible_verilog_syntax._TreeIteratorBase</span> <span class="pre">|</span> <span class="pre">~anytree.iterators.abstractiter.AbstractIter</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'tb_lint.verible_verilog_syntax.LevelOrderTreeIterator'&gt;,</span> <span class="pre">**kwargs</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#BranchNode.iter_find_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.BranchNode.iter_find_all" title="Link to this definition"></a></dt>
+<dd><p>Iterate all nodes matching specified filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filter</strong> – <p>Describes what to search for. Might be:
+* Callable taking Node as an argument and returning True for accepted</p>
+<blockquote>
+<div><p>nodes.</p>
+</div></blockquote>
+<ul>
+<li><p>Dict mapping Node attribute names to searched value or list of
+searched values.</p></li>
+</ul>
+</p></li>
+<li><p><strong>max_count</strong> – Stop searching after finding that many matching nodes.</p></li>
+<li><p><strong>iter</strong> – Tree iterator. Decides in what order nodes are visited.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Yields<span class="colon">:</span></dt>
+<dd class="field-even"><p>Nodes matching specified filter.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.BranchNode.find">
+<span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">filter_:</span> <span class="pre">~typing.Callable[[~tb_lint.verible_verilog_syntax.Node],</span> <span class="pre">bool]</span> <span class="pre">|</span> <span class="pre">~typing.Dict[str,</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">~typing.List[str]]</span> <span class="pre">|</span> <span class="pre">None,</span> <span class="pre">iter_:</span> <span class="pre">~tb_lint.verible_verilog_syntax._TreeIteratorBase</span> <span class="pre">|</span> <span class="pre">~anytree.iterators.abstractiter.AbstractIter</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'tb_lint.verible_verilog_syntax.LevelOrderTreeIterator'&gt;,</span> <span class="pre">**kwargs</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#BranchNode.find"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.BranchNode.find" title="Link to this definition"></a></dt>
+<dd><p>Find node matching specified filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filter</strong> – <p>Describes what to search for. Might be:
+* Callable taking Node as an argument and returning True for accepted</p>
+<blockquote>
+<div><p>node.</p>
+</div></blockquote>
+<ul>
+<li><p>Dict mapping Node attribute names to searched value or list of
+searched values.</p></li>
+</ul>
+</p></li>
+<li><p><strong>iter</strong> – Tree iterator. Decides in what order nodes are visited.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>First Node matching filter.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.BranchNode.find_all">
+<span class="sig-name descname"><span class="pre">find_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">filter_:</span> <span class="pre">~typing.Callable[[~tb_lint.verible_verilog_syntax.Node],</span> <span class="pre">bool]</span> <span class="pre">|</span> <span class="pre">~typing.Dict[str,</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">~typing.List[str]]</span> <span class="pre">|</span> <span class="pre">None,</span> <span class="pre">max_count:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">iter_:</span> <span class="pre">~tb_lint.verible_verilog_syntax._TreeIteratorBase</span> <span class="pre">|</span> <span class="pre">~anytree.iterators.abstractiter.AbstractIter</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'tb_lint.verible_verilog_syntax.LevelOrderTreeIterator'&gt;,</span> <span class="pre">**kwargs</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#BranchNode.find_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.BranchNode.find_all" title="Link to this definition"></a></dt>
+<dd><p>Find all nodes matching specified filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filter</strong> – <p>Describes what to search for. Might be:
+* Callable taking Node as an argument and returning True for accepted</p>
+<blockquote>
+<div><p>nodes.</p>
+</div></blockquote>
+<ul>
+<li><p>Dict mapping Node attribute names to searched value or list of
+searched values.</p></li>
+</ul>
+</p></li>
+<li><p><strong>max_count</strong> – Stop searching after finding that many matching nodes.</p></li>
+<li><p><strong>iter</strong> – Tree iterator. Decides in what order nodes are visited.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of nodes matching specified filter.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.BranchNode.to_formatted_string">
+<span class="sig-name descname"><span class="pre">to_formatted_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#BranchNode.to_formatted_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.BranchNode.to_formatted_string" title="Link to this definition"></a></dt>
+<dd><p>Print node representation formatted for printing in terminal.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.RootNode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.verible_verilog_syntax.</span></span><span class="sig-name descname"><span class="pre">RootNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.SyntaxData" title="tb_lint.verible_verilog_syntax.SyntaxData"><span class="pre">SyntaxData</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">children</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#RootNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.RootNode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tb_lint.verible_verilog_syntax.BranchNode" title="tb_lint.verible_verilog_syntax.BranchNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">BranchNode</span></code></a></p>
+<p>Syntax tree root node.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.RootNode.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.SyntaxData" title="tb_lint.verible_verilog_syntax.SyntaxData"><span class="pre">SyntaxData</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">children</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#RootNode.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.RootNode.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.RootNode.syntax_data">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">syntax_data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.SyntaxData" title="tb_lint.verible_verilog_syntax.SyntaxData"><span class="pre">SyntaxData</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.RootNode.syntax_data" title="Link to this definition"></a></dt>
+<dd><p>Parent SyntaxData</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.LeafNode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.verible_verilog_syntax.</span></span><span class="sig-name descname"><span class="pre">LeafNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#LeafNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.LeafNode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+<p>Syntax tree leaf node.</p>
+<p>This specific class is used for null nodes.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.LeafNode.start">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.LeafNode.start" title="Link to this definition"></a></dt>
+<dd><p>Byte offset of token’s first character in source text</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.LeafNode.end">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">end</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.LeafNode.end" title="Link to this definition"></a></dt>
+<dd><p>Byte offset of a character just past the token in source text.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.LeafNode.to_formatted_string">
+<span class="sig-name descname"><span class="pre">to_formatted_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#LeafNode.to_formatted_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.LeafNode.to_formatted_string" title="Link to this definition"></a></dt>
+<dd><p>Print node representation formatted for printing in terminal.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.TokenNode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.verible_verilog_syntax.</span></span><span class="sig-name descname"><span class="pre">TokenNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#TokenNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.TokenNode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tb_lint.verible_verilog_syntax.LeafNode" title="tb_lint.verible_verilog_syntax.LeafNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LeafNode</span></code></a></p>
+<p>Tree node with token data</p>
+<p>Represents single token in a syntax tree.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.TokenNode.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><a class="headerlink" href="#tb_lint.verible_verilog_syntax.TokenNode.tag" title="Link to this definition"></a></dt>
+<dd><p>Token tag.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.TokenNode.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Node" title="tb_lint.verible_verilog_syntax.Node"><span class="pre">Node</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#TokenNode.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.TokenNode.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.TokenNode.start">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.TokenNode.start" title="Link to this definition"></a></dt>
+<dd><p>Byte offset of token’s first character in source text</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.TokenNode.end">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">end</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.TokenNode.end" title="Link to this definition"></a></dt>
+<dd><p>Byte offset of a character just past the token in source text.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.TokenNode.to_formatted_string">
+<span class="sig-name descname"><span class="pre">to_formatted_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#TokenNode.to_formatted_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.TokenNode.to_formatted_string" title="Link to this definition"></a></dt>
+<dd><p>Print node representation formatted for printing in terminal.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Token">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.verible_verilog_syntax.</span></span><span class="sig-name descname"><span class="pre">Token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.SyntaxData" title="tb_lint.verible_verilog_syntax.SyntaxData"><span class="pre">SyntaxData</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#Token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Token" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Token data</p>
+<p>Represents single token in tokens and rawtokens lists.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Token.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Token.tag" title="Link to this definition"></a></dt>
+<dd><p>Token tag.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Token.start">
+<span class="sig-name descname"><span class="pre">start</span></span><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Token.start" title="Link to this definition"></a></dt>
+<dd><p>Byte offset of token’s first character in source text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Token.end">
+<span class="sig-name descname"><span class="pre">end</span></span><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Token.end" title="Link to this definition"></a></dt>
+<dd><p>Byte offset of a character just past the token in source text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Token.syntax_data">
+<span class="sig-name descname"><span class="pre">syntax_data</span></span><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Token.syntax_data" title="Link to this definition"></a></dt>
+<dd><p>Parent SyntaxData.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[“SyntaxData”]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Token.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.SyntaxData" title="tb_lint.verible_verilog_syntax.SyntaxData"><span class="pre">SyntaxData</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#Token.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Token.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Token.text">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Token.text" title="Link to this definition"></a></dt>
+<dd><p>Token text in source code.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Token.to_formatted_string">
+<span class="sig-name descname"><span class="pre">to_formatted_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#Token.to_formatted_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Token.to_formatted_string" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Error">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.verible_verilog_syntax.</span></span><span class="sig-name descname"><span class="pre">Error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#Error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Error" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Error.line">
+<span class="sig-name descname"><span class="pre">line</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Error.line" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Error.column">
+<span class="sig-name descname"><span class="pre">column</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Error.column" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Error.phase">
+<span class="sig-name descname"><span class="pre">phase</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Error.phase" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Error.message">
+<span class="sig-name descname"><span class="pre">message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Error.message" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.Error.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tb_lint.verible_verilog_syntax.Error.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.SyntaxData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.verible_verilog_syntax.</span></span><span class="sig-name descname"><span class="pre">SyntaxData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.RootNode" title="tb_lint.verible_verilog_syntax.RootNode"><span class="pre">tb_lint.verible_verilog_syntax.RootNode</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Token" title="tb_lint.verible_verilog_syntax.Token"><span class="pre">tb_lint.verible_verilog_syntax.Token</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rawtokens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Token" title="tb_lint.verible_verilog_syntax.Token"><span class="pre">tb_lint.verible_verilog_syntax.Token</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Error" title="tb_lint.verible_verilog_syntax.Error"><span class="pre">tb_lint.verible_verilog_syntax.Error</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#SyntaxData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.SyntaxData" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.SyntaxData.source_code">
+<span class="sig-name descname"><span class="pre">source_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.SyntaxData.source_code" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.SyntaxData.tree">
+<span class="sig-name descname"><span class="pre">tree</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.RootNode" title="tb_lint.verible_verilog_syntax.RootNode"><span class="pre">RootNode</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.SyntaxData.tree" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.SyntaxData.tokens">
+<span class="sig-name descname"><span class="pre">tokens</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Token" title="tb_lint.verible_verilog_syntax.Token"><span class="pre">Token</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.SyntaxData.tokens" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.SyntaxData.rawtokens">
+<span class="sig-name descname"><span class="pre">rawtokens</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Token" title="tb_lint.verible_verilog_syntax.Token"><span class="pre">Token</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.SyntaxData.rawtokens" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.SyntaxData.errors">
+<span class="sig-name descname"><span class="pre">errors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Error" title="tb_lint.verible_verilog_syntax.Error"><span class="pre">Error</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tb_lint.verible_verilog_syntax.SyntaxData.errors" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.SyntaxData.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.RootNode" title="tb_lint.verible_verilog_syntax.RootNode"><span class="pre">RootNode</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Token" title="tb_lint.verible_verilog_syntax.Token"><span class="pre">Token</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rawtokens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Token" title="tb_lint.verible_verilog_syntax.Token"><span class="pre">Token</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.Error" title="tb_lint.verible_verilog_syntax.Error"><span class="pre">Error</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tb_lint.verible_verilog_syntax.SyntaxData.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.VeribleVerilogSyntax">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.verible_verilog_syntax.</span></span><span class="sig-name descname"><span class="pre">VeribleVerilogSyntax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">executable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'verible-verilog-syntax'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#VeribleVerilogSyntax"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.VeribleVerilogSyntax" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">verible-verilog-syntax</span></code> wrapper.</p>
+<p>This class provides methods for running <code class="docutils literal notranslate"><span class="pre">verible-verilog-syntax</span></code> and
+transforming its output into Python data structures.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>executable</strong> – path to <code class="docutils literal notranslate"><span class="pre">verible-verilog-syntax</span></code> binary.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.VeribleVerilogSyntax.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">executable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'verible-verilog-syntax'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#VeribleVerilogSyntax.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.VeribleVerilogSyntax.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.VeribleVerilogSyntax.parse_files">
+<span class="sig-name descname"><span class="pre">parse_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#tb_lint.verible_verilog_syntax.SyntaxData" title="tb_lint.verible_verilog_syntax.SyntaxData"><span class="pre">SyntaxData</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#VeribleVerilogSyntax.parse_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.VeribleVerilogSyntax.parse_files" title="Link to this definition"></a></dt>
+<dd><p>Parse multiple SystemVerilog files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>paths</strong> – list of paths to files to parse.</p></li>
+<li><p><strong>options</strong> – <p>dict with parsing options.
+Available options:</p>
+<blockquote>
+<div><p>gen_tree (boolean): whether to generate syntax tree.
+skip_null (boolean): null nodes won’t be stored in a tree if True.
+gen_tokens (boolean): whether to generate tokens list.
+gen_rawtokens (boolean): whether to generate raw token list.</p>
+</div></blockquote>
+<p>By default only <code class="docutils literal notranslate"><span class="pre">gen_tree</span></code> is True.</p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dict that maps file names to their parsing results in SyntaxData object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.VeribleVerilogSyntax.parse_file">
+<span class="sig-name descname"><span class="pre">parse_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.SyntaxData" title="tb_lint.verible_verilog_syntax.SyntaxData"><span class="pre">SyntaxData</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#VeribleVerilogSyntax.parse_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.VeribleVerilogSyntax.parse_file" title="Link to this definition"></a></dt>
+<dd><p>Parse single SystemVerilog file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – path to a file to parse.</p></li>
+<li><p><strong>options</strong> – <p>dict with parsing options.
+Available options:</p>
+<blockquote>
+<div><p>gen_tree (boolean): whether to generate syntax tree.
+skip_null (boolean): null nodes won’t be stored in a tree if True.
+gen_tokens (boolean): whether to generate tokens list.
+gen_rawtokens (boolean): whether to generate raw token list.</p>
+</div></blockquote>
+<p>By default only <code class="docutils literal notranslate"><span class="pre">gen_tree</span></code> is True.</p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parsing results in SyntaxData object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.verible_verilog_syntax.VeribleVerilogSyntax.parse_string">
+<span class="sig-name descname"><span class="pre">parse_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tb_lint.verible_verilog_syntax.SyntaxData" title="tb_lint.verible_verilog_syntax.SyntaxData"><span class="pre">SyntaxData</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/tb_lint/verible_verilog_syntax.html#VeribleVerilogSyntax.parse_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.verible_verilog_syntax.VeribleVerilogSyntax.parse_string" title="Link to this definition"></a></dt>
+<dd><p>Parse a string with SystemVerilog code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> – SystemVerilog code to parse.</p></li>
+<li><p><strong>options</strong> – <p>dict with parsing options.
+Available options:</p>
+<blockquote>
+<div><p>gen_tree (boolean): whether to generate syntax tree.
+skip_null (boolean): null nodes won’t be stored in a tree if True.
+gen_tokens (boolean): whether to generate tokens list.
+gen_rawtokens (boolean): whether to generate raw token list.</p>
+</div></blockquote>
+<p>By default only <code class="docutils literal notranslate"><span class="pre">gen_tree</span></code> is True.</p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parsing results in SyntaxData object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-tb_lint">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tb_lint" title="Link to this heading"></a></h2>
+<p>Unified Linter - Modular Linting Framework</p>
+<dl class="simple">
+<dt>Company: Copyright (c) 2025  BTA Design Services</dt><dd><p>Licensed under the MIT License.</p>
+</dd>
+</dl>
+<p>Description: Flexible, plugin-based linting system supporting multiple linters</p>
+<dl>
+<dt>Usage:</dt><dd><p>python3 tb_lint.py [options] &lt;file.sv&gt; [&lt;file2.sv&gt; …]</p>
+</dd>
+<dt>Options:</dt><dd><dl class="option-list">
+<dt><kbd><span class="option">--help</span></kbd></dt>
+<dd><p>Show this help message</p>
+</dd>
+<dt><kbd><span class="option">--config <var>FILE</var></span></kbd></dt>
+<dd><p>Configuration file (JSON)</p>
+</dd>
+<dt><kbd><span class="option">--linter <var>NAME</var></span></kbd></dt>
+<dd><p>Run specific linter (default: all)</p>
+</dd>
+<dt><kbd><span class="option">--list-linters</span></kbd></dt>
+<dd><p>List available linters</p>
+</dd>
+<dt><kbd><span class="option">--strict</span></kbd></dt>
+<dd><p>Treat warnings as errors</p>
+</dd>
+<dt><kbd><span class="option">--json</span></kbd></dt>
+<dd><p>Output in JSON format</p>
+</dd>
+<dt><kbd><span class="option">--color</span></kbd></dt>
+<dd><p>Enable colored output</p>
+</dd>
+<dt><kbd><span class="option">-f <var>FILE_LIST</var></span></kbd></dt>
+<dd><p>File containing list of files (one per line)</p>
+</dd>
+<dt><kbd><span class="option">-o <var>OUTPUT_FILE</var></span></kbd></dt>
+<dd><p>Output file for results</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p># Run all linters
+python3 tb_lint.py -f file_list.txt</p>
+<p># Run only NaturalDocs linter
+python3 tb_lint.py –linter naturaldocs file.sv</p>
+<p># Use custom config
+python3 tb_lint.py –config my_config.json -f files.txt</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.Colors">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.</span></span><span class="sig-name descname"><span class="pre">Colors</span></span><a class="reference internal" href="_modules/tb_lint.html#Colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.Colors" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>ANSI color codes</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.Colors.RED">
+<span class="sig-name descname"><span class="pre">RED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;31m'</span></em><a class="headerlink" href="#tb_lint.Colors.RED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.Colors.GREEN">
+<span class="sig-name descname"><span class="pre">GREEN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;32m'</span></em><a class="headerlink" href="#tb_lint.Colors.GREEN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.Colors.YELLOW">
+<span class="sig-name descname"><span class="pre">YELLOW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;33m'</span></em><a class="headerlink" href="#tb_lint.Colors.YELLOW" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.Colors.BLUE">
+<span class="sig-name descname"><span class="pre">BLUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;34m'</span></em><a class="headerlink" href="#tb_lint.Colors.BLUE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.Colors.CYAN">
+<span class="sig-name descname"><span class="pre">CYAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;36m'</span></em><a class="headerlink" href="#tb_lint.Colors.CYAN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.Colors.BOLD">
+<span class="sig-name descname"><span class="pre">BOLD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1m'</span></em><a class="headerlink" href="#tb_lint.Colors.BOLD" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.Colors.NC">
+<span class="sig-name descname"><span class="pre">NC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0m'</span></em><a class="headerlink" href="#tb_lint.Colors.NC" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.UnifiedLinter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.</span></span><span class="sig-name descname"><span class="pre">UnifiedLinter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint.html#UnifiedLinter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.UnifiedLinter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Unified linting orchestrator</p>
+<p>Manages multiple linters and aggregates results</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.UnifiedLinter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint.html#UnifiedLinter.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.UnifiedLinter.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize unified linter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config_file</strong> – Path to configuration file</p></li>
+<li><p><strong>use_color</strong> – Enable colored output</p></li>
+<li><p><strong>strict_mode</strong> – Treat warnings as errors</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.UnifiedLinter.list_linters">
+<span class="sig-name descname"><span class="pre">list_linters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tb_lint.html#UnifiedLinter.list_linters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.UnifiedLinter.list_linters" title="Link to this definition"></a></dt>
+<dd><p>Get list of available linters</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.UnifiedLinter.run_linter">
+<span class="sig-name descname"><span class="pre">run_linter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.LinterResult" title="tb_lint.core.base_linter.LinterResult"><span class="pre">LinterResult</span></a></span></span><a class="reference internal" href="_modules/tb_lint.html#UnifiedLinter.run_linter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.UnifiedLinter.run_linter" title="Link to this definition"></a></dt>
+<dd><p>Run a specific linter on files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>linter_name</strong> – Name of linter to run</p></li>
+<li><p><strong>file_paths</strong> – List of files to check</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>LinterResult with violations found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.UnifiedLinter.run_all_linters">
+<span class="sig-name descname"><span class="pre">run_all_linters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/tb_lint.html#UnifiedLinter.run_all_linters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.UnifiedLinter.run_all_linters" title="Link to this definition"></a></dt>
+<dd><p>Run all enabled linters on files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_paths</strong> – List of files to check</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary mapping linter names to results</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.UnifiedLinter.print_result">
+<span class="sig-name descname"><span class="pre">print_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tb_lint.core.html#tb_lint.core.base_linter.LinterResult" title="tb_lint.core.base_linter.LinterResult"><span class="pre">LinterResult</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint.html#UnifiedLinter.print_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.UnifiedLinter.print_result" title="Link to this definition"></a></dt>
+<dd><p>Print linter results in human-readable format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> – LinterResult to print</p></li>
+<li><p><strong>output_file</strong> – File handle for output (default: stdout)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.UnifiedLinter.print_json">
+<span class="sig-name descname"><span class="pre">print_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint.html#UnifiedLinter.print_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.UnifiedLinter.print_json" title="Link to this definition"></a></dt>
+<dd><p>Print results in JSON format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> – Dictionary of linter results</p></li>
+<li><p><strong>output_file</strong> – File handle for output (default: stdout)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.UnifiedLinter.print_command_info">
+<span class="sig-name descname"><span class="pre">print_command_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files_to_check</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint.html#UnifiedLinter.print_command_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.UnifiedLinter.print_command_info" title="Link to this definition"></a></dt>
+<dd><p>Print command line information for tb_lint and each enabled linter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – Command line arguments</p></li>
+<li><p><strong>files_to_check</strong> – List of files to check</p></li>
+<li><p><strong>output_file</strong> – File handle for output (default: stdout)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.UnifiedLinter.print_final_summary">
+<span class="sig-name descname"><span class="pre">print_final_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint.html#UnifiedLinter.print_final_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.UnifiedLinter.print_final_summary" title="Link to this definition"></a></dt>
+<dd><p>Print final TB_LINT summary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> – Dictionary of linter results</p></li>
+<li><p><strong>output_file</strong> – File handle for output (default: stdout)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.UnifiedLinter.get_exit_code">
+<span class="sig-name descname"><span class="pre">get_exit_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/tb_lint.html#UnifiedLinter.get_exit_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.UnifiedLinter.get_exit_code" title="Link to this definition"></a></dt>
+<dd><p>Determine exit code based on results</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>results</strong> – Dictionary of linter results</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if all passed, 1 if violations found</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tb_lint.main">
+<span class="sig-prename descclassname"><span class="pre">tb_lint.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.main" title="Link to this definition"></a></dt>
+<dd><p>Main entry point</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="tb_lint" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tb_lint.core.html" class="btn btn-neutral float-right" title="tb_lint.core package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, BTA Design Services.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

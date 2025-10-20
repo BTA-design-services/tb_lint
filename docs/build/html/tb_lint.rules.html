@@ -1,0 +1,365 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tb_lint.rules package &mdash; tb_lint 3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=110ea713"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tb_lint.rules.naturaldocs package" href="tb_lint.rules.naturaldocs.html" />
+    <link rel="prev" title="tb_lint.linters package" href="tb_lint.linters.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            tb_lint
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">tb_lint</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="tb_lint.html">tb_lint package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="tb_lint.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.core.html">tb_lint.core package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html">tb_lint.linters package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">tb_lint.rules package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.html#module-tb_lint.tb_lint">tb_lint.tb_lint module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.html#module-tb_lint.verible_verilog_syntax">tb_lint.verible_verilog_syntax module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.html#module-tb_lint">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tb_lint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">tb_lint</a></li>
+          <li class="breadcrumb-item"><a href="tb_lint.html">tb_lint package</a></li>
+      <li class="breadcrumb-item active">tb_lint.rules package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tb_lint.rules.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tb-lint-rules-package">
+<h1>tb_lint.rules package<a class="headerlink" href="#tb-lint-rules-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tb_lint.rules.naturaldocs.html">tb_lint.rules.naturaldocs package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.class_docs">tb_lint.rules.naturaldocs.class_docs module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.class_docs.ClassDocsRule"><code class="docutils literal notranslate"><span class="pre">ClassDocsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.class_docs.ClassDocsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">ClassDocsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.class_docs.ClassDocsRule.description"><code class="docutils literal notranslate"><span class="pre">ClassDocsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.class_docs.ClassDocsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">ClassDocsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.class_docs.ClassDocsRule.check"><code class="docutils literal notranslate"><span class="pre">ClassDocsRule.check()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.constraint_docs">tb_lint.rules.naturaldocs.constraint_docs module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.constraint_docs.ConstraintDocsRule"><code class="docutils literal notranslate"><span class="pre">ConstraintDocsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.constraint_docs.ConstraintDocsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">ConstraintDocsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.constraint_docs.ConstraintDocsRule.description"><code class="docutils literal notranslate"><span class="pre">ConstraintDocsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.constraint_docs.ConstraintDocsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">ConstraintDocsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.constraint_docs.ConstraintDocsRule.check"><code class="docutils literal notranslate"><span class="pre">ConstraintDocsRule.check()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.file_header">tb_lint.rules.naturaldocs.file_header module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.FileHeaderRule"><code class="docutils literal notranslate"><span class="pre">FileHeaderRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.FileHeaderRule.rule_id"><code class="docutils literal notranslate"><span class="pre">FileHeaderRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.FileHeaderRule.description"><code class="docutils literal notranslate"><span class="pre">FileHeaderRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.FileHeaderRule.default_severity"><code class="docutils literal notranslate"><span class="pre">FileHeaderRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.FileHeaderRule.check"><code class="docutils literal notranslate"><span class="pre">FileHeaderRule.check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.CompanyFieldRule"><code class="docutils literal notranslate"><span class="pre">CompanyFieldRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.CompanyFieldRule.rule_id"><code class="docutils literal notranslate"><span class="pre">CompanyFieldRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.CompanyFieldRule.description"><code class="docutils literal notranslate"><span class="pre">CompanyFieldRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.CompanyFieldRule.default_severity"><code class="docutils literal notranslate"><span class="pre">CompanyFieldRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.CompanyFieldRule.check"><code class="docutils literal notranslate"><span class="pre">CompanyFieldRule.check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.AuthorFieldRule"><code class="docutils literal notranslate"><span class="pre">AuthorFieldRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.AuthorFieldRule.rule_id"><code class="docutils literal notranslate"><span class="pre">AuthorFieldRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.AuthorFieldRule.description"><code class="docutils literal notranslate"><span class="pre">AuthorFieldRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.AuthorFieldRule.default_severity"><code class="docutils literal notranslate"><span class="pre">AuthorFieldRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.AuthorFieldRule.check"><code class="docutils literal notranslate"><span class="pre">AuthorFieldRule.check()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.function_docs">tb_lint.rules.naturaldocs.function_docs module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.function_docs.FunctionDocsRule"><code class="docutils literal notranslate"><span class="pre">FunctionDocsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.function_docs.FunctionDocsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">FunctionDocsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.function_docs.FunctionDocsRule.description"><code class="docutils literal notranslate"><span class="pre">FunctionDocsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.function_docs.FunctionDocsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">FunctionDocsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.function_docs.FunctionDocsRule.check"><code class="docutils literal notranslate"><span class="pre">FunctionDocsRule.check()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.include_guards">tb_lint.rules.naturaldocs.include_guards module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.include_guards.IncludeGuardsRule"><code class="docutils literal notranslate"><span class="pre">IncludeGuardsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.include_guards.IncludeGuardsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">IncludeGuardsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.include_guards.IncludeGuardsRule.description"><code class="docutils literal notranslate"><span class="pre">IncludeGuardsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.include_guards.IncludeGuardsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">IncludeGuardsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.include_guards.IncludeGuardsRule.check"><code class="docutils literal notranslate"><span class="pre">IncludeGuardsRule.check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.include_guards.IncludeGuardFormatRule"><code class="docutils literal notranslate"><span class="pre">IncludeGuardFormatRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.include_guards.IncludeGuardFormatRule.rule_id"><code class="docutils literal notranslate"><span class="pre">IncludeGuardFormatRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.include_guards.IncludeGuardFormatRule.description"><code class="docutils literal notranslate"><span class="pre">IncludeGuardFormatRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.include_guards.IncludeGuardFormatRule.default_severity"><code class="docutils literal notranslate"><span class="pre">IncludeGuardFormatRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.include_guards.IncludeGuardFormatRule.check"><code class="docutils literal notranslate"><span class="pre">IncludeGuardFormatRule.check()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.package_docs">tb_lint.rules.naturaldocs.package_docs module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.package_docs.PackageDocsRule"><code class="docutils literal notranslate"><span class="pre">PackageDocsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.package_docs.PackageDocsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">PackageDocsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.package_docs.PackageDocsRule.description"><code class="docutils literal notranslate"><span class="pre">PackageDocsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.package_docs.PackageDocsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">PackageDocsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.package_docs.PackageDocsRule.check"><code class="docutils literal notranslate"><span class="pre">PackageDocsRule.check()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.parameter_docs">tb_lint.rules.naturaldocs.parameter_docs module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.parameter_docs.ParameterDocsRule"><code class="docutils literal notranslate"><span class="pre">ParameterDocsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.parameter_docs.ParameterDocsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">ParameterDocsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.parameter_docs.ParameterDocsRule.description"><code class="docutils literal notranslate"><span class="pre">ParameterDocsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.parameter_docs.ParameterDocsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">ParameterDocsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.parameter_docs.ParameterDocsRule.check"><code class="docutils literal notranslate"><span class="pre">ParameterDocsRule.check()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.task_docs">tb_lint.rules.naturaldocs.task_docs module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.task_docs.TaskDocsRule"><code class="docutils literal notranslate"><span class="pre">TaskDocsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.task_docs.TaskDocsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">TaskDocsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.task_docs.TaskDocsRule.description"><code class="docutils literal notranslate"><span class="pre">TaskDocsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.task_docs.TaskDocsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">TaskDocsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.task_docs.TaskDocsRule.check"><code class="docutils literal notranslate"><span class="pre">TaskDocsRule.check()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.typedef_docs">tb_lint.rules.naturaldocs.typedef_docs module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.typedef_docs.TypedefDocsRule"><code class="docutils literal notranslate"><span class="pre">TypedefDocsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.typedef_docs.TypedefDocsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">TypedefDocsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.typedef_docs.TypedefDocsRule.description"><code class="docutils literal notranslate"><span class="pre">TypedefDocsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.typedef_docs.TypedefDocsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">TypedefDocsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.typedef_docs.TypedefDocsRule.check"><code class="docutils literal notranslate"><span class="pre">TypedefDocsRule.check()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs.variable_docs">tb_lint.rules.naturaldocs.variable_docs module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.variable_docs.VariableDocsRule"><code class="docutils literal notranslate"><span class="pre">VariableDocsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.variable_docs.VariableDocsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">VariableDocsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.variable_docs.VariableDocsRule.description"><code class="docutils literal notranslate"><span class="pre">VariableDocsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.variable_docs.VariableDocsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">VariableDocsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.variable_docs.VariableDocsRule.check"><code class="docutils literal notranslate"><span class="pre">VariableDocsRule.check()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#module-tb_lint.rules.naturaldocs">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.FileHeaderRule"><code class="docutils literal notranslate"><span class="pre">FileHeaderRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.FileHeaderRule.rule_id"><code class="docutils literal notranslate"><span class="pre">FileHeaderRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.FileHeaderRule.description"><code class="docutils literal notranslate"><span class="pre">FileHeaderRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.FileHeaderRule.default_severity"><code class="docutils literal notranslate"><span class="pre">FileHeaderRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.FileHeaderRule.check"><code class="docutils literal notranslate"><span class="pre">FileHeaderRule.check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.CompanyFieldRule"><code class="docutils literal notranslate"><span class="pre">CompanyFieldRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.CompanyFieldRule.rule_id"><code class="docutils literal notranslate"><span class="pre">CompanyFieldRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.CompanyFieldRule.description"><code class="docutils literal notranslate"><span class="pre">CompanyFieldRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.CompanyFieldRule.default_severity"><code class="docutils literal notranslate"><span class="pre">CompanyFieldRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.CompanyFieldRule.check"><code class="docutils literal notranslate"><span class="pre">CompanyFieldRule.check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.AuthorFieldRule"><code class="docutils literal notranslate"><span class="pre">AuthorFieldRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.AuthorFieldRule.rule_id"><code class="docutils literal notranslate"><span class="pre">AuthorFieldRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.AuthorFieldRule.description"><code class="docutils literal notranslate"><span class="pre">AuthorFieldRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.AuthorFieldRule.default_severity"><code class="docutils literal notranslate"><span class="pre">AuthorFieldRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.AuthorFieldRule.check"><code class="docutils literal notranslate"><span class="pre">AuthorFieldRule.check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.IncludeGuardsRule"><code class="docutils literal notranslate"><span class="pre">IncludeGuardsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.IncludeGuardsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">IncludeGuardsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.IncludeGuardsRule.description"><code class="docutils literal notranslate"><span class="pre">IncludeGuardsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.IncludeGuardsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">IncludeGuardsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.IncludeGuardsRule.check"><code class="docutils literal notranslate"><span class="pre">IncludeGuardsRule.check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.IncludeGuardFormatRule"><code class="docutils literal notranslate"><span class="pre">IncludeGuardFormatRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.IncludeGuardFormatRule.rule_id"><code class="docutils literal notranslate"><span class="pre">IncludeGuardFormatRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.IncludeGuardFormatRule.description"><code class="docutils literal notranslate"><span class="pre">IncludeGuardFormatRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.IncludeGuardFormatRule.default_severity"><code class="docutils literal notranslate"><span class="pre">IncludeGuardFormatRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.IncludeGuardFormatRule.check"><code class="docutils literal notranslate"><span class="pre">IncludeGuardFormatRule.check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.PackageDocsRule"><code class="docutils literal notranslate"><span class="pre">PackageDocsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.PackageDocsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">PackageDocsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.PackageDocsRule.description"><code class="docutils literal notranslate"><span class="pre">PackageDocsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.PackageDocsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">PackageDocsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.PackageDocsRule.check"><code class="docutils literal notranslate"><span class="pre">PackageDocsRule.check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.ClassDocsRule"><code class="docutils literal notranslate"><span class="pre">ClassDocsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.ClassDocsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">ClassDocsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.ClassDocsRule.description"><code class="docutils literal notranslate"><span class="pre">ClassDocsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.ClassDocsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">ClassDocsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.ClassDocsRule.check"><code class="docutils literal notranslate"><span class="pre">ClassDocsRule.check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.FunctionDocsRule"><code class="docutils literal notranslate"><span class="pre">FunctionDocsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.FunctionDocsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">FunctionDocsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.FunctionDocsRule.description"><code class="docutils literal notranslate"><span class="pre">FunctionDocsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.FunctionDocsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">FunctionDocsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.FunctionDocsRule.check"><code class="docutils literal notranslate"><span class="pre">FunctionDocsRule.check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.TaskDocsRule"><code class="docutils literal notranslate"><span class="pre">TaskDocsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.TaskDocsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">TaskDocsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.TaskDocsRule.description"><code class="docutils literal notranslate"><span class="pre">TaskDocsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.TaskDocsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">TaskDocsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.TaskDocsRule.check"><code class="docutils literal notranslate"><span class="pre">TaskDocsRule.check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.ConstraintDocsRule"><code class="docutils literal notranslate"><span class="pre">ConstraintDocsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.ConstraintDocsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">ConstraintDocsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.ConstraintDocsRule.description"><code class="docutils literal notranslate"><span class="pre">ConstraintDocsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.ConstraintDocsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">ConstraintDocsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.ConstraintDocsRule.check"><code class="docutils literal notranslate"><span class="pre">ConstraintDocsRule.check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.TypedefDocsRule"><code class="docutils literal notranslate"><span class="pre">TypedefDocsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.TypedefDocsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">TypedefDocsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.TypedefDocsRule.description"><code class="docutils literal notranslate"><span class="pre">TypedefDocsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.TypedefDocsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">TypedefDocsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.TypedefDocsRule.check"><code class="docutils literal notranslate"><span class="pre">TypedefDocsRule.check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.VariableDocsRule"><code class="docutils literal notranslate"><span class="pre">VariableDocsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.VariableDocsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">VariableDocsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.VariableDocsRule.description"><code class="docutils literal notranslate"><span class="pre">VariableDocsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.VariableDocsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">VariableDocsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.VariableDocsRule.check"><code class="docutils literal notranslate"><span class="pre">VariableDocsRule.check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.ParameterDocsRule"><code class="docutils literal notranslate"><span class="pre">ParameterDocsRule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.ParameterDocsRule.rule_id"><code class="docutils literal notranslate"><span class="pre">ParameterDocsRule.rule_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.ParameterDocsRule.description"><code class="docutils literal notranslate"><span class="pre">ParameterDocsRule.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.ParameterDocsRule.default_severity"><code class="docutils literal notranslate"><span class="pre">ParameterDocsRule.default_severity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.ParameterDocsRule.check"><code class="docutils literal notranslate"><span class="pre">ParameterDocsRule.check()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tb_lint.rules.verible.html">tb_lint.rules.verible package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tb_lint.rules.verible.html#module-tb_lint.rules.verible">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-tb_lint.rules">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tb_lint.rules" title="Link to this heading"></a></h2>
+<p>Rules Package</p>
+<dl class="simple">
+<dt>Company: Copyright (c) 2025  BTA Design Services</dt><dd><p>Licensed under the MIT License.</p>
+</dd>
+</dl>
+<p>Description: Rule implementations for various linters</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tb_lint.linters.html" class="btn btn-neutral float-left" title="tb_lint.linters package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tb_lint.rules.naturaldocs.html" class="btn btn-neutral float-right" title="tb_lint.rules.naturaldocs package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, BTA Design Services.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

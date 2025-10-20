@@ -75,7 +75,7 @@ tb_lint/
 │   ├── sv_files.txt              # File list (8 files)
 │   └── test_files.txt            # File list (2 files)
 │
-├── unified_linter.py              # Main entry point
+├── tb_lint.py              # Main entry point
 ├── run_all_tests.sh               # One-line test runner
 ├── verible_verilog_syntax.py      # Verible syntax wrapper
 ├── QUICKSTART.md                  # Quick start guide
@@ -92,31 +92,31 @@ tb_lint/
 
 ```bash
 # Run all linters on files
-python3 unified_linter.py -f file_list.txt
+python3 tb_lint.py -f file_list.txt
 
 # Run specific linter
-python3 unified_linter.py --linter naturaldocs file.sv
+python3 tb_lint.py --linter naturaldocs file.sv
 
 # Use custom configuration
-python3 unified_linter.py --config my_config.json -f files.txt
+python3 tb_lint.py --config my_config.json -f files.txt
 
 # Enable colored output
-python3 unified_linter.py --color -f files.txt
+python3 tb_lint.py --color -f files.txt
 
 # Strict mode (warnings as errors)
-python3 unified_linter.py --strict -f files.txt
+python3 tb_lint.py --strict -f files.txt
 
 # JSON output
-python3 unified_linter.py --json -f files.txt
+python3 tb_lint.py --json -f files.txt
 
 # List available linters
-python3 unified_linter.py --list-linters
+python3 tb_lint.py --list-linters
 ```
 
 ### Output to File
 
 ```bash
-python3 unified_linter.py -f files.txt -o results.txt
+python3 tb_lint.py -f files.txt -o results.txt
 ```
 
 ---

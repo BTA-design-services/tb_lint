@@ -1,0 +1,1714 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tb_lint.core package &mdash; tb_lint 3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=110ea713"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tb_lint.linters package" href="tb_lint.linters.html" />
+    <link rel="prev" title="tb_lint package" href="tb_lint.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            tb_lint
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">tb_lint</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="tb_lint.html">tb_lint package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="tb_lint.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">tb_lint.core package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.linters.html">tb_lint.linters package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_lint.rules.html">tb_lint.rules package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.html#module-tb_lint.tb_lint">tb_lint.tb_lint module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.html#module-tb_lint.verible_verilog_syntax">tb_lint.verible_verilog_syntax module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tb_lint.html#module-tb_lint">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tb_lint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">tb_lint</a></li>
+          <li class="breadcrumb-item"><a href="tb_lint.html">tb_lint package</a></li>
+      <li class="breadcrumb-item active">tb_lint.core package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tb_lint.core.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tb-lint-core-package">
+<h1>tb_lint.core package<a class="headerlink" href="#tb-lint-core-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-tb_lint.core.base_linter">
+<span id="tb-lint-core-base-linter-module"></span><h2>tb_lint.core.base_linter module<a class="headerlink" href="#module-tb_lint.core.base_linter" title="Link to this heading"></a></h2>
+<p>Base class for linters</p>
+<dl class="simple">
+<dt>Company: Copyright (c) 2025  BTA Design Services</dt><dd><p>Licensed under the MIT License.</p>
+</dd>
+</dl>
+<p>Description: Abstract base class for implementing linters</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.LinterResult">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.core.base_linter.</span></span><span class="sig-name descname"><span class="pre">LinterResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_name:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files_checked:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files_failed:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">violations:</span> <span class="pre">~typing.List[~tb_lint.core.base_rule.RuleViolation]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors:</span> <span class="pre">~typing.Dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#LinterResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.base_linter.LinterResult" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Results from running a linter on files</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.LinterResult.linter_name">
+<span class="sig-name descname"><span class="pre">linter_name</span></span><a class="headerlink" href="#tb_lint.core.base_linter.LinterResult.linter_name" title="Link to this definition"></a></dt>
+<dd><p>Name of the linter that produced these results</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.LinterResult.files_checked">
+<span class="sig-name descname"><span class="pre">files_checked</span></span><a class="headerlink" href="#tb_lint.core.base_linter.LinterResult.files_checked" title="Link to this definition"></a></dt>
+<dd><p>Number of files successfully checked</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.LinterResult.files_failed">
+<span class="sig-name descname"><span class="pre">files_failed</span></span><a class="headerlink" href="#tb_lint.core.base_linter.LinterResult.files_failed" title="Link to this definition"></a></dt>
+<dd><p>Number of files that failed to parse/check</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.LinterResult.violations">
+<span class="sig-name descname"><span class="pre">violations</span></span><a class="headerlink" href="#tb_lint.core.base_linter.LinterResult.violations" title="Link to this definition"></a></dt>
+<dd><p>List of all violations found</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="#tb_lint.core.base_rule.RuleViolation" title="tb_lint.core.base_rule.RuleViolation">tb_lint.core.base_rule.RuleViolation</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.LinterResult.errors">
+<span class="sig-name descname"><span class="pre">errors</span></span><a class="headerlink" href="#tb_lint.core.base_linter.LinterResult.errors" title="Link to this definition"></a></dt>
+<dd><p>Dictionary mapping file paths to error messages</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">linter_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">files_checked</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">files_failed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">violations</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.core.base_rule.RuleViolation" title="tb_lint.core.base_rule.RuleViolation"><span class="pre">RuleViolation</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">errors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id4" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.LinterResult.error_count">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">error_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tb_lint.core.base_linter.LinterResult.error_count" title="Link to this definition"></a></dt>
+<dd><p>Count violations with ERROR severity</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.LinterResult.warning_count">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">warning_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tb_lint.core.base_linter.LinterResult.warning_count" title="Link to this definition"></a></dt>
+<dd><p>Count violations with WARNING severity</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.LinterResult.info_count">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">info_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tb_lint.core.base_linter.LinterResult.info_count" title="Link to this definition"></a></dt>
+<dd><p>Count violations with INFO severity</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.LinterResult.add_violation">
+<span class="sig-name descname"><span class="pre">add_violation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">violation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.core.base_rule.RuleViolation" title="tb_lint.core.base_rule.RuleViolation"><span class="pre">RuleViolation</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#LinterResult.add_violation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.base_linter.LinterResult.add_violation" title="Link to this definition"></a></dt>
+<dd><p>Add a violation to the results</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.LinterResult.add_error">
+<span class="sig-name descname"><span class="pre">add_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#LinterResult.add_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.base_linter.LinterResult.add_error" title="Link to this definition"></a></dt>
+<dd><p>Add a file-level error (e.g., parse failure)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.LinterResult.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_name:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files_checked:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files_failed:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">violations:</span> <span class="pre">~typing.List[~tb_lint.core.base_rule.RuleViolation]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors:</span> <span class="pre">~typing.Dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tb_lint.core.base_linter.LinterResult.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.BaseLinter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.core.base_linter.</span></span><span class="sig-name descname"><span class="pre">BaseLinter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#BaseLinter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.base_linter.BaseLinter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract base class for all linters</p>
+<p>Each linter implementation should:
+- Register rules it supports
+- Implement file checking logic
+- Return structured results</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.BaseLinter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#BaseLinter.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.base_linter.BaseLinter.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize linter with configuration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – Configuration dictionary for the linter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.BaseLinter.name">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#tb_lint.core.base_linter.BaseLinter.name" title="Link to this definition"></a></dt>
+<dd><p>Name of this linter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String name of the linter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.BaseLinter.supported_extensions">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">supported_extensions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tb_lint.core.base_linter.BaseLinter.supported_extensions" title="Link to this definition"></a></dt>
+<dd><p>File extensions this linter can handle</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of file extensions (e.g., [‘.sv’, ‘.svh’])</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.BaseLinter.prepare_context">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prepare_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#BaseLinter.prepare_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.base_linter.BaseLinter.prepare_context" title="Link to this definition"></a></dt>
+<dd><p>Prepare any context needed for rule checking</p>
+<p>This might include:
+- Parsing the file into an AST
+- Building symbol tables
+- Extracting metadata</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> – Path to file being checked</p></li>
+<li><p><strong>file_content</strong> – Content of the file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Context object to pass to rules, or None if preparation fails</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.BaseLinter.lint_file">
+<span class="sig-name descname"><span class="pre">lint_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tb_lint.core.base_linter.LinterResult" title="tb_lint.core.base_linter.LinterResult"><span class="pre">LinterResult</span></a></span></span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#BaseLinter.lint_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.base_linter.BaseLinter.lint_file" title="Link to this definition"></a></dt>
+<dd><p>Lint a single file using all registered rules</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> – Path to file to lint</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>LinterResult containing all violations found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.BaseLinter.lint_files">
+<span class="sig-name descname"><span class="pre">lint_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tb_lint.core.base_linter.LinterResult" title="tb_lint.core.base_linter.LinterResult"><span class="pre">LinterResult</span></a></span></span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#BaseLinter.lint_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.base_linter.BaseLinter.lint_files" title="Link to this definition"></a></dt>
+<dd><p>Lint multiple files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_paths</strong> – List of file paths to lint</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Combined LinterResult for all files</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.base_linter.BaseLinter.add_rule">
+<span class="sig-name descname"><span class="pre">add_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.core.base_rule.BaseRule" title="tb_lint.core.base_rule.BaseRule"><span class="pre">BaseRule</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#BaseLinter.add_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.base_linter.BaseLinter.add_rule" title="Link to this definition"></a></dt>
+<dd><p>Add a rule to this linter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rule</strong> – Rule instance to add</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-tb_lint.core.base_rule">
+<span id="tb-lint-core-base-rule-module"></span><h2>tb_lint.core.base_rule module<a class="headerlink" href="#module-tb_lint.core.base_rule" title="Link to this heading"></a></h2>
+<p>Base class for linting rules</p>
+<dl class="simple">
+<dt>Company: Copyright (c) 2025  BTA Design Services</dt><dd><p>Licensed under the MIT License.</p>
+</dd>
+</dl>
+<p>Description: Abstract base class that all linting rules must inherit from</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.RuleSeverity">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.core.base_rule.</span></span><span class="sig-name descname"><span class="pre">RuleSeverity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_rule.html#RuleSeverity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.base_rule.RuleSeverity" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Severity level for rule violations</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.RuleSeverity.ERROR">
+<span class="sig-name descname"><span class="pre">ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ERROR'</span></em><a class="headerlink" href="#tb_lint.core.base_rule.RuleSeverity.ERROR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.RuleSeverity.WARNING">
+<span class="sig-name descname"><span class="pre">WARNING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'WARNING'</span></em><a class="headerlink" href="#tb_lint.core.base_rule.RuleSeverity.WARNING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.RuleSeverity.INFO">
+<span class="sig-name descname"><span class="pre">INFO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'INFO'</span></em><a class="headerlink" href="#tb_lint.core.base_rule.RuleSeverity.INFO" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.RuleViolation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.core.base_rule.</span></span><span class="sig-name descname"><span class="pre">RuleViolation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">severity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.core.base_rule.RuleSeverity" title="tb_lint.core.base_rule.RuleSeverity"><span class="pre">RuleSeverity</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rule_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_rule.html#RuleViolation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.base_rule.RuleViolation" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a single rule violation</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.RuleViolation.file">
+<span class="sig-name descname"><span class="pre">file</span></span><a class="headerlink" href="#tb_lint.core.base_rule.RuleViolation.file" title="Link to this definition"></a></dt>
+<dd><p>Path to the file containing the violation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.RuleViolation.line">
+<span class="sig-name descname"><span class="pre">line</span></span><a class="headerlink" href="#tb_lint.core.base_rule.RuleViolation.line" title="Link to this definition"></a></dt>
+<dd><p>Line number where violation occurs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.RuleViolation.column">
+<span class="sig-name descname"><span class="pre">column</span></span><a class="headerlink" href="#tb_lint.core.base_rule.RuleViolation.column" title="Link to this definition"></a></dt>
+<dd><p>Column number (optional, depends on linter)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.RuleViolation.severity">
+<span class="sig-name descname"><span class="pre">severity</span></span><a class="headerlink" href="#tb_lint.core.base_rule.RuleViolation.severity" title="Link to this definition"></a></dt>
+<dd><p>Severity level of the violation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tb_lint.core.base_rule.RuleSeverity" title="tb_lint.core.base_rule.RuleSeverity">tb_lint.core.base_rule.RuleSeverity</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.RuleViolation.message">
+<span class="sig-name descname"><span class="pre">message</span></span><a class="headerlink" href="#tb_lint.core.base_rule.RuleViolation.message" title="Link to this definition"></a></dt>
+<dd><p>Human-readable description of the violation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.RuleViolation.rule_id">
+<span class="sig-name descname"><span class="pre">rule_id</span></span><a class="headerlink" href="#tb_lint.core.base_rule.RuleViolation.rule_id" title="Link to this definition"></a></dt>
+<dd><p>Unique identifier for the rule</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.RuleViolation.context">
+<span class="sig-name descname"><span class="pre">context</span></span><a class="headerlink" href="#tb_lint.core.base_rule.RuleViolation.context" title="Link to this definition"></a></dt>
+<dd><p>Additional context information (optional)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id5" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">line</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id6" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">column</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id7" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">severity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#tb_lint.core.base_rule.RuleSeverity" title="tb_lint.core.base_rule.RuleSeverity"><span class="pre">RuleSeverity</span></a></em><a class="headerlink" href="#id8" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id9" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id10">
+<span class="sig-name descname"><span class="pre">rule_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id10" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id11">
+<span class="sig-name descname"><span class="pre">context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id11" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.RuleViolation.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">severity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.core.base_rule.RuleSeverity" title="tb_lint.core.base_rule.RuleSeverity"><span class="pre">RuleSeverity</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rule_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tb_lint.core.base_rule.RuleViolation.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.BaseRule">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.core.base_rule.</span></span><span class="sig-name descname"><span class="pre">BaseRule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_rule.html#BaseRule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.base_rule.BaseRule" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract base class for all linting rules</p>
+<p>Each rule should:
+- Have a unique rule_id
+- Implement the check() method
+- Define its default severity level
+- Provide a clear description</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.BaseRule.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_rule.html#BaseRule.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.base_rule.BaseRule.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize rule with optional configuration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – Optional configuration dictionary for the rule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.BaseRule.rule_id">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rule_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#tb_lint.core.base_rule.BaseRule.rule_id" title="Link to this definition"></a></dt>
+<dd><p>Unique identifier for this rule (e.g., ‘ND_FILE_HDR_MISS’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String identifier for the rule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.BaseRule.description">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#tb_lint.core.base_rule.BaseRule.description" title="Link to this definition"></a></dt>
+<dd><p>Human-readable description of what this rule checks</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String description of the rule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.BaseRule.default_severity">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">default_severity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tb_lint.core.base_rule.RuleSeverity" title="tb_lint.core.base_rule.RuleSeverity"><span class="pre">RuleSeverity</span></a></span></span><a class="reference internal" href="_modules/tb_lint/core/base_rule.html#BaseRule.default_severity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.base_rule.BaseRule.default_severity" title="Link to this definition"></a></dt>
+<dd><p>Default severity level for violations of this rule</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>RuleSeverity enum value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.BaseRule.check">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.core.base_rule.RuleViolation" title="tb_lint.core.base_rule.RuleViolation"><span class="pre">RuleViolation</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tb_lint/core/base_rule.html#BaseRule.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.base_rule.BaseRule.check" title="Link to this definition"></a></dt>
+<dd><p>Check file for violations of this rule</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> – Path to the file being checked</p></li>
+<li><p><strong>file_content</strong> – Content of the file as a string</p></li>
+<li><p><strong>context</strong> – Additional context (e.g., AST, parsed data)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of RuleViolation objects found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.BaseRule.enabled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enabled</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#tb_lint.core.base_rule.BaseRule.enabled" title="Link to this definition"></a></dt>
+<dd><p>Check if rule is enabled</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.BaseRule.severity">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">severity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#tb_lint.core.base_rule.RuleSeverity" title="tb_lint.core.base_rule.RuleSeverity"><span class="pre">RuleSeverity</span></a></em><a class="headerlink" href="#tb_lint.core.base_rule.BaseRule.severity" title="Link to this definition"></a></dt>
+<dd><p>Get configured severity level</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.base_rule.BaseRule.create_violation">
+<span class="sig-name descname"><span class="pre">create_violation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tb_lint.core.base_rule.RuleViolation" title="tb_lint.core.base_rule.RuleViolation"><span class="pre">RuleViolation</span></a></span></span><a class="reference internal" href="_modules/tb_lint/core/base_rule.html#BaseRule.create_violation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.base_rule.BaseRule.create_violation" title="Link to this definition"></a></dt>
+<dd><p>Helper method to create a RuleViolation with this rule’s configuration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> – Path to file with violation</p></li>
+<li><p><strong>line</strong> – Line number</p></li>
+<li><p><strong>message</strong> – Violation message</p></li>
+<li><p><strong>column</strong> – Column number (default: 0)</p></li>
+<li><p><strong>context</strong> – Additional context (default: None)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Configured RuleViolation object</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-tb_lint.core.config_manager">
+<span id="tb-lint-core-config-manager-module"></span><h2>tb_lint.core.config_manager module<a class="headerlink" href="#module-tb_lint.core.config_manager" title="Link to this heading"></a></h2>
+<p>Configuration management for linters</p>
+<dl class="simple">
+<dt>Company: Copyright (c) 2025  BTA Design Services</dt><dd><p>Licensed under the MIT License.</p>
+</dd>
+<dt>Description: Handles loading and managing hierarchical configuration for linters and rules.</dt><dd><p>Supports linking individual linter configurations from a root configuration.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.core.config_manager.ConfigManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.core.config_manager.</span></span><span class="sig-name descname"><span class="pre">ConfigManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.config_manager.ConfigManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manages hierarchical configuration loading and access</p>
+<p>Supports:
+- Root configuration with linter enable/disable flags
+- Linked individual linter configuration files
+- JSON configuration files
+- Default configurations
+- Per-linter configurations
+- Per-rule configurations</p>
+<dl>
+<dt>Hierarchical Structure:</dt><dd><p>root_config.json:
+{</p>
+<blockquote>
+<div><dl>
+<dt>“linters”: {</dt><dd><dl class="simple">
+<dt>“naturaldocs”: {</dt><dd><p>“enabled”: true,
+“config_file”: “configs/naturaldocs.json”</p>
+</dd>
+</dl>
+<p>},
+“verible”: {</p>
+<blockquote>
+<div><p>“enabled”: false,
+“config_file”: “configs/verible.json”</p>
+</div></blockquote>
+<p>}</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>}</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.config_manager.ConfigManager.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.config_manager.ConfigManager.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize configuration manager with hierarchical support</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_file</strong> – Path to root configuration file (JSON)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.config_manager.ConfigManager.get_linter_config">
+<span class="sig-name descname"><span class="pre">get_linter_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.get_linter_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.config_manager.ConfigManager.get_linter_config" title="Link to this definition"></a></dt>
+<dd><p>Get configuration for a specific linter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>linter_name</strong> – Name of the linter</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Configuration dictionary for the linter (merged from linked configs if present)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.config_manager.ConfigManager.is_linter_enabled">
+<span class="sig-name descname"><span class="pre">is_linter_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.is_linter_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.config_manager.ConfigManager.is_linter_enabled" title="Link to this definition"></a></dt>
+<dd><p>Check if a linter is enabled in the configuration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>linter_name</strong> – Name of the linter</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if linter is enabled (default</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.config_manager.ConfigManager.get_rule_config">
+<span class="sig-name descname"><span class="pre">get_rule_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rule_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.get_rule_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.config_manager.ConfigManager.get_rule_config" title="Link to this definition"></a></dt>
+<dd><p>Get configuration for a specific rule</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>linter_name</strong> – Name of the linter</p></li>
+<li><p><strong>rule_id</strong> – ID of the rule</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Configuration dictionary for the rule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.config_manager.ConfigManager.is_rule_enabled">
+<span class="sig-name descname"><span class="pre">is_rule_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rule_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.is_rule_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.config_manager.ConfigManager.is_rule_enabled" title="Link to this definition"></a></dt>
+<dd><p>Check if a rule is enabled</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>linter_name</strong> – Name of the linter</p></li>
+<li><p><strong>rule_id</strong> – ID of the rule</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if rule is enabled (default</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.config_manager.ConfigManager.get_rule_severity">
+<span class="sig-name descname"><span class="pre">get_rule_severity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rule_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ERROR'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.get_rule_severity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.config_manager.ConfigManager.get_rule_severity" title="Link to this definition"></a></dt>
+<dd><p>Get severity level for a rule</p>
+<p>Checks both ‘rules’ and ‘severity_levels’ sections for compatibility</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>linter_name</strong> – Name of the linter</p></li>
+<li><p><strong>rule_id</strong> – ID of the rule</p></li>
+<li><p><strong>default</strong> – Default severity if not configured</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Severity string (“ERROR”, “WARNING”, or “INFO”)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.config_manager.ConfigManager.get_global_setting">
+<span class="sig-name descname"><span class="pre">get_global_setting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.get_global_setting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.config_manager.ConfigManager.get_global_setting" title="Link to this definition"></a></dt>
+<dd><p>Get a global setting</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> – Setting key</p></li>
+<li><p><strong>default</strong> – Default value if not found</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Setting value or default</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.config_manager.ConfigManager.get_project_info">
+<span class="sig-name descname"><span class="pre">get_project_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.get_project_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.config_manager.ConfigManager.get_project_info" title="Link to this definition"></a></dt>
+<dd><p>Get project information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Project info dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.config_manager.ConfigManager.save_config">
+<span class="sig-name descname"><span class="pre">save_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.save_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.config_manager.ConfigManager.save_config" title="Link to this definition"></a></dt>
+<dd><p>Save current configuration to file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>output_path</strong> – Path to save configuration</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-tb_lint.core.linter_registry">
+<span id="tb-lint-core-linter-registry-module"></span><h2>tb_lint.core.linter_registry module<a class="headerlink" href="#module-tb_lint.core.linter_registry" title="Link to this heading"></a></h2>
+<p>Registry for managing multiple linters</p>
+<dl class="simple">
+<dt>Company: Copyright (c) 2025  BTA Design Services</dt><dd><p>Licensed under the MIT License.</p>
+</dd>
+</dl>
+<p>Description: Central registry for discovering and managing linters</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.core.linter_registry.LinterRegistry">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.core.linter_registry.</span></span><span class="sig-name descname"><span class="pre">LinterRegistry</span></span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#LinterRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.linter_registry.LinterRegistry" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Central registry for linters</p>
+<p>Provides:
+- Registration of linter classes
+- Discovery of available linters
+- Creation of linter instances</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.linter_registry.LinterRegistry.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#LinterRegistry.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.linter_registry.LinterRegistry.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize empty registry</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.linter_registry.LinterRegistry.register">
+<span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.core.base_linter.BaseLinter" title="tb_lint.core.base_linter.BaseLinter"><span class="pre">BaseLinter</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#LinterRegistry.register"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.linter_registry.LinterRegistry.register" title="Link to this definition"></a></dt>
+<dd><p>Register a linter class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>linter_class</strong> – Class (not instance) of a linter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.linter_registry.LinterRegistry.get_linter">
+<span class="sig-name descname"><span class="pre">get_linter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tb_lint.core.base_linter.BaseLinter" title="tb_lint.core.base_linter.BaseLinter"><span class="pre">BaseLinter</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#LinterRegistry.get_linter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.linter_registry.LinterRegistry.get_linter" title="Link to this definition"></a></dt>
+<dd><p>Get an instance of a registered linter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the linter</p></li>
+<li><p><strong>config</strong> – Configuration to pass to linter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Linter instance or None if not found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.linter_registry.LinterRegistry.get_all_linters">
+<span class="sig-name descname"><span class="pre">get_all_linters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.core.base_linter.BaseLinter" title="tb_lint.core.base_linter.BaseLinter"><span class="pre">BaseLinter</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#LinterRegistry.get_all_linters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.linter_registry.LinterRegistry.get_all_linters" title="Link to this definition"></a></dt>
+<dd><p>Get instances of all registered linters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – Configuration to pass to all linters</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of linter instances</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.linter_registry.LinterRegistry.list_linters">
+<span class="sig-name descname"><span class="pre">list_linters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#LinterRegistry.list_linters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.linter_registry.LinterRegistry.list_linters" title="Link to this definition"></a></dt>
+<dd><p>List names of all registered linters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of linter names</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.linter_registry.LinterRegistry.is_registered">
+<span class="sig-name descname"><span class="pre">is_registered</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#LinterRegistry.is_registered"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.linter_registry.LinterRegistry.is_registered" title="Link to this definition"></a></dt>
+<dd><p>Check if a linter is registered</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Linter name to check</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if linter is registered</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tb_lint.core.linter_registry.register_linter">
+<span class="sig-prename descclassname"><span class="pre">tb_lint.core.linter_registry.</span></span><span class="sig-name descname"><span class="pre">register_linter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.core.base_linter.BaseLinter" title="tb_lint.core.base_linter.BaseLinter"><span class="pre">BaseLinter</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#register_linter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.linter_registry.register_linter" title="Link to this definition"></a></dt>
+<dd><p>Decorator to register a linter class</p>
+<dl>
+<dt>Usage:</dt><dd><p>&#64;register_linter
+class MyLinter(BaseLinter):</p>
+<blockquote>
+<div><p>…</p>
+</div></blockquote>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>linter_class</strong> – Linter class to register</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same linter class (for use as decorator)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tb_lint.core.linter_registry.get_registry">
+<span class="sig-prename descclassname"><span class="pre">tb_lint.core.linter_registry.</span></span><span class="sig-name descname"><span class="pre">get_registry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tb_lint.core.linter_registry.LinterRegistry" title="tb_lint.core.linter_registry.LinterRegistry"><span class="pre">LinterRegistry</span></a></span></span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#get_registry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.linter_registry.get_registry" title="Link to this definition"></a></dt>
+<dd><p>Get the global linter registry</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Global LinterRegistry instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-tb_lint.core">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tb_lint.core" title="Link to this heading"></a></h2>
+<p>Core framework for modular linting system</p>
+<dl class="simple">
+<dt>Company: Copyright (c) 2025  BTA Design Services</dt><dd><p>Licensed under the MIT License.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.core.BaseLinter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.core.</span></span><span class="sig-name descname"><span class="pre">BaseLinter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#BaseLinter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.BaseLinter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract base class for all linters</p>
+<p>Each linter implementation should:
+- Register rules it supports
+- Implement file checking logic
+- Return structured results</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.BaseLinter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#BaseLinter.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.BaseLinter.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize linter with configuration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – Configuration dictionary for the linter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.BaseLinter.name">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#tb_lint.core.BaseLinter.name" title="Link to this definition"></a></dt>
+<dd><p>Name of this linter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String name of the linter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.BaseLinter.supported_extensions">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">supported_extensions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#tb_lint.core.BaseLinter.supported_extensions" title="Link to this definition"></a></dt>
+<dd><p>File extensions this linter can handle</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of file extensions (e.g., [‘.sv’, ‘.svh’])</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.BaseLinter.prepare_context">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prepare_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#BaseLinter.prepare_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.BaseLinter.prepare_context" title="Link to this definition"></a></dt>
+<dd><p>Prepare any context needed for rule checking</p>
+<p>This might include:
+- Parsing the file into an AST
+- Building symbol tables
+- Extracting metadata</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> – Path to file being checked</p></li>
+<li><p><strong>file_content</strong> – Content of the file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Context object to pass to rules, or None if preparation fails</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.BaseLinter.lint_file">
+<span class="sig-name descname"><span class="pre">lint_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tb_lint.core.base_linter.LinterResult" title="tb_lint.core.base_linter.LinterResult"><span class="pre">LinterResult</span></a></span></span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#BaseLinter.lint_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.BaseLinter.lint_file" title="Link to this definition"></a></dt>
+<dd><p>Lint a single file using all registered rules</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> – Path to file to lint</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>LinterResult containing all violations found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.BaseLinter.lint_files">
+<span class="sig-name descname"><span class="pre">lint_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tb_lint.core.base_linter.LinterResult" title="tb_lint.core.base_linter.LinterResult"><span class="pre">LinterResult</span></a></span></span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#BaseLinter.lint_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.BaseLinter.lint_files" title="Link to this definition"></a></dt>
+<dd><p>Lint multiple files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_paths</strong> – List of file paths to lint</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Combined LinterResult for all files</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.BaseLinter.add_rule">
+<span class="sig-name descname"><span class="pre">add_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.core.base_rule.BaseRule" title="tb_lint.core.base_rule.BaseRule"><span class="pre">BaseRule</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#BaseLinter.add_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.BaseLinter.add_rule" title="Link to this definition"></a></dt>
+<dd><p>Add a rule to this linter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rule</strong> – Rule instance to add</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.core.LinterResult">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.core.</span></span><span class="sig-name descname"><span class="pre">LinterResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_name:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files_checked:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files_failed:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">violations:</span> <span class="pre">~typing.List[~tb_lint.core.base_rule.RuleViolation]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors:</span> <span class="pre">~typing.Dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#LinterResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.LinterResult" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Results from running a linter on files</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.LinterResult.linter_name">
+<span class="sig-name descname"><span class="pre">linter_name</span></span><a class="headerlink" href="#tb_lint.core.LinterResult.linter_name" title="Link to this definition"></a></dt>
+<dd><p>Name of the linter that produced these results</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.LinterResult.files_checked">
+<span class="sig-name descname"><span class="pre">files_checked</span></span><a class="headerlink" href="#tb_lint.core.LinterResult.files_checked" title="Link to this definition"></a></dt>
+<dd><p>Number of files successfully checked</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.LinterResult.files_failed">
+<span class="sig-name descname"><span class="pre">files_failed</span></span><a class="headerlink" href="#tb_lint.core.LinterResult.files_failed" title="Link to this definition"></a></dt>
+<dd><p>Number of files that failed to parse/check</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.LinterResult.violations">
+<span class="sig-name descname"><span class="pre">violations</span></span><a class="headerlink" href="#tb_lint.core.LinterResult.violations" title="Link to this definition"></a></dt>
+<dd><p>List of all violations found</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="#tb_lint.core.base_rule.RuleViolation" title="tb_lint.core.base_rule.RuleViolation">tb_lint.core.base_rule.RuleViolation</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.LinterResult.errors">
+<span class="sig-name descname"><span class="pre">errors</span></span><a class="headerlink" href="#tb_lint.core.LinterResult.errors" title="Link to this definition"></a></dt>
+<dd><p>Dictionary mapping file paths to error messages</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id12">
+<span class="sig-name descname"><span class="pre">linter_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id12" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id13">
+<span class="sig-name descname"><span class="pre">files_checked</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id13" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id14">
+<span class="sig-name descname"><span class="pre">files_failed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id14" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id15">
+<span class="sig-name descname"><span class="pre">violations</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.core.base_rule.RuleViolation" title="tb_lint.core.base_rule.RuleViolation"><span class="pre">RuleViolation</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id15" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id16">
+<span class="sig-name descname"><span class="pre">errors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id16" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.LinterResult.error_count">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">error_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tb_lint.core.LinterResult.error_count" title="Link to this definition"></a></dt>
+<dd><p>Count violations with ERROR severity</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.LinterResult.warning_count">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">warning_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tb_lint.core.LinterResult.warning_count" title="Link to this definition"></a></dt>
+<dd><p>Count violations with WARNING severity</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.LinterResult.info_count">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">info_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#tb_lint.core.LinterResult.info_count" title="Link to this definition"></a></dt>
+<dd><p>Count violations with INFO severity</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.LinterResult.add_violation">
+<span class="sig-name descname"><span class="pre">add_violation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">violation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.core.base_rule.RuleViolation" title="tb_lint.core.base_rule.RuleViolation"><span class="pre">RuleViolation</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#LinterResult.add_violation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.LinterResult.add_violation" title="Link to this definition"></a></dt>
+<dd><p>Add a violation to the results</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.LinterResult.add_error">
+<span class="sig-name descname"><span class="pre">add_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_linter.html#LinterResult.add_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.LinterResult.add_error" title="Link to this definition"></a></dt>
+<dd><p>Add a file-level error (e.g., parse failure)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.LinterResult.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_name:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files_checked:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files_failed:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">violations:</span> <span class="pre">~typing.List[~tb_lint.core.base_rule.RuleViolation]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors:</span> <span class="pre">~typing.Dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tb_lint.core.LinterResult.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.core.BaseRule">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.core.</span></span><span class="sig-name descname"><span class="pre">BaseRule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_rule.html#BaseRule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.BaseRule" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract base class for all linting rules</p>
+<p>Each rule should:
+- Have a unique rule_id
+- Implement the check() method
+- Define its default severity level
+- Provide a clear description</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.BaseRule.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_rule.html#BaseRule.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.BaseRule.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize rule with optional configuration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – Optional configuration dictionary for the rule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.BaseRule.rule_id">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rule_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#tb_lint.core.BaseRule.rule_id" title="Link to this definition"></a></dt>
+<dd><p>Unique identifier for this rule (e.g., ‘ND_FILE_HDR_MISS’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String identifier for the rule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.BaseRule.description">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#tb_lint.core.BaseRule.description" title="Link to this definition"></a></dt>
+<dd><p>Human-readable description of what this rule checks</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String description of the rule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.BaseRule.default_severity">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">default_severity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tb_lint.core.base_rule.RuleSeverity" title="tb_lint.core.base_rule.RuleSeverity"><span class="pre">RuleSeverity</span></a></span></span><a class="reference internal" href="_modules/tb_lint/core/base_rule.html#BaseRule.default_severity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.BaseRule.default_severity" title="Link to this definition"></a></dt>
+<dd><p>Default severity level for violations of this rule</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>RuleSeverity enum value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.BaseRule.check">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.core.base_rule.RuleViolation" title="tb_lint.core.base_rule.RuleViolation"><span class="pre">RuleViolation</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tb_lint/core/base_rule.html#BaseRule.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.BaseRule.check" title="Link to this definition"></a></dt>
+<dd><p>Check file for violations of this rule</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> – Path to the file being checked</p></li>
+<li><p><strong>file_content</strong> – Content of the file as a string</p></li>
+<li><p><strong>context</strong> – Additional context (e.g., AST, parsed data)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of RuleViolation objects found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.BaseRule.enabled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enabled</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#tb_lint.core.BaseRule.enabled" title="Link to this definition"></a></dt>
+<dd><p>Check if rule is enabled</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="tb_lint.core.BaseRule.severity">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">severity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#tb_lint.core.base_rule.RuleSeverity" title="tb_lint.core.base_rule.RuleSeverity"><span class="pre">RuleSeverity</span></a></em><a class="headerlink" href="#tb_lint.core.BaseRule.severity" title="Link to this definition"></a></dt>
+<dd><p>Get configured severity level</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.BaseRule.create_violation">
+<span class="sig-name descname"><span class="pre">create_violation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tb_lint.core.base_rule.RuleViolation" title="tb_lint.core.base_rule.RuleViolation"><span class="pre">RuleViolation</span></a></span></span><a class="reference internal" href="_modules/tb_lint/core/base_rule.html#BaseRule.create_violation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.BaseRule.create_violation" title="Link to this definition"></a></dt>
+<dd><p>Helper method to create a RuleViolation with this rule’s configuration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> – Path to file with violation</p></li>
+<li><p><strong>line</strong> – Line number</p></li>
+<li><p><strong>message</strong> – Violation message</p></li>
+<li><p><strong>column</strong> – Column number (default: 0)</p></li>
+<li><p><strong>context</strong> – Additional context (default: None)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Configured RuleViolation object</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.core.RuleViolation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.core.</span></span><span class="sig-name descname"><span class="pre">RuleViolation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">severity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.core.base_rule.RuleSeverity" title="tb_lint.core.base_rule.RuleSeverity"><span class="pre">RuleSeverity</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rule_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_rule.html#RuleViolation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.RuleViolation" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a single rule violation</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.RuleViolation.file">
+<span class="sig-name descname"><span class="pre">file</span></span><a class="headerlink" href="#tb_lint.core.RuleViolation.file" title="Link to this definition"></a></dt>
+<dd><p>Path to the file containing the violation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.RuleViolation.line">
+<span class="sig-name descname"><span class="pre">line</span></span><a class="headerlink" href="#tb_lint.core.RuleViolation.line" title="Link to this definition"></a></dt>
+<dd><p>Line number where violation occurs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.RuleViolation.column">
+<span class="sig-name descname"><span class="pre">column</span></span><a class="headerlink" href="#tb_lint.core.RuleViolation.column" title="Link to this definition"></a></dt>
+<dd><p>Column number (optional, depends on linter)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.RuleViolation.severity">
+<span class="sig-name descname"><span class="pre">severity</span></span><a class="headerlink" href="#tb_lint.core.RuleViolation.severity" title="Link to this definition"></a></dt>
+<dd><p>Severity level of the violation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tb_lint.core.base_rule.RuleSeverity" title="tb_lint.core.base_rule.RuleSeverity">tb_lint.core.base_rule.RuleSeverity</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.RuleViolation.message">
+<span class="sig-name descname"><span class="pre">message</span></span><a class="headerlink" href="#tb_lint.core.RuleViolation.message" title="Link to this definition"></a></dt>
+<dd><p>Human-readable description of the violation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.RuleViolation.rule_id">
+<span class="sig-name descname"><span class="pre">rule_id</span></span><a class="headerlink" href="#tb_lint.core.RuleViolation.rule_id" title="Link to this definition"></a></dt>
+<dd><p>Unique identifier for the rule</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.RuleViolation.context">
+<span class="sig-name descname"><span class="pre">context</span></span><a class="headerlink" href="#tb_lint.core.RuleViolation.context" title="Link to this definition"></a></dt>
+<dd><p>Additional context information (optional)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id17">
+<span class="sig-name descname"><span class="pre">file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id17" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id18">
+<span class="sig-name descname"><span class="pre">line</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id18" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id19">
+<span class="sig-name descname"><span class="pre">column</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id19" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id20">
+<span class="sig-name descname"><span class="pre">severity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#tb_lint.core.base_rule.RuleSeverity" title="tb_lint.core.base_rule.RuleSeverity"><span class="pre">RuleSeverity</span></a></em><a class="headerlink" href="#id20" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id21">
+<span class="sig-name descname"><span class="pre">message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id21" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id22">
+<span class="sig-name descname"><span class="pre">rule_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id22" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id23">
+<span class="sig-name descname"><span class="pre">context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id23" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.RuleViolation.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">severity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tb_lint.core.base_rule.RuleSeverity" title="tb_lint.core.base_rule.RuleSeverity"><span class="pre">RuleSeverity</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rule_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tb_lint.core.RuleViolation.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.core.RuleSeverity">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.core.</span></span><span class="sig-name descname"><span class="pre">RuleSeverity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/base_rule.html#RuleSeverity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.RuleSeverity" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Severity level for rule violations</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.RuleSeverity.ERROR">
+<span class="sig-name descname"><span class="pre">ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ERROR'</span></em><a class="headerlink" href="#tb_lint.core.RuleSeverity.ERROR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.RuleSeverity.WARNING">
+<span class="sig-name descname"><span class="pre">WARNING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'WARNING'</span></em><a class="headerlink" href="#tb_lint.core.RuleSeverity.WARNING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tb_lint.core.RuleSeverity.INFO">
+<span class="sig-name descname"><span class="pre">INFO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'INFO'</span></em><a class="headerlink" href="#tb_lint.core.RuleSeverity.INFO" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.core.LinterRegistry">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.core.</span></span><span class="sig-name descname"><span class="pre">LinterRegistry</span></span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#LinterRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.LinterRegistry" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Central registry for linters</p>
+<p>Provides:
+- Registration of linter classes
+- Discovery of available linters
+- Creation of linter instances</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.LinterRegistry.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#LinterRegistry.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.LinterRegistry.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize empty registry</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.LinterRegistry.register">
+<span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.core.base_linter.BaseLinter" title="tb_lint.core.base_linter.BaseLinter"><span class="pre">BaseLinter</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#LinterRegistry.register"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.LinterRegistry.register" title="Link to this definition"></a></dt>
+<dd><p>Register a linter class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>linter_class</strong> – Class (not instance) of a linter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.LinterRegistry.get_linter">
+<span class="sig-name descname"><span class="pre">get_linter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tb_lint.core.base_linter.BaseLinter" title="tb_lint.core.base_linter.BaseLinter"><span class="pre">BaseLinter</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#LinterRegistry.get_linter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.LinterRegistry.get_linter" title="Link to this definition"></a></dt>
+<dd><p>Get an instance of a registered linter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the linter</p></li>
+<li><p><strong>config</strong> – Configuration to pass to linter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Linter instance or None if not found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.LinterRegistry.get_all_linters">
+<span class="sig-name descname"><span class="pre">get_all_linters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.core.base_linter.BaseLinter" title="tb_lint.core.base_linter.BaseLinter"><span class="pre">BaseLinter</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#LinterRegistry.get_all_linters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.LinterRegistry.get_all_linters" title="Link to this definition"></a></dt>
+<dd><p>Get instances of all registered linters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – Configuration to pass to all linters</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of linter instances</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.LinterRegistry.list_linters">
+<span class="sig-name descname"><span class="pre">list_linters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#LinterRegistry.list_linters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.LinterRegistry.list_linters" title="Link to this definition"></a></dt>
+<dd><p>List names of all registered linters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of linter names</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.LinterRegistry.is_registered">
+<span class="sig-name descname"><span class="pre">is_registered</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#LinterRegistry.is_registered"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.LinterRegistry.is_registered" title="Link to this definition"></a></dt>
+<dd><p>Check if a linter is registered</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Linter name to check</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if linter is registered</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tb_lint.core.get_registry">
+<span class="sig-prename descclassname"><span class="pre">tb_lint.core.</span></span><span class="sig-name descname"><span class="pre">get_registry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tb_lint.core.linter_registry.LinterRegistry" title="tb_lint.core.linter_registry.LinterRegistry"><span class="pre">LinterRegistry</span></a></span></span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#get_registry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.get_registry" title="Link to this definition"></a></dt>
+<dd><p>Get the global linter registry</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Global LinterRegistry instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tb_lint.core.register_linter">
+<span class="sig-prename descclassname"><span class="pre">tb_lint.core.</span></span><span class="sig-name descname"><span class="pre">register_linter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tb_lint.core.base_linter.BaseLinter" title="tb_lint.core.base_linter.BaseLinter"><span class="pre">BaseLinter</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/linter_registry.html#register_linter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.register_linter" title="Link to this definition"></a></dt>
+<dd><p>Decorator to register a linter class</p>
+<dl>
+<dt>Usage:</dt><dd><p>&#64;register_linter
+class MyLinter(BaseLinter):</p>
+<blockquote>
+<div><p>…</p>
+</div></blockquote>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>linter_class</strong> – Linter class to register</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same linter class (for use as decorator)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tb_lint.core.ConfigManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tb_lint.core.</span></span><span class="sig-name descname"><span class="pre">ConfigManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.ConfigManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manages hierarchical configuration loading and access</p>
+<p>Supports:
+- Root configuration with linter enable/disable flags
+- Linked individual linter configuration files
+- JSON configuration files
+- Default configurations
+- Per-linter configurations
+- Per-rule configurations</p>
+<dl>
+<dt>Hierarchical Structure:</dt><dd><p>root_config.json:
+{</p>
+<blockquote>
+<div><dl>
+<dt>“linters”: {</dt><dd><dl class="simple">
+<dt>“naturaldocs”: {</dt><dd><p>“enabled”: true,
+“config_file”: “configs/naturaldocs.json”</p>
+</dd>
+</dl>
+<p>},
+“verible”: {</p>
+<blockquote>
+<div><p>“enabled”: false,
+“config_file”: “configs/verible.json”</p>
+</div></blockquote>
+<p>}</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>}</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.ConfigManager.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.ConfigManager.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize configuration manager with hierarchical support</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_file</strong> – Path to root configuration file (JSON)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.ConfigManager.get_linter_config">
+<span class="sig-name descname"><span class="pre">get_linter_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.get_linter_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.ConfigManager.get_linter_config" title="Link to this definition"></a></dt>
+<dd><p>Get configuration for a specific linter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>linter_name</strong> – Name of the linter</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Configuration dictionary for the linter (merged from linked configs if present)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.ConfigManager.is_linter_enabled">
+<span class="sig-name descname"><span class="pre">is_linter_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.is_linter_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.ConfigManager.is_linter_enabled" title="Link to this definition"></a></dt>
+<dd><p>Check if a linter is enabled in the configuration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>linter_name</strong> – Name of the linter</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if linter is enabled (default</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.ConfigManager.get_rule_config">
+<span class="sig-name descname"><span class="pre">get_rule_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rule_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.get_rule_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.ConfigManager.get_rule_config" title="Link to this definition"></a></dt>
+<dd><p>Get configuration for a specific rule</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>linter_name</strong> – Name of the linter</p></li>
+<li><p><strong>rule_id</strong> – ID of the rule</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Configuration dictionary for the rule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.ConfigManager.is_rule_enabled">
+<span class="sig-name descname"><span class="pre">is_rule_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rule_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.is_rule_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.ConfigManager.is_rule_enabled" title="Link to this definition"></a></dt>
+<dd><p>Check if a rule is enabled</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>linter_name</strong> – Name of the linter</p></li>
+<li><p><strong>rule_id</strong> – ID of the rule</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if rule is enabled (default</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.ConfigManager.get_rule_severity">
+<span class="sig-name descname"><span class="pre">get_rule_severity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linter_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rule_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ERROR'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.get_rule_severity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.ConfigManager.get_rule_severity" title="Link to this definition"></a></dt>
+<dd><p>Get severity level for a rule</p>
+<p>Checks both ‘rules’ and ‘severity_levels’ sections for compatibility</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>linter_name</strong> – Name of the linter</p></li>
+<li><p><strong>rule_id</strong> – ID of the rule</p></li>
+<li><p><strong>default</strong> – Default severity if not configured</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Severity string (“ERROR”, “WARNING”, or “INFO”)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.ConfigManager.get_global_setting">
+<span class="sig-name descname"><span class="pre">get_global_setting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.get_global_setting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.ConfigManager.get_global_setting" title="Link to this definition"></a></dt>
+<dd><p>Get a global setting</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> – Setting key</p></li>
+<li><p><strong>default</strong> – Default value if not found</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Setting value or default</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.ConfigManager.get_project_info">
+<span class="sig-name descname"><span class="pre">get_project_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.get_project_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.ConfigManager.get_project_info" title="Link to this definition"></a></dt>
+<dd><p>Get project information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Project info dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tb_lint.core.ConfigManager.save_config">
+<span class="sig-name descname"><span class="pre">save_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tb_lint/core/config_manager.html#ConfigManager.save_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tb_lint.core.ConfigManager.save_config" title="Link to this definition"></a></dt>
+<dd><p>Save current configuration to file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>output_path</strong> – Path to save configuration</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tb_lint.html" class="btn btn-neutral float-left" title="tb_lint package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tb_lint.linters.html" class="btn btn-neutral float-right" title="tb_lint.linters package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, BTA Design Services.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -16,10 +16,10 @@ cd /home/vbesyakov/project/tb_lint
 ./run_all_tests.sh
 
 # Option 2: Run linter directly
-python3 unified_linter.py -f test/test_files.txt --color
+python3 tb_lint.py -f test/test_files.txt --color
 
 # Option 3: Use custom configuration
-python3 unified_linter.py -c configs/lint_config.json -f test/test_files.txt --color
+python3 tb_lint.py -c configs/lint_config.json -f test/test_files.txt --color
 ```
 
 ---
@@ -29,13 +29,13 @@ python3 unified_linter.py -c configs/lint_config.json -f test/test_files.txt --c
 | Command | Description |
 |---------|-------------|
 | `./run_all_tests.sh` | **One-liner**: Run all tests |
-| `python3 unified_linter.py --help` | Show help |
-| `python3 unified_linter.py --list-linters` | List available linters |
-| `python3 unified_linter.py -f files.txt` | Check files from list |
-| `python3 unified_linter.py file.sv` | Check single file |
-| `python3 unified_linter.py --linter naturaldocs -f files.txt` | Run specific linter |
-| `python3 unified_linter.py --json -f files.txt -o report.json` | Generate JSON report |
-| `python3 unified_linter.py --strict --color -f files.txt` | Strict mode with colors |
+| `python3 tb_lint.py --help` | Show help |
+| `python3 tb_lint.py --list-linters` | List available linters |
+| `python3 tb_lint.py -f files.txt` | Check files from list |
+| `python3 tb_lint.py file.sv` | Check single file |
+| `python3 tb_lint.py --linter naturaldocs -f files.txt` | Run specific linter |
+| `python3 tb_lint.py --json -f files.txt -o report.json` | Generate JSON report |
+| `python3 tb_lint.py --strict --color -f files.txt` | Strict mode with colors |
 
 ---
 
@@ -86,10 +86,10 @@ The framework uses a **hierarchical configuration** system:
 **Usage:**
 ```bash
 # Default (automatically uses configs/lint_config.json)
-python3 unified_linter.py -f files.txt
+python3 tb_lint.py -f files.txt
 
 # Explicit config file
-python3 unified_linter.py -c configs/lint_config.json -f files.txt
+python3 tb_lint.py -c configs/lint_config.json -f files.txt
 ```
 
 ---
@@ -104,33 +104,33 @@ echo "test/good_example.sv" > my_files.txt
 echo "test/bad_example.sv" >> my_files.txt
 
 # Run linter
-python3 unified_linter.py -f my_files.txt
+python3 tb_lint.py -f my_files.txt
 ```
 
 ### Check Individual Files
 
 ```bash
-python3 unified_linter.py test/good_example.sv test/bad_example.sv
+python3 tb_lint.py test/good_example.sv test/bad_example.sv
 ```
 
 ### Run Specific Linter Only
 
 ```bash
 # NaturalDocs only (documentation checks)
-python3 unified_linter.py --linter naturaldocs -f files.txt
+python3 tb_lint.py --linter naturaldocs -f files.txt
 
 # Verible only (style checks)
-python3 unified_linter.py --linter verible -f files.txt
+python3 tb_lint.py --linter verible -f files.txt
 ```
 
 ### Generate Reports
 
 ```bash
 # Text report
-python3 unified_linter.py -f files.txt -o report.txt
+python3 tb_lint.py -f files.txt -o report.txt
 
 # JSON report (for CI/CD)
-python3 unified_linter.py --json -f files.txt -o report.json
+python3 tb_lint.py --json -f files.txt -o report.json
 ```
 
 ### Run Test Suite
@@ -154,22 +154,22 @@ python3 run_tests.py --linter naturaldocs --summary
 
 ```bash
 # Use -f flag for file lists
-python3 unified_linter.py -f sv_files.txt
+python3 tb_lint.py -f sv_files.txt
 
 # Specify config explicitly
-python3 unified_linter.py -c lint_config_hierarchical.json -f files.txt
+python3 tb_lint.py -c lint_config_hierarchical.json -f files.txt
 
 # Check individual files directly
-python3 unified_linter.py file1.sv file2.sv
+python3 tb_lint.py file1.sv file2.sv
 ```
 
 ### Common Mistakes
 
 ```bash
 # Missing -f flag (will show helpful error)
-python3 unified_linter.py sv_files.txt
+python3 tb_lint.py sv_files.txt
 # Error: 'sv_files.txt' appears to be a file list.
-# Use: python3 unified_linter.py -f sv_files.txt
+# Use: python3 tb_lint.py -f sv_files.txt
 ```
 
 ---
@@ -231,7 +231,7 @@ Info: 0
 ## Next Steps
 
 ### For Users
-1. Run linter on your files: `python3 unified_linter.py -f your_files.txt`
+1. Run linter on your files: `python3 tb_lint.py -f your_files.txt`
 2. Review violations and fix code
 3. Integrate into your workflow
 
@@ -296,7 +296,7 @@ In `configs/naturaldocs.json`:
 
 ```
 tb_lint/
-├── unified_linter.py           # Main linter script
+├── tb_lint.py           # Main linter script
 ├── run_tests.py                # Test runner script
 ├── lint_config_modular.json    # Monolithic config (all-in-one)
 ├── lint_config_hierarchical.json  # Root hierarchical config
@@ -343,7 +343,7 @@ ls -la lint_config_hierarchical.json
 ### Error: No files specified
 ```bash
 # Use -f flag for file lists
-python3 unified_linter.py -f files.txt
+python3 tb_lint.py -f files.txt
 ```
 
 ---

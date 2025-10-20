@@ -1,0 +1,284 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tb_lint.rules.naturaldocs.file_header &mdash; tb_lint 3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=110ea713"></script>
+      <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            tb_lint
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">tb_lint</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">tb_lint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../../tb_lint.html">tb_lint</a></li>
+      <li class="breadcrumb-item active">tb_lint.rules.naturaldocs.file_header</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for tb_lint.rules.naturaldocs.file_header</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File header documentation rule</span>
+
+<span class="sd">Company: Copyright (c) 2025  BTA Design Services  </span>
+<span class="sd">         Licensed under the MIT License.</span>
+
+<span class="sd">Description: Checks for proper file header documentation</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.base_rule</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseRule</span><span class="p">,</span> <span class="n">RuleViolation</span><span class="p">,</span> <span class="n">RuleSeverity</span>
+
+
+<div class="viewcode-block" id="FileHeaderRule">
+<a class="viewcode-back" href="../../../../tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.FileHeaderRule">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FileHeaderRule</span><span class="p">(</span><span class="n">BaseRule</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rule: Check for proper file header documentation</span>
+<span class="sd">    </span>
+<span class="sd">    Requirements:</span>
+<span class="sd">    - File must have &#39;File:&#39; keyword in first 30 lines</span>
+<span class="sd">    - Should have &#39;Company:&#39; field (configurable)</span>
+<span class="sd">    - Should have &#39;Author:&#39; field with email (configurable)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rule_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;[ND_FILE_HDR_MISS]&quot;</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;File header must contain &#39;File:&#39; keyword&quot;</span>
+    
+<div class="viewcode-block" id="FileHeaderRule.default_severity">
+<a class="viewcode-back" href="../../../../tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.FileHeaderRule.default_severity">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">default_severity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RuleSeverity</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">RuleSeverity</span><span class="o">.</span><span class="n">ERROR</span></div>
+
+    
+<div class="viewcode-block" id="FileHeaderRule.check">
+<a class="viewcode-back" href="../../../../tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.FileHeaderRule.check">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_content</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">RuleViolation</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check file header documentation</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            file_path: Path to file being checked</span>
+<span class="sd">            file_content: Content of the file</span>
+<span class="sd">            context: Not used for this rule</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            List of violations found</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">violations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">file_content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">header_lines</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[:</span><span class="mi">30</span><span class="p">]</span>  <span class="c1"># Check first 30 lines</span>
+        <span class="n">header_text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">header_lines</span><span class="p">)</span>
+        
+        <span class="c1"># Get configuration with empty string defaults</span>
+        <span class="n">company_pattern</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;company_pattern&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">company_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;company_name&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">email_domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;email_domain&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># Check for File: keyword</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(?://|/\*|\*)\s*File\s*:&#39;</span><span class="p">,</span> <span class="n">header_text</span><span class="p">):</span>
+            <span class="n">violations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_violation</span><span class="p">(</span>
+                <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+                <span class="n">line</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Missing &#39;File:&#39; keyword in header&quot;</span>
+            <span class="p">))</span>
+        
+        <span class="k">return</span> <span class="n">violations</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CompanyFieldRule">
+<a class="viewcode-back" href="../../../../tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.CompanyFieldRule">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CompanyFieldRule</span><span class="p">(</span><span class="n">BaseRule</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rule: Check for Company field in file header</span>
+<span class="sd">    </span>
+<span class="sd">    This is typically a WARNING rather than ERROR</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rule_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;[ND_COMPANY_MISS]&quot;</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;File header should contain &#39;Company:&#39; field&quot;</span>
+    
+<div class="viewcode-block" id="CompanyFieldRule.default_severity">
+<a class="viewcode-back" href="../../../../tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.CompanyFieldRule.default_severity">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">default_severity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RuleSeverity</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">RuleSeverity</span><span class="o">.</span><span class="n">WARNING</span></div>
+
+    
+<div class="viewcode-block" id="CompanyFieldRule.check">
+<a class="viewcode-back" href="../../../../tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.CompanyFieldRule.check">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_content</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">RuleViolation</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for Company field in header&quot;&quot;&quot;</span>
+        <span class="n">violations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">file_content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">header_lines</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[:</span><span class="mi">30</span><span class="p">]</span>
+        <span class="n">header_text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">header_lines</span><span class="p">)</span>
+        
+        <span class="n">company_pattern</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;company_pattern&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">company_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;company_name&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># Only check if company pattern is configured</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">company_pattern</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">violations</span>
+        
+        <span class="c1"># Check for Company field</span>
+        <span class="n">company_regex</span> <span class="o">=</span> <span class="sa">rf</span><span class="s1">&#39;(?://|/\*|\*)\s*Company\s*:\s*</span><span class="si">{</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">company_pattern</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">company_regex</span><span class="p">,</span> <span class="n">header_text</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">):</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Missing or incomplete &#39;Company: </span><span class="si">{</span><span class="n">company_name</span><span class="si">}</span><span class="s2">&#39; in header&quot;</span> <span class="k">if</span> <span class="n">company_name</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;Missing &#39;Company:&#39; field with pattern &#39;</span><span class="si">{</span><span class="n">company_pattern</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+            <span class="n">violations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_violation</span><span class="p">(</span>
+                <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+                <span class="n">line</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="n">message</span>
+            <span class="p">))</span>
+        
+        <span class="k">return</span> <span class="n">violations</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="AuthorFieldRule">
+<a class="viewcode-back" href="../../../../tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.AuthorFieldRule">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AuthorFieldRule</span><span class="p">(</span><span class="n">BaseRule</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rule: Check for Author field with email in file header</span>
+<span class="sd">    </span>
+<span class="sd">    This is typically a WARNING rather than ERROR</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rule_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;[ND_AUTHOR_MISS]&quot;</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;File header should contain &#39;Author:&#39; field with email&quot;</span>
+    
+<div class="viewcode-block" id="AuthorFieldRule.default_severity">
+<a class="viewcode-back" href="../../../../tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.AuthorFieldRule.default_severity">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">default_severity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RuleSeverity</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">RuleSeverity</span><span class="o">.</span><span class="n">WARNING</span></div>
+
+    
+<div class="viewcode-block" id="AuthorFieldRule.check">
+<a class="viewcode-back" href="../../../../tb_lint.rules.naturaldocs.html#tb_lint.rules.naturaldocs.file_header.AuthorFieldRule.check">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_content</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">RuleViolation</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for Author field with email&quot;&quot;&quot;</span>
+        <span class="n">violations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">file_content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">header_lines</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[:</span><span class="mi">30</span><span class="p">]</span>
+        <span class="n">header_text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">header_lines</span><span class="p">)</span>
+        
+        <span class="n">email_domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;email_domain&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># Only check if email domain is configured</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">email_domain</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">violations</span>
+        
+        <span class="c1"># Check for Author with email</span>
+        <span class="n">email_regex</span> <span class="o">=</span> <span class="sa">rf</span><span class="s1">&#39;(?://|/\*|\*)\s*Author\s*:.*</span><span class="si">{</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">email_domain</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">email_regex</span><span class="p">,</span> <span class="n">header_text</span><span class="p">):</span>
+            <span class="n">violations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_violation</span><span class="p">(</span>
+                <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+                <span class="n">line</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Missing &#39;Author:&#39; with </span><span class="si">{</span><span class="n">email_domain</span><span class="si">}</span><span class="s2"> email&quot;</span>
+            <span class="p">))</span>
+        
+        <span class="k">return</span> <span class="n">violations</span></div>
+</div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, BTA Design Services.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

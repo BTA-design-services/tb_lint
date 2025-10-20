@@ -232,10 +232,10 @@ Add configuration in your config JSON file (e.g., `lint_config_modular.json`):
 
 ```bash
 # Test on a single file
-python3 unified_linter.py --linter naturaldocs test/test_file.sv
+python3 tb_lint.py --linter naturaldocs test/test_file.sv
 
 # Test with your config
-python3 unified_linter.py -c my_config.json --linter naturaldocs -f files.txt
+python3 tb_lint.py -c my_config.json --linter naturaldocs -f files.txt
 ```
 
 ---
@@ -391,7 +391,7 @@ Add to your config JSON file:
 
 ### Step 5: Import in Main Script
 
-Update `unified_linter.py` to import your linter:
+Update `tb_lint.py` to import your linter:
 
 ```python
 # Add to imports section (around line 56)
@@ -402,10 +402,10 @@ from linters import NaturalDocsLinter, VeribleLinter, MyLinter
 
 ```bash
 # List linters (should show your new linter)
-python3 unified_linter.py --list-linters
+python3 tb_lint.py --list-linters
 
 # Run your linter
-python3 unified_linter.py --linter mylinter -f files.txt
+python3 tb_lint.py --linter mylinter -f files.txt
 ```
 
 ---
@@ -523,7 +523,7 @@ test/edge_case.sv
 
 Run:
 ```bash
-python3 unified_linter.py --linter mylinter -f test/my_tests.txt
+python3 tb_lint.py --linter mylinter -f test/my_tests.txt
 ```
 
 ---
@@ -681,7 +681,7 @@ This linter wraps an external tool:
 - [ ] Used `@register_linter` decorator
 - [ ] Implemented all required methods
 - [ ] Added to `linters/__init__.py`
-- [ ] Imported in `unified_linter.py`
+- [ ] Imported in `tb_lint.py`
 - [ ] Added configuration in JSON
 - [ ] Created rules for linter
 - [ ] Tested with `--list-linters`

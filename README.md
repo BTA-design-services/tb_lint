@@ -105,7 +105,7 @@ This index provides quick navigation to all documentation for the modular lintin
 
 | File | Purpose |
 |------|---------|
-| `unified_linter.py` | Main orchestrator - shows command lines, TB_LINT summary |
+| `tb_lint.py` | Main orchestrator - shows command lines, TB_LINT summary |
 | `run_all_tests.sh` | **One-line script** to run all .sv files in test/ |
 | `example/example_custom_rule.py` | Example custom rule implementation |
 | `example/example_custom_linter.py` | Example custom linter implementation |
@@ -284,8 +284,8 @@ See `rules/naturaldocs/*.py` for complete implementations:
 
 ### Use the System
 - [ ] Read [QUICKSTART_MODULAR.md](QUICKSTART_MODULAR.md)
-- [ ] Run `python3 unified_linter.py --list-linters`
-- [ ] Run `python3 unified_linter.py -f files.txt`
+- [ ] Run `python3 tb_lint.py --list-linters`
+- [ ] Run `python3 tb_lint.py -f files.txt`
 - [ ] Review results
 
 ### Add a Rule

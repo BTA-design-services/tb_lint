@@ -1,0 +1,427 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tb_lint.core.config_manager &mdash; tb_lint 3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=110ea713"></script>
+      <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            tb_lint
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">tb_lint</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">tb_lint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../tb_lint.html">tb_lint</a></li>
+      <li class="breadcrumb-item active">tb_lint.core.config_manager</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for tb_lint.core.config_manager</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Configuration management for linters</span>
+
+<span class="sd">Company: Copyright (c) 2025  BTA Design Services  </span>
+<span class="sd">         Licensed under the MIT License.</span>
+
+<span class="sd">Description: Handles loading and managing hierarchical configuration for linters and rules.</span>
+<span class="sd">             Supports linking individual linter configurations from a root configuration.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+
+<div class="viewcode-block" id="ConfigManager">
+<a class="viewcode-back" href="../../../tb_lint.core.html#tb_lint.core.config_manager.ConfigManager">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ConfigManager</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manages hierarchical configuration loading and access</span>
+<span class="sd">    </span>
+<span class="sd">    Supports:</span>
+<span class="sd">    - Root configuration with linter enable/disable flags</span>
+<span class="sd">    - Linked individual linter configuration files</span>
+<span class="sd">    - JSON configuration files</span>
+<span class="sd">    - Default configurations</span>
+<span class="sd">    - Per-linter configurations</span>
+<span class="sd">    - Per-rule configurations</span>
+<span class="sd">    </span>
+<span class="sd">    Hierarchical Structure:</span>
+<span class="sd">        root_config.json:</span>
+<span class="sd">        {</span>
+<span class="sd">            &quot;linters&quot;: {</span>
+<span class="sd">                &quot;naturaldocs&quot;: {</span>
+<span class="sd">                    &quot;enabled&quot;: true,</span>
+<span class="sd">                    &quot;config_file&quot;: &quot;configs/naturaldocs.json&quot;</span>
+<span class="sd">                },</span>
+<span class="sd">                &quot;verible&quot;: {</span>
+<span class="sd">                    &quot;enabled&quot;: false,</span>
+<span class="sd">                    &quot;config_file&quot;: &quot;configs/verible.json&quot;</span>
+<span class="sd">                }</span>
+<span class="sd">            }</span>
+<span class="sd">        }</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+<div class="viewcode-block" id="ConfigManager.__init__">
+<a class="viewcode-back" href="../../../tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize configuration manager with hierarchical support</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            config_file: Path to root configuration file (JSON)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_file</span> <span class="o">=</span> <span class="n">config_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="k">if</span> <span class="n">config_file</span> <span class="k">else</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loaded_configs</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Cache for loaded linked configs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_config</span><span class="p">()</span></div>
+
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load_config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load hierarchical configuration from file or use defaults</span>
+<span class="sd">        </span>
+<span class="sd">        Supports loading a root config that links to individual linter configs.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Configuration dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Try to load from specified file</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_file</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_file</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                    <span class="c1"># Process hierarchical structure if present</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_hierarchical_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Could not load config from </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">config_file</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Try to find default config in configs directory</span>
+        <span class="n">script_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+        <span class="n">default_config</span> <span class="o">=</span> <span class="n">script_dir</span> <span class="o">/</span> <span class="s1">&#39;configs&#39;</span> <span class="o">/</span> <span class="s1">&#39;lint_config.json&#39;</span>
+        
+        <span class="k">if</span> <span class="n">default_config</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">default_config</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_hierarchical_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">):</span>
+                <span class="k">pass</span>
+        
+        <span class="c1"># Return minimal default configuration</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_default_config</span><span class="p">()</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_process_hierarchical_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Process hierarchical configuration structure</span>
+<span class="sd">        </span>
+<span class="sd">        This method checks if linters have linked config files and merges them.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            config: Root configuration dictionary</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Processed configuration with linked configs merged</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;linters&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">config</span>
+        
+        <span class="n">linters</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;linters&quot;</span><span class="p">]</span>
+        
+        <span class="k">for</span> <span class="n">linter_name</span><span class="p">,</span> <span class="n">linter_config</span> <span class="ow">in</span> <span class="n">linters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># Check if this linter has a linked config file</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">linter_config</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;config_file&quot;</span> <span class="ow">in</span> <span class="n">linter_config</span><span class="p">:</span>
+                <span class="n">linked_config_path</span> <span class="o">=</span> <span class="n">linter_config</span><span class="p">[</span><span class="s2">&quot;config_file&quot;</span><span class="p">]</span>
+                
+                <span class="c1"># Resolve relative path from config directory</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">linked_config_path</span><span class="p">):</span>
+                    <span class="n">linked_config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_dir</span><span class="p">,</span> <span class="n">linked_config_path</span><span class="p">)</span>
+                
+                <span class="c1"># Load linked configuration</span>
+                <span class="n">linked_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_linked_config</span><span class="p">(</span><span class="n">linked_config_path</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="n">linked_config</span><span class="p">:</span>
+                    <span class="c1"># Merge linked config into linter config</span>
+                    <span class="c1"># Root config settings take precedence (especially &#39;enabled&#39;)</span>
+                    <span class="n">enabled</span> <span class="o">=</span> <span class="n">linter_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;enabled&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                    <span class="n">merged_config</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">linked_config</span><span class="p">,</span> <span class="o">**</span><span class="n">linter_config</span><span class="p">}</span>
+                    <span class="n">merged_config</span><span class="p">[</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">enabled</span>
+                    
+                    <span class="c1"># Remove config_file from final config to avoid confusion</span>
+                    <span class="k">if</span> <span class="s2">&quot;config_file&quot;</span> <span class="ow">in</span> <span class="n">merged_config</span><span class="p">:</span>
+                        <span class="n">merged_config</span><span class="p">[</span><span class="s2">&quot;_source_config&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;config_file&quot;</span><span class="p">)</span>
+                    
+                    <span class="n">config</span><span class="p">[</span><span class="s2">&quot;linters&quot;</span><span class="p">][</span><span class="n">linter_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_config</span>
+        
+        <span class="k">return</span> <span class="n">config</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load_linked_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load a linked configuration file</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            config_path: Path to linked configuration file</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Configuration dictionary or None if loading fails</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check cache first</span>
+        <span class="k">if</span> <span class="n">config_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">loaded_configs</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">loaded_configs</span><span class="p">[</span><span class="n">config_path</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">config_path</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Linked config file not found: </span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">loaded_configs</span><span class="p">[</span><span class="n">config_path</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span>
+                <span class="k">return</span> <span class="n">config</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Could not load linked config from </span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_default_config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get default configuration structure</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Default configuration dictionary with empty strings for project info</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;project&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;company&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;linters&quot;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">&quot;global&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;strict_mode&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;use_color&quot;</span><span class="p">:</span> <span class="kc">False</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    
+<div class="viewcode-block" id="ConfigManager.get_linter_config">
+<a class="viewcode-back" href="../../../tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.get_linter_config">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_linter_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">linter_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get configuration for a specific linter</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            linter_name: Name of the linter</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Configuration dictionary for the linter (merged from linked configs if present)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;linters&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">linter_name</span><span class="p">,</span> <span class="p">{})</span></div>
+
+    
+<div class="viewcode-block" id="ConfigManager.is_linter_enabled">
+<a class="viewcode-back" href="../../../tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.is_linter_enabled">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_linter_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">linter_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if a linter is enabled in the configuration</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            linter_name: Name of the linter</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True if linter is enabled (default: True)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">linter_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_linter_config</span><span class="p">(</span><span class="n">linter_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">linter_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;enabled&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="ConfigManager.get_rule_config">
+<a class="viewcode-back" href="../../../tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.get_rule_config">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_rule_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">linter_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">rule_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get configuration for a specific rule</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            linter_name: Name of the linter</span>
+<span class="sd">            rule_id: ID of the rule</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Configuration dictionary for the rule</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">linter_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_linter_config</span><span class="p">(</span><span class="n">linter_name</span><span class="p">)</span>
+        <span class="n">rules_config</span> <span class="o">=</span> <span class="n">linter_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;rules&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="k">return</span> <span class="n">rules_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">rule_id</span><span class="p">,</span> <span class="p">{})</span></div>
+
+    
+<div class="viewcode-block" id="ConfigManager.is_rule_enabled">
+<a class="viewcode-back" href="../../../tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.is_rule_enabled">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_rule_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">linter_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">rule_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if a rule is enabled</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            linter_name: Name of the linter</span>
+<span class="sd">            rule_id: ID of the rule</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True if rule is enabled (default: True)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rule_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_rule_config</span><span class="p">(</span><span class="n">linter_name</span><span class="p">,</span> <span class="n">rule_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rule_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;enabled&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="ConfigManager.get_rule_severity">
+<a class="viewcode-back" href="../../../tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.get_rule_severity">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_rule_severity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">linter_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">rule_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get severity level for a rule</span>
+<span class="sd">        </span>
+<span class="sd">        Checks both &#39;rules&#39; and &#39;severity_levels&#39; sections for compatibility</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            linter_name: Name of the linter</span>
+<span class="sd">            rule_id: ID of the rule</span>
+<span class="sd">            default: Default severity if not configured</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Severity string (&quot;ERROR&quot;, &quot;WARNING&quot;, or &quot;INFO&quot;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">linter_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_linter_config</span><span class="p">(</span><span class="n">linter_name</span><span class="p">)</span>
+        
+        <span class="c1"># Check &#39;rules&#39; section first (new format)</span>
+        <span class="n">rule_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_rule_config</span><span class="p">(</span><span class="n">linter_name</span><span class="p">,</span> <span class="n">rule_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;severity&#39;</span> <span class="ow">in</span> <span class="n">rule_config</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">rule_config</span><span class="p">[</span><span class="s1">&#39;severity&#39;</span><span class="p">]</span>
+        
+        <span class="c1"># Check &#39;severity_levels&#39; section (NaturalDocs format)</span>
+        <span class="n">severity_levels</span> <span class="o">=</span> <span class="n">linter_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;severity_levels&#39;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="k">if</span> <span class="n">rule_id</span> <span class="ow">in</span> <span class="n">severity_levels</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">severity_levels</span><span class="p">[</span><span class="n">rule_id</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">default</span></div>
+
+    
+<div class="viewcode-block" id="ConfigManager.get_global_setting">
+<a class="viewcode-back" href="../../../tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.get_global_setting">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_global_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a global setting</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            key: Setting key</span>
+<span class="sd">            default: Default value if not found</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Setting value or default</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;global&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="ConfigManager.get_project_info">
+<a class="viewcode-back" href="../../../tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.get_project_info">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_project_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get project information</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Project info dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;project&quot;</span><span class="p">,</span> <span class="p">{})</span></div>
+
+    
+<div class="viewcode-block" id="ConfigManager.save_config">
+<a class="viewcode-back" href="../../../tb_lint.core.html#tb_lint.core.config_manager.ConfigManager.save_config">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save current configuration to file</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            output_path: Path to save configuration</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+</div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, BTA Design Services.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

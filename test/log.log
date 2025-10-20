@@ -3,7 +3,7 @@ TB_LINT - Unified Linter Framework
 ================================================================================
 
 Unified Linter Command:
-  python3 unified_linter.py -f test/sv_files.txt -o log.log
+  python3 tb_lint.py -f test/sv_files.txt -o log.log
 
 Configuration:
   configs/lint_config.json (default)

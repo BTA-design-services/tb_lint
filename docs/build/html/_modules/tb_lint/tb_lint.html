@@ -1,0 +1,665 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tb_lint.tb_lint &mdash; tb_lint 3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=110ea713"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            tb_lint
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">tb_lint</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tb_lint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../tb_lint.html">tb_lint</a></li>
+      <li class="breadcrumb-item active">tb_lint.tb_lint</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for tb_lint.tb_lint</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Unified Linter - Modular Linting Framework</span>
+
+<span class="sd">Company: Copyright (c) 2025  BTA Design Services  </span>
+<span class="sd">         Licensed under the MIT License.</span>
+
+<span class="sd">Description: Flexible, plugin-based linting system supporting multiple linters</span>
+
+<span class="sd">Usage:</span>
+<span class="sd">    python3 tb_lint.py [options] &lt;file.sv&gt; [&lt;file2.sv&gt; ...]</span>
+<span class="sd">    </span>
+<span class="sd">Options:</span>
+<span class="sd">    --help              Show this help message</span>
+<span class="sd">    --config FILE       Configuration file (JSON)</span>
+<span class="sd">    --linter NAME       Run specific linter (default: all)</span>
+<span class="sd">    --list-linters      List available linters</span>
+<span class="sd">    --strict            Treat warnings as errors</span>
+<span class="sd">    --json              Output in JSON format</span>
+<span class="sd">    --color             Enable colored output</span>
+<span class="sd">    -f FILE_LIST        File containing list of files (one per line)</span>
+<span class="sd">    -o OUTPUT_FILE      Output file for results</span>
+<span class="sd">    </span>
+<span class="sd">Examples:</span>
+<span class="sd">    # Run all linters</span>
+<span class="sd">    python3 tb_lint.py -f file_list.txt</span>
+<span class="sd">    </span>
+<span class="sd">    # Run only NaturalDocs linter</span>
+<span class="sd">    python3 tb_lint.py --linter naturaldocs file.sv</span>
+<span class="sd">    </span>
+<span class="sd">    # Use custom config</span>
+<span class="sd">    python3 tb_lint.py --config my_config.json -f files.txt</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="c1"># Add script directory to path</span>
+<span class="n">script_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">script_dir</span><span class="p">))</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">core</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ConfigManager</span><span class="p">,</span>
+    <span class="n">LinterRegistry</span><span class="p">,</span>
+    <span class="n">get_registry</span><span class="p">,</span>
+    <span class="n">BaseLinter</span><span class="p">,</span>
+    <span class="n">LinterResult</span><span class="p">,</span>
+    <span class="n">RuleSeverity</span>
+<span class="p">)</span>
+
+<span class="c1"># Import linters to register them</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">linters</span><span class="w"> </span><span class="kn">import</span> <span class="n">NaturalDocsLinter</span><span class="p">,</span> <span class="n">VeribleLinter</span>
+
+
+<div class="viewcode-block" id="Colors">
+<a class="viewcode-back" href="../../tb_lint.html#tb_lint.tb_lint.Colors">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Colors</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;ANSI color codes&quot;&quot;&quot;</span>
+    <span class="n">RED</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;31m&#39;</span>
+    <span class="n">GREEN</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;32m&#39;</span>
+    <span class="n">YELLOW</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[1;33m&#39;</span>
+    <span class="n">BLUE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;34m&#39;</span>
+    <span class="n">CYAN</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;36m&#39;</span>
+    <span class="n">BOLD</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[1m&#39;</span>
+    <span class="n">NC</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0m&#39;</span></div>
+
+
+
+<div class="viewcode-block" id="UnifiedLinter">
+<a class="viewcode-back" href="../../tb_lint.html#tb_lint.tb_lint.UnifiedLinter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">UnifiedLinter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Unified linting orchestrator</span>
+<span class="sd">    </span>
+<span class="sd">    Manages multiple linters and aggregates results</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+<div class="viewcode-block" id="UnifiedLinter.__init__">
+<a class="viewcode-back" href="../../tb_lint.html#tb_lint.tb_lint.UnifiedLinter.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">use_color</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="n">strict_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize unified linter</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            config_file: Path to configuration file</span>
+<span class="sd">            use_color: Enable colored output</span>
+<span class="sd">            strict_mode: Treat warnings as errors</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_manager</span> <span class="o">=</span> <span class="n">ConfigManager</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">registry</span> <span class="o">=</span> <span class="n">get_registry</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_color</span> <span class="o">=</span> <span class="n">use_color</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">isatty</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strict_mode</span> <span class="o">=</span> <span class="n">strict_mode</span></div>
+
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply color if enabled&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_color</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color</span><span class="si">}{</span><span class="n">text</span><span class="si">}{</span><span class="n">Colors</span><span class="o">.</span><span class="n">NC</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">text</span>
+    
+<div class="viewcode-block" id="UnifiedLinter.list_linters">
+<a class="viewcode-back" href="../../tb_lint.html#tb_lint.tb_lint.UnifiedLinter.list_linters">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_linters</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get list of available linters&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">list_linters</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="UnifiedLinter.run_linter">
+<a class="viewcode-back" href="../../tb_lint.html#tb_lint.tb_lint.UnifiedLinter.run_linter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_linter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">linter_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">LinterResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run a specific linter on files</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            linter_name: Name of linter to run</span>
+<span class="sd">            file_paths: List of files to check</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            LinterResult with violations found</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get linter configuration</span>
+        <span class="n">linter_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_manager</span><span class="o">.</span><span class="n">get_linter_config</span><span class="p">(</span><span class="n">linter_name</span><span class="p">)</span>
+        
+        <span class="c1"># Get linter instance</span>
+        <span class="n">linter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">get_linter</span><span class="p">(</span><span class="n">linter_name</span><span class="p">,</span> <span class="n">linter_config</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">linter</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ERROR: Linter &#39;</span><span class="si">{</span><span class="n">linter_name</span><span class="si">}</span><span class="s2">&#39; not found&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">LinterResult</span><span class="p">(</span><span class="n">linter_name</span><span class="o">=</span><span class="n">linter_name</span><span class="p">)</span>
+        
+        <span class="c1"># Run linter</span>
+        <span class="k">return</span> <span class="n">linter</span><span class="o">.</span><span class="n">lint_files</span><span class="p">(</span><span class="n">file_paths</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="UnifiedLinter.run_all_linters">
+<a class="viewcode-back" href="../../tb_lint.html#tb_lint.tb_lint.UnifiedLinter.run_all_linters">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_all_linters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run all enabled linters on files</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            file_paths: List of files to check</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary mapping linter names to results</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+        
+        <span class="k">for</span> <span class="n">linter_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_linters</span><span class="p">():</span>
+            <span class="c1"># Check if linter is enabled in configuration</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_manager</span><span class="o">.</span><span class="n">is_linter_enabled</span><span class="p">(</span><span class="n">linter_name</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span><span class="w"> </span><span class="sa">f</span><span class="s1">&#39;Skipping </span><span class="si">{</span><span class="n">linter_name</span><span class="si">}</span><span class="s1"> linter (disabled in config)&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+            
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">CYAN</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">CYAN</span><span class="p">,</span><span class="w"> </span><span class="sa">f</span><span class="s1">&#39;Running </span><span class="si">{</span><span class="n">linter_name</span><span class="si">}</span><span class="s1"> linter...&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">CYAN</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_linter</span><span class="p">(</span><span class="n">linter_name</span><span class="p">,</span> <span class="n">file_paths</span><span class="p">)</span>
+            <span class="n">results</span><span class="p">[</span><span class="n">linter_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
+        
+        <span class="k">return</span> <span class="n">results</span></div>
+
+    
+<div class="viewcode-block" id="UnifiedLinter.print_result">
+<a class="viewcode-back" href="../../tb_lint.html#tb_lint.tb_lint.UnifiedLinter.print_result">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="n">LinterResult</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print linter results in human-readable format</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            result: LinterResult to print</span>
+<span class="sd">            output_file: File handle for output (default: stdout)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">output_file</span> <span class="k">if</span> <span class="n">output_file</span> <span class="k">else</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+        
+        <span class="c1"># Print violations grouped by file</span>
+        <span class="n">violations_by_file</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">violation</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">violations</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">violation</span><span class="o">.</span><span class="n">file</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">violations_by_file</span><span class="p">:</span>
+                <span class="n">violations_by_file</span><span class="p">[</span><span class="n">violation</span><span class="o">.</span><span class="n">file</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">violations_by_file</span><span class="p">[</span><span class="n">violation</span><span class="o">.</span><span class="n">file</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">violation</span><span class="p">)</span>
+        
+        <span class="c1"># Print each file&#39;s violations</span>
+        <span class="k">for</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">violations</span> <span class="ow">in</span> <span class="n">violations_by_file</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">CYAN</span><span class="p">,</span><span class="w"> </span><span class="sa">f</span><span class="s1">&#39;File: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+            
+            <span class="k">for</span> <span class="n">violation</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">violations</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">line</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">violation</span><span class="o">.</span><span class="n">severity</span> <span class="o">==</span> <span class="n">RuleSeverity</span><span class="o">.</span><span class="n">ERROR</span><span class="p">:</span>
+                    <span class="n">color</span> <span class="o">=</span> <span class="n">Colors</span><span class="o">.</span><span class="n">RED</span>
+                    <span class="n">level</span> <span class="o">=</span> <span class="s2">&quot;ERROR&quot;</span>
+                <span class="k">elif</span> <span class="n">violation</span><span class="o">.</span><span class="n">severity</span> <span class="o">==</span> <span class="n">RuleSeverity</span><span class="o">.</span><span class="n">WARNING</span><span class="p">:</span>
+                    <span class="n">color</span> <span class="o">=</span> <span class="n">Colors</span><span class="o">.</span><span class="n">YELLOW</span>
+                    <span class="n">level</span> <span class="o">=</span> <span class="s2">&quot;WARNING&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">color</span> <span class="o">=</span> <span class="n">Colors</span><span class="o">.</span><span class="n">BLUE</span>
+                    <span class="n">level</span> <span class="o">=</span> <span class="s2">&quot;INFO&quot;</span>
+                
+                <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> 
+                    <span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">violation</span><span class="o">.</span><span class="n">line</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">violation</span><span class="o">.</span><span class="n">column</span><span class="si">}</span><span class="s2">: &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">violation</span><span class="o">.</span><span class="n">rule_id</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">violation</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span>
+                    <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        
+        <span class="c1"># Print file errors</span>
+        <span class="k">for</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">error_msg</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">RED</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✗ </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">error_msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        
+        <span class="c1"># Print summary</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">CYAN</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">CYAN</span><span class="p">,</span><span class="w"> </span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">linter_name</span><span class="si">}</span><span class="s1"> Summary&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">CYAN</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Files checked: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">files_checked</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">files_failed</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">RED</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Files failed: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">files_failed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">RED</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Errors: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error_count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Warnings: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">warning_count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">BLUE</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Info: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">info_count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="UnifiedLinter.print_json">
+<a class="viewcode-back" href="../../tb_lint.html#tb_lint.tb_lint.UnifiedLinter.print_json">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print results in JSON format</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            results: Dictionary of linter results</span>
+<span class="sd">            output_file: File handle for output (default: stdout)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">output_file</span> <span class="k">if</span> <span class="n">output_file</span> <span class="k">else</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+        
+        <span class="n">output</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;linters&#39;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s1">&#39;summary&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;total_files_checked&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;total_files_failed&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;total_errors&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;total_warnings&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;total_info&#39;</span><span class="p">:</span> <span class="mi">0</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        
+        <span class="k">for</span> <span class="n">linter_name</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">output</span><span class="p">[</span><span class="s1">&#39;linters&#39;</span><span class="p">][</span><span class="n">linter_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;files_checked&#39;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">files_checked</span><span class="p">,</span>
+                <span class="s1">&#39;files_failed&#39;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">files_failed</span><span class="p">,</span>
+                <span class="s1">&#39;errors&#39;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">error_count</span><span class="p">,</span>
+                <span class="s1">&#39;warnings&#39;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">warning_count</span><span class="p">,</span>
+                <span class="s1">&#39;info&#39;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">info_count</span><span class="p">,</span>
+                <span class="s1">&#39;violations&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">file</span><span class="p">,</span>
+                        <span class="s1">&#39;line&#39;</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">line</span><span class="p">,</span>
+                        <span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">column</span><span class="p">,</span>
+                        <span class="s1">&#39;severity&#39;</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">severity</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                        <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">message</span><span class="p">,</span>
+                        <span class="s1">&#39;rule_id&#39;</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">rule_id</span>
+                    <span class="p">}</span>
+                    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">violations</span>
+                <span class="p">],</span>
+                <span class="s1">&#39;errors&#39;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">errors</span>
+            <span class="p">}</span>
+            
+            <span class="n">output</span><span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">][</span><span class="s1">&#39;total_files_checked&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">result</span><span class="o">.</span><span class="n">files_checked</span>
+            <span class="n">output</span><span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">][</span><span class="s1">&#39;total_files_failed&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">result</span><span class="o">.</span><span class="n">files_failed</span>
+            <span class="n">output</span><span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">][</span><span class="s1">&#39;total_errors&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">result</span><span class="o">.</span><span class="n">error_count</span>
+            <span class="n">output</span><span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">][</span><span class="s1">&#39;total_warnings&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">result</span><span class="o">.</span><span class="n">warning_count</span>
+            <span class="n">output</span><span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">][</span><span class="s1">&#39;total_info&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">result</span><span class="o">.</span><span class="n">info_count</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="UnifiedLinter.print_command_info">
+<a class="viewcode-back" href="../../tb_lint.html#tb_lint.tb_lint.UnifiedLinter.print_command_info">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_command_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">files_to_check</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print command line information for tb_lint and each enabled linter</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            args: Command line arguments</span>
+<span class="sd">            files_to_check: List of files to check</span>
+<span class="sd">            output_file: File handle for output (default: stdout)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">output_file</span> <span class="k">if</span> <span class="n">output_file</span> <span class="k">else</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+        
+        <span class="c1"># Print header</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">CYAN</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">CYAN</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;TB_LINT - Unified Linter Framework&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">CYAN</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        
+        <span class="c1"># Print unified linter command</span>
+        <span class="n">cmd_parts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;python3 tb_lint.py&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">:</span>
+            <span class="n">cmd_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--config </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">linter</span><span class="p">:</span>
+            <span class="n">cmd_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--linter </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">linter</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">strict</span><span class="p">:</span>
+            <span class="n">cmd_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;--strict&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">json</span><span class="p">:</span>
+            <span class="n">cmd_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;--json&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">color</span><span class="p">:</span>
+            <span class="n">cmd_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;--color&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">file_list</span><span class="p">:</span>
+            <span class="n">cmd_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;-f </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">file_list</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">:</span>
+            <span class="n">cmd_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;-o </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
+            <span class="n">cmd_parts</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">files</span><span class="p">)</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">BOLD</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Unified Linter Command:&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmd_parts</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        
+        <span class="c1"># Print config file</span>
+        <span class="n">config_display</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_manager</span><span class="o">.</span><span class="n">config_file</span> <span class="ow">or</span> <span class="s1">&#39;configs/lint_config.json (default)&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">BOLD</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Configuration:&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">config_display</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        
+        <span class="c1"># Print enabled linters and their equivalent commands</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">BOLD</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Enabled Linters:&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">linter_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_linters</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_manager</span><span class="o">.</span><span class="n">is_linter_enabled</span><span class="p">(</span><span class="n">linter_name</span><span class="p">):</span>
+                <span class="n">linter_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_manager</span><span class="o">.</span><span class="n">get_linter_config</span><span class="p">(</span><span class="n">linter_name</span><span class="p">)</span>
+                <span class="n">linter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">get_linter</span><span class="p">(</span><span class="n">linter_name</span><span class="p">,</span> <span class="n">linter_config</span><span class="p">)</span>
+                
+                <span class="c1"># Generate linter-specific command</span>
+                <span class="k">if</span> <span class="n">linter_name</span> <span class="o">==</span> <span class="s2">&quot;verible&quot;</span><span class="p">:</span>
+                    <span class="n">verible_bin</span> <span class="o">=</span> <span class="n">linter</span><span class="o">.</span><span class="n">verible_bin</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">linter</span><span class="p">,</span> <span class="s1">&#39;verible_bin&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;verible-verilog-lint&#39;</span>
+                    <span class="n">cmd</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">verible_bin</span><span class="si">}</span><span class="s2">&quot;</span>
+                    
+                    <span class="c1"># Add config file if present</span>
+                    <span class="n">config_file_path</span> <span class="o">=</span> <span class="n">linter_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;config_file&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">config_file_path</span><span class="p">:</span>
+                        <span class="n">cmd</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; [config: </span><span class="si">{</span><span class="n">config_file_path</span><span class="si">}</span><span class="s2">]&quot;</span>
+                    
+                    <span class="c1"># Add file list</span>
+                    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">file_list</span><span class="p">:</span>
+                        <span class="n">cmd</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; $(cat </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">file_list</span><span class="si">}</span><span class="s2">)&quot;</span>
+                    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">files_to_check</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">:</span>
+                        <span class="n">cmd</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">files_to_check</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">cmd</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">files_to_check</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> ... (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">files_to_check</span><span class="p">)</span><span class="si">}</span><span class="s2"> files)&quot;</span>
+                    
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  • </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">GREEN</span><span class="p">,</span><span class="w"> </span><span class="n">linter_name</span><span class="p">)</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">cmd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+                    
+                <span class="k">elif</span> <span class="n">linter_name</span> <span class="o">==</span> <span class="s2">&quot;naturaldocs&quot;</span><span class="p">:</span>
+                    <span class="n">verible_bin</span> <span class="o">=</span> <span class="n">linter</span><span class="o">.</span><span class="n">verible_bin</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">linter</span><span class="p">,</span> <span class="s1">&#39;verible_bin&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;verible-verilog-syntax&#39;</span>
+                    <span class="n">cmd</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">verible_bin</span><span class="si">}</span><span class="s2"> --export_json&quot;</span>
+                    
+                    <span class="c1"># Add config file if present</span>
+                    <span class="n">config_file_path</span> <span class="o">=</span> <span class="n">linter_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;config_file&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">config_file_path</span><span class="p">:</span>
+                        <span class="n">cmd</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; [config: </span><span class="si">{</span><span class="n">config_file_path</span><span class="si">}</span><span class="s2">]&quot;</span>
+                    
+                    <span class="c1"># Add file list</span>
+                    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">file_list</span><span class="p">:</span>
+                        <span class="n">cmd</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; $(cat </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">file_list</span><span class="si">}</span><span class="s2">)&quot;</span>
+                    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">files_to_check</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">:</span>
+                        <span class="n">cmd</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">files_to_check</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">cmd</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">files_to_check</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> ... (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">files_to_check</span><span class="p">)</span><span class="si">}</span><span class="s2"> files)&quot;</span>
+                    
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  • </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">GREEN</span><span class="p">,</span><span class="w"> </span><span class="n">linter_name</span><span class="p">)</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">cmd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Note: AST-based linting using Verible parser&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  • </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">GREEN</span><span class="p">,</span><span class="w"> </span><span class="n">linter_name</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">CYAN</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="UnifiedLinter.print_final_summary">
+<a class="viewcode-back" href="../../tb_lint.html#tb_lint.tb_lint.UnifiedLinter.print_final_summary">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_final_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print final TB_LINT summary</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            results: Dictionary of linter results</span>
+<span class="sd">            output_file: File handle for output (default: stdout)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">output_file</span> <span class="k">if</span> <span class="n">output_file</span> <span class="k">else</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+        
+        <span class="c1"># Calculate total errors</span>
+        <span class="n">total_errors</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">error_count</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        
+        <span class="c1"># Print separator line</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        
+        <span class="c1"># Determine pass/fail status</span>
+        <span class="k">if</span> <span class="n">total_errors</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">status_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">RED</span><span class="p">,</span> <span class="s2">&quot;TB_LINT : FAILED&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">status_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">GREEN</span><span class="p">,</span> <span class="s2">&quot;TB_LINT : PASSED&quot;</span><span class="p">)</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="n">status_msg</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="UnifiedLinter.get_exit_code">
+<a class="viewcode-back" href="../../tb_lint.html#tb_lint.tb_lint.UnifiedLinter.get_exit_code">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_exit_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determine exit code based on results</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            results: Dictionary of linter results</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            0 if all passed, 1 if violations found</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">total_errors</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">error_count</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">total_warnings</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">warning_count</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        
+        <span class="k">if</span> <span class="n">total_errors</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">total_warnings</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">strict_mode</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../../tb_lint.html#tb_lint.tb_lint.main">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Main entry point&quot;&quot;&quot;</span>
+    <span class="c1"># Parse config file argument first to get project info for epilog</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+    <span class="n">config_file</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">arg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;--config&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">):</span>
+            <span class="n">config_file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="k">break</span>
+    
+    <span class="c1"># Load config to get project info for epilog</span>
+    <span class="n">temp_config</span> <span class="o">=</span> <span class="n">ConfigManager</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+    <span class="n">project_info</span> <span class="o">=</span> <span class="n">temp_config</span><span class="o">.</span><span class="n">get_project_info</span><span class="p">()</span>
+    <span class="n">company</span> <span class="o">=</span> <span class="n">project_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;company&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">project_name</span> <span class="o">=</span> <span class="n">project_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">epilog_text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">company</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">project_name</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">company</span> <span class="ow">and</span> <span class="n">project_name</span> <span class="k">else</span> <span class="kc">None</span>
+    
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Unified Linting Framework&#39;</span><span class="p">,</span>
+        <span class="n">epilog</span><span class="o">=</span><span class="n">epilog_text</span><span class="p">,</span>
+        <span class="n">formatter_class</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">RawDescriptionHelpFormatter</span> <span class="k">if</span> <span class="n">epilog_text</span> <span class="k">else</span> <span class="n">argparse</span><span class="o">.</span><span class="n">HelpFormatter</span>
+    <span class="p">)</span>
+    
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;files&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Files to check&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;--file-list&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;File containing list of files&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;--output&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Output file (default: stdout)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;--config&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Configuration file (JSON)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--linter&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Run specific linter (default: all)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--list-linters&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;List available linters&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--strict&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Treat warnings as errors&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--json&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Output in JSON format&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--color&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Enable colored output&#39;</span><span class="p">)</span>
+    
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    
+    <span class="c1"># Create unified linter</span>
+    <span class="n">unified</span> <span class="o">=</span> <span class="n">UnifiedLinter</span><span class="p">(</span>
+        <span class="n">config_file</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">,</span>
+        <span class="n">use_color</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">color</span><span class="p">,</span>
+        <span class="n">strict_mode</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">strict</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># List linters if requested</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">list_linters</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available linters:&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">linter_name</span> <span class="ow">in</span> <span class="n">unified</span><span class="o">.</span><span class="n">list_linters</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">linter_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    
+    <span class="c1"># Collect files to check</span>
+    <span class="n">files_to_check</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
+        <span class="c1"># Check if any positional arguments look like file lists (.txt files)</span>
+        <span class="c1"># and provide helpful error message</span>
+        <span class="k">for</span> <span class="n">file_arg</span> <span class="ow">in</span> <span class="n">args</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">file_arg</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.txt&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_arg</span><span class="p">):</span>
+                <span class="c1"># Check if it&#39;s a file list by looking at first line</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_arg</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">first_line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">first_line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">first_line</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.sv&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">first_line</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.svh&#39;</span><span class="p">):</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ERROR: &#39;</span><span class="si">{</span><span class="n">file_arg</span><span class="si">}</span><span class="s2">&#39; appears to be a file list.&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Use: python3 tb_lint.py -f </span><span class="si">{</span><span class="n">file_arg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Not: python3 tb_lint.py </span><span class="si">{</span><span class="n">file_arg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="mi">1</span>
+        <span class="n">files_to_check</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">files</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">file_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">file_list</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ERROR: File list &#39;</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">file_list</span><span class="si">}</span><span class="s2">&#39; not found&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">file_list</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+                    <span class="n">files_to_check</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">files_to_check</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">ERROR: No files specified&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Tip: Use -f flag for file lists:&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  python3 tb_lint.py -f file_list.txt&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    
+    <span class="c1"># Print command info (not for JSON output)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">json</span><span class="p">:</span>
+        <span class="n">unified</span><span class="o">.</span><span class="n">print_command_info</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">files_to_check</span><span class="p">)</span>
+    
+    <span class="c1"># Run linter(s)</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">linter</span><span class="p">:</span>
+        <span class="c1"># Run specific linter</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">unified</span><span class="o">.</span><span class="n">run_linter</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">linter</span><span class="p">,</span> <span class="n">files_to_check</span><span class="p">)</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{</span><span class="n">args</span><span class="o">.</span><span class="n">linter</span><span class="p">:</span> <span class="n">result</span><span class="p">}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Run all linters</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">unified</span><span class="o">.</span><span class="n">run_all_linters</span><span class="p">(</span><span class="n">files_to_check</span><span class="p">)</span>
+    
+    <span class="c1"># Output results</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out_f</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">json</span><span class="p">:</span>
+                    <span class="n">unified</span><span class="o">.</span><span class="n">print_json</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">out_f</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Print command info to file</span>
+                    <span class="n">unified</span><span class="o">.</span><span class="n">print_command_info</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">files_to_check</span><span class="p">,</span> <span class="n">out_f</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">linter_name</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                        <span class="n">unified</span><span class="o">.</span><span class="n">print_result</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">out_f</span><span class="p">)</span>
+                    <span class="c1"># Print final summary</span>
+                    <span class="n">unified</span><span class="o">.</span><span class="n">print_final_summary</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">out_f</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">json</span><span class="p">:</span>
+                <span class="n">unified</span><span class="o">.</span><span class="n">print_json</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">linter_name</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">unified</span><span class="o">.</span><span class="n">print_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+                <span class="c1"># Print final summary</span>
+                <span class="n">unified</span><span class="o">.</span><span class="n">print_final_summary</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ERROR writing output: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    
+    <span class="c1"># Return appropriate exit code</span>
+    <span class="k">return</span> <span class="n">unified</span><span class="o">.</span><span class="n">get_exit_code</span><span class="p">(</span><span class="n">results</span><span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, BTA Design Services.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

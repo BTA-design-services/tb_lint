@@ -8,7 +8,7 @@ Company: Copyright (c) 2025  BTA Design Services
 Description: Flexible, plugin-based linting system supporting multiple linters
 
 Usage:
-    python3 unified_linter.py [options] <file.sv> [<file2.sv> ...]
+    python3 tb_lint.py [options] <file.sv> [<file2.sv> ...]
     
 Options:
     --help              Show this help message
@@ -23,13 +23,13 @@ Options:
     
 Examples:
     # Run all linters
-    python3 unified_linter.py -f file_list.txt
+    python3 tb_lint.py -f file_list.txt
     
     # Run only NaturalDocs linter
-    python3 unified_linter.py --linter naturaldocs file.sv
+    python3 tb_lint.py --linter naturaldocs file.sv
     
     # Use custom config
-    python3 unified_linter.py --config my_config.json -f files.txt
+    python3 tb_lint.py --config my_config.json -f files.txt
 """
 
 import sys
@@ -254,7 +254,7 @@ class UnifiedLinter:
     
     def print_command_info(self, args, files_to_check: List[str], output_file=None):
         """
-        Print command line information for unified_linter and each enabled linter
+        Print command line information for tb_lint and each enabled linter
         
         Args:
             args: Command line arguments
@@ -269,7 +269,7 @@ class UnifiedLinter:
         print(f"{self._color(Colors.CYAN, '='*80)}", file=out)
         
         # Print unified linter command
-        cmd_parts = ["python3 unified_linter.py"]
+        cmd_parts = ["python3 tb_lint.py"]
         if args.config:
             cmd_parts.append(f"--config {args.config}")
         if args.linter:
@@ -351,7 +351,7 @@ class UnifiedLinter:
     
     def print_final_summary(self, results: dict, output_file=None):
         """
-        Print final TB_LINT summary
+        Print final TB_LINT summary with individual linter status
         
         Args:
             results: Dictionary of linter results
@@ -366,7 +366,31 @@ class UnifiedLinter:
         print("", file=out)
         print("=" * 80, file=out)
         
-        # Determine pass/fail status
+        # Print individual linter status
+        print(self._color(Colors.BOLD, "Linters Status:"), file=out)
+        print("-" * 80, file=out)
+        
+        for linter_name, result in results.items():
+            # Determine linter pass/fail status
+            if result.error_count > 0:
+                status = self._color(Colors.RED, "FAILED")
+                status_symbol = "✗"
+            else:
+                status = self._color(Colors.GREEN, "PASSED")
+                status_symbol = "✓"
+            
+            # Format linter name with padding
+            linter_display = f"{linter_name:20}"
+            
+            # Print linter status with error/warning counts
+            print(f"  {status_symbol} {linter_display} : {status}  "
+                  f"(Errors: {result.error_count}, "
+                  f"Warnings: {result.warning_count})", 
+                  file=out)
+        
+        print("=" * 80, file=out)
+        
+        # Determine overall pass/fail status
         if total_errors > 0:
             status_msg = self._color(Colors.RED, "TB_LINT : FAILED")
         else:
@@ -457,8 +481,8 @@ def main():
                     first_line = f.readline().strip()
                     if first_line.startswith('#') or first_line.endswith('.sv') or first_line.endswith('.svh'):
                         print(f"ERROR: '{file_arg}' appears to be a file list.", file=sys.stderr)
-                        print(f"Use: python3 unified_linter.py -f {file_arg}", file=sys.stderr)
-                        print(f"Not: python3 unified_linter.py {file_arg}", file=sys.stderr)
+                        print(f"Use: python3 tb_lint.py -f {file_arg}", file=sys.stderr)
+                        print(f"Not: python3 tb_lint.py {file_arg}", file=sys.stderr)
                         return 1
         files_to_check.extend(args.files)
     
@@ -477,7 +501,7 @@ def main():
         parser.print_help()
         print("\nERROR: No files specified", file=sys.stderr)
         print("\nTip: Use -f flag for file lists:", file=sys.stderr)
-        print("  python3 unified_linter.py -f file_list.txt", file=sys.stderr)
+        print("  python3 tb_lint.py -f file_list.txt", file=sys.stderr)
         return 1
     
     # Print command info (not for JSON output)

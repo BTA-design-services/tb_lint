@@ -167,7 +167,7 @@ class StyleCheckLinter(BaseLinter):
     
     To use this linter:
     1. This file is already in the example/ directory
-    2. To activate it, import it in unified_linter.py:
+    2. To activate it, import it in tb_lint.py:
        from example.example_custom_linter import StyleCheckLinter
     3. Create a config file: configs/stylecheck.json
     4. Add to lint_config_hierarchical.json:
@@ -303,7 +303,7 @@ if __name__ == '__main__':
     print("\n" + "="*80)
     print("To integrate this linter into the framework:")
     print("="*80)
-    print("1. Import in unified_linter.py:")
+    print("1. Import in tb_lint.py:")
     print("   from example.example_custom_linter import StyleCheckLinter")
     print("")
     print("2. Create config file: configs/stylecheck.json")
@@ -326,6 +326,6 @@ if __name__ == '__main__':
     print("     }")
     print("   }")
     print("")
-    print("4. Run: python3 unified_linter.py --linter stylecheck -f files.txt")
+    print("4. Run: python3 tb_lint.py --linter stylecheck -f files.txt")
     print("="*80)
 

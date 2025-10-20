@@ -8,7 +8,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                      unified_linter.py                          │
+│                      tb_lint.py                          │
 │                  (Main Orchestrator)                            │
 │  - Command-line interface                                       │
 │  - Result aggregation                                           │
@@ -134,7 +134,7 @@
 ```
 1. USER INPUT
    ↓
-   python3 unified_linter.py -f files.txt --linter naturaldocs
+   python3 tb_lint.py -f files.txt --linter naturaldocs
 
 2. CONFIGURATION LOADING
    ↓
@@ -231,7 +231,7 @@ linter = registry.get_linter("mylinter", config)
                │
                ▼
 ┌─────────────────────────────────────────┐
-│  unified_linter.py                      │
+│  tb_lint.py                      │
 │  linter = registry.get_linter('mylinter')│
 └─────────────────────────────────────────┘
 ```
@@ -242,7 +242,7 @@ linter = registry.get_linter("mylinter", config)
 
 ```
 ┌──────────────────────────────────────────────────────┐
-│  User runs: unified_linter.py -f files.txt          │
+│  User runs: tb_lint.py -f files.txt          │
 └──────────────────┬───────────────────────────────────┘
                    ▼
          ┌─────────────────────┐
@@ -389,7 +389,7 @@ lint_config_modular.json
 6. Done! Auto-discovered
 
 ### Add New Output Format
-1. Modify `unified_linter.py`
+1. Modify `tb_lint.py`
 2. Add new method (e.g., `print_xml()`)
 3. Add command-line option
 4. Format `LinterResult` data
