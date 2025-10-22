@@ -25,7 +25,11 @@ Validates [NaturalDocs-style](https://en.wikipedia.org/wiki/Natural_Docs) commen
 Uses [Verible’s](https://chipsalliance.github.io/verible/) AST to enforce SystemVerilog syntax and style (indentation, line length, naming, formatting) with precise rule-based reporting
 
 ---
+## HTML Documentation
 
+ Sphinx generated [API](https://rawcdn.githack.com/BTA-design-services/tb_lint/f7452c61a516c02c9419176af9547578246cec1e/docs/build/html/index.html)
+
+---
 ##  Documentation Overview
 
 This index provides quick navigation to all documentation for the modular linting framework.
