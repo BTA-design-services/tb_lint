@@ -1,3 +1,5 @@
+![](https://github.com/BTA-design-services/tb_lint/blob/main/docs/BTA%20Design%20Verification%20Open-Source%20Initiative%20logo%20small.png)
+
 # TB_LINT - Modular Linting Framework
 
 **BTA Design Services | DV Environment**  
