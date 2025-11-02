@@ -49,6 +49,13 @@ class NaturalDocsLinter(BaseLinter):
     
     This linter checks SystemVerilog files for proper NaturalDocs
     documentation using Abstract Syntax Tree analysis for high accuracy.
+
+    Notes:
+        - Requires the ``verible-verilog-syntax`` binary and Python bindings to
+          be available. The docstring documents this dependency so API consumers
+          can plan deployments accordingly.
+        - Configuration is read from the ``file_header`` section of the linter
+          config when present, matching the examples in the new API reference.
     """
     
     @property

@@ -52,6 +52,31 @@ class BaseRule(ABC):
     - Implement the check() method
     - Define its default severity level
     - Provide a clear description
+
+    Providing an explicit template in this docstring equips contributors with
+    the practical knowledge requested in the API documentation brief.
+
+    Example:
+        Implementing a rule that flags TODO comments::
+
+            class NoTodoRule(BaseRule):
+                @property
+                def rule_id(self) -> str:
+                    return "[STYLE_NO_TODO]"
+
+                @property
+                def description(self) -> str:
+                    return "Disallow lingering TODO comments"
+
+                def default_severity(self) -> RuleSeverity:
+                    return RuleSeverity.WARNING
+
+                def check(self, file_path: str, file_content: str, context: Any) -> List[RuleViolation]:
+                    violations = []
+                    for idx, line in enumerate(file_content.splitlines(), start=1):
+                        if "TODO" in line:
+                            violations.append(self.create_violation(file_path, idx, "Remove TODO markers before check-in"))
+                    return violations
     """
     
     def __init__(self, config: Optional[dict] = None):

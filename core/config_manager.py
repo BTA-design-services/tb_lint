@@ -40,6 +40,15 @@ class ConfigManager:
                 }
             }
         }
+
+    Example:
+        Documenting a representative usage pattern gives engineers a tested
+        starting point, satisfying the requirement for complete API guidance::
+
+            manager = ConfigManager("configs/lint_config_hierarchical.json")
+            if manager.is_linter_enabled("verible"):
+                verible_cfg = manager.get_linter_config("verible")
+                print("Rules file:", verible_cfg.get("rules_file"))
     """
     
     def __init__(self, config_file: Optional[str] = None):

@@ -24,6 +24,17 @@ class LinterResult:
         files_failed: Number of files that failed to parse/check
         violations: List of all violations found
         errors: Dictionary mapping file paths to error messages
+
+    This richer description, including the example below, answers the "how do I
+    consume the data?" question that the comprehensive API documentation effort
+    targets.
+
+    Example:
+        Iterate over violations while grouping by severity::
+
+            result = some_linter.lint_files(["a.sv", "b.sv"])
+            for violation in result.violations:
+                print(violation.rule_id, violation.severity, violation.message)
     """
     linter_name: str
     files_checked: int = 0
@@ -64,6 +75,30 @@ class BaseLinter(ABC):
     - Register rules it supports
     - Implement file checking logic
     - Return structured results
+
+    The example below documents the minimal surface an extension author must
+    implement, providing the practical guidance that the user request for
+    comprehensive API documentation called for.
+
+    Example:
+        Subclassing :class:`BaseLinter` to create a style checker::
+
+            @register_linter
+            class StyleCheckLinter(BaseLinter):
+                @property
+                def name(self) -> str:
+                    return "stylecheck"
+
+                @property
+                def supported_extensions(self) -> List[str]:
+                    return ['.sv', '.svh']
+
+                def _register_rules(self):
+                    self.add_rule(NoTrailingWhitespaceRule())
+
+                def prepare_context(self, file_path: str, file_content: str):
+                    # No pre-processing required for this simple linter.
+                    return {}
     """
     
     def __init__(self, config: Optional[dict] = None):

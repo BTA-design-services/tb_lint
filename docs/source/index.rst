@@ -5,6 +5,7 @@ Welcome to tb_lint's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   api_reference
    modules
 
 Indices and tables

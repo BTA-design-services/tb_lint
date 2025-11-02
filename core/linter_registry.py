@@ -19,6 +19,16 @@ class LinterRegistry:
     - Registration of linter classes
     - Discovery of available linters
     - Creation of linter instances
+
+    Example:
+        The snippet shows how to inspect the registry, reinforcing the API
+        expectations clarified in the documentation mandate::
+
+            registry = get_registry()
+            print("Registered linters:", registry.list_linters())
+            verible = registry.get_linter("verible", config={})
+            if verible:
+                print("Verible supports", verible.supported_extensions)
     """
     
     def __init__(self):

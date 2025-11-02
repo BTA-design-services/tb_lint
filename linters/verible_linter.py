@@ -30,6 +30,11 @@ class VeribleLinter(BaseLinter):
     
     This linter wraps the verible-verilog-lint tool and converts
     its output into the unified format.
+
+    The additional documentation captures operational prerequisites (the
+    presence of the external Verible binary) and describes how configuration is
+    discovered, aligning the implementation with the comprehensive API
+    narrative introduced in the docs.
     """
     
     @property

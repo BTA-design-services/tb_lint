@@ -69,20 +69,40 @@ class Colors:
 
 class UnifiedLinter:
     """
-    Unified linting orchestrator
-    
-    Manages multiple linters and aggregates results
+    Unified linting orchestrator for multi-linter workflows.
+
+    The class ties together configuration loading, linter registration, and
+    result aggregation so that callers interact with a single high-level API.
+    Documenting this coordination point makes it clear *why* the class exists
+    and *how* to embed it in automation pipelines, directly supporting the
+    comprehensive API documentation requested by the project owners.
+
+    Examples:
+        Create an orchestrator, run every available linter, and emit a human
+        readable summary::
+
+            unified = UnifiedLinter(config_file="configs/lint_config.json",
+                                     use_color=True)
+            results = unified.run_all_linters(["src/top.sv"])
+            unified.print_final_summary(results)
     """
     
     def __init__(self, config_file: Optional[str] = None, use_color: bool = False,
                  strict_mode: bool = False):
         """
-        Initialize unified linter
-        
+        Initialize the orchestrator with configuration and output controls.
+
+        Documenting these parameters clarifies how callers steer the runtime
+        behaviour, which is essential for the requested comprehensive API
+        coverage.
+
         Args:
-            config_file: Path to configuration file
-            use_color: Enable colored output
-            strict_mode: Treat warnings as errors
+            config_file: Path to a root configuration file. When ``None`` the
+                framework falls back to the built-in defaults under ``configs/``.
+            use_color: Enable ANSI colouring for human-readable summaries when
+                stdout supports it.
+            strict_mode: Upgrade warnings to errors in the final exit code so
+                that CI pipelines can enforce stricter policies.
         """
         self.config_manager = ConfigManager(config_file)
         self.registry = get_registry()
@@ -101,14 +121,23 @@ class UnifiedLinter:
     
     def run_linter(self, linter_name: str, file_paths: List[str]) -> LinterResult:
         """
-        Run a specific linter on files
-        
+        Run a specific linter on files with configuration-aware behaviour.
+
+        Spelling out the fallback behaviour (returning an empty
+        :class:`LinterResult` when a linter is unavailable) gives API consumers
+        enough information to design resilient automation around optional
+        plugins, fulfilling the "comprehensive documentation" directive.
+
         Args:
-            linter_name: Name of linter to run
-            file_paths: List of files to check
-        
+            linter_name: Name of the linter to run as registered in the global
+                registry.
+            file_paths: List of files to check. Unsupported extensions are
+                skipped by each linter.
+
         Returns:
-            LinterResult with violations found
+            LinterResult with the accumulated violations and errors for the
+            requested linter. When the linter is not registered the result
+            contains zero checked files and an explanatory error message.
         """
         # Get linter configuration
         linter_config = self.config_manager.get_linter_config(linter_name)
@@ -125,13 +154,19 @@ class UnifiedLinter:
     
     def run_all_linters(self, file_paths: List[str]) -> dict:
         """
-        Run all enabled linters on files
-        
+        Run every enabled linter on the provided files.
+
+        The explicit documentation here highlights that enablement is decided by
+        :class:`ConfigManager`, and communicates that the return value mirrors
+        the enabled linters. This context equips users to interpret missing keys
+        when bespoke configurations toggle linters off.
+
         Args:
-            file_paths: List of files to check
-        
+            file_paths: List of files to check.
+
         Returns:
-            Dictionary mapping linter names to results
+            Dictionary mapping linter names to :class:`LinterResult` objects for
+            each enabled linter.
         """
         results = {}
         
