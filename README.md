@@ -2,8 +2,12 @@
 
 # TB_LINT - Modular Linting Framework
 
-**BTA Design Services | DV Environment**  
+**[BTA Design Services](https://www.linkedin.com/company/bta-design-services-inc-/about/) | DV Environment**  
 **Version:** 3.0-hierarchical | **Date:** October 16, 2025
+---
+## About BTA  Design Services
+
+[BTA Design Services Inc](https://www.linkedin.com/company/bta-design-services-inc-/about/) specializes in ASIC and FPGA design and verification services, custom IP development, embedded software, and DevOps capabilities creation.  We are able to do turnkey design, augment or enhance existing design teams, or deliver complete and verified IP blocks to spec.  There are no limits to how we engage with our customers, and we are proud of our ability to adapt.
 
 ---
 ## Acknowledgements
