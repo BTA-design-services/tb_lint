@@ -2,14 +2,14 @@
 """
 Unified Linter - Modular Linting Framework
 
-Company: Copyright (c) 2025  BTA Design Services  
+Company: Copyright (c) 2025  BTA Design Services
          Licensed under the MIT License.
 
 Description: Flexible, plugin-based linting system supporting multiple linters
 
 Usage:
     python3 tb_lint.py [options] <file.sv> [<file2.sv> ...]
-    
+
 Options:
     --help              Show this help message
     --config FILE       Configuration file (JSON)
@@ -20,14 +20,14 @@ Options:
     --color             Enable colored output
     -f FILE_LIST        File containing list of files (one per line)
     -o OUTPUT_FILE      Output file for results
-    
+
 Examples:
     # Run all linters
     python3 tb_lint.py -f file_list.txt
-    
+
     # Run only NaturalDocs linter
     python3 tb_lint.py --linter naturaldocs file.sv
-    
+
     # Use custom config
     python3 tb_lint.py --config my_config.json -f files.txt
 """
@@ -70,15 +70,15 @@ class Colors:
 class UnifiedLinter:
     """
     Unified linting orchestrator
-    
+
     Manages multiple linters and aggregates results
     """
-    
+
     def __init__(self, config_file: Optional[str] = None, use_color: bool = False,
                  strict_mode: bool = False):
         """
         Initialize unified linter
-        
+
         Args:
             config_file: Path to configuration file
             use_color: Enable colored output
@@ -88,89 +88,95 @@ class UnifiedLinter:
         self.registry = get_registry()
         self.use_color = use_color and sys.stdout.isatty()
         self.strict_mode = strict_mode
-    
+
     def _color(self, color: str, text: str) -> str:
         """Apply color if enabled"""
         if self.use_color:
             return f"{color}{text}{Colors.NC}"
         return text
-    
+
     def list_linters(self) -> List[str]:
         """Get list of available linters"""
         return self.registry.list_linters()
-    
+
     def run_linter(self, linter_name: str, file_paths: List[str]) -> LinterResult:
         """
         Run a specific linter on files
-        
+
         Args:
             linter_name: Name of linter to run
             file_paths: List of files to check
-        
+
         Returns:
             LinterResult with violations found
         """
         # Get linter configuration
         linter_config = self.config_manager.get_linter_config(linter_name)
-        
+
         # Get linter instance
         linter = self.registry.get_linter(linter_name, linter_config)
-        
+
         if not linter:
             print(f"ERROR: Linter '{linter_name}' not found", file=sys.stderr)
             return LinterResult(linter_name=linter_name)
-        
+
         # Run linter
+        if hasattr(linter, 'check_availability'):
+            is_available, error_msg = linter.check_availability()
+            if not is_available:
+                print(error_msg, file=sys.stderr)
+                sys.exit(1)
+
         return linter.lint_files(file_paths)
-    
+
     def run_all_linters(self, file_paths: List[str]) -> dict:
         """
         Run all enabled linters on files
-        
+
         Args:
             file_paths: List of files to check
-        
+
         Returns:
             Dictionary mapping linter names to results
         """
         results = {}
-        
+
         for linter_name in self.list_linters():
             # Check if linter is enabled in configuration
             if not self.config_manager.is_linter_enabled(linter_name):
                 print(f"\n{self._color(Colors.YELLOW, f'Skipping {linter_name} linter (disabled in config)')}")
                 continue
-            
+
             print(f"\n{self._color(Colors.CYAN, '='*80)}")
             print(f"{self._color(Colors.CYAN, f'Running {linter_name} linter...')}")
             print(f"{self._color(Colors.CYAN, '='*80)}\n")
-            
+
             result = self.run_linter(linter_name, file_paths)
             results[linter_name] = result
-        
+
         return results
-    
+
     def print_result(self, result: LinterResult, output_file=None):
         """
         Print linter results in human-readable format
-        
+
         Args:
             result: LinterResult to print
             output_file: File handle for output (default: stdout)
         """
         out = output_file if output_file else sys.stdout
-        
+
         # Print violations grouped by file
         violations_by_file = {}
         for violation in result.violations:
             if violation.file not in violations_by_file:
                 violations_by_file[violation.file] = []
             violations_by_file[violation.file].append(violation)
-        
+
         # Print each file's violations
         for file_path, violations in violations_by_file.items():
             print(f"\n{self._color(Colors.CYAN, f'File: {file_path}')}", file=out)
-            
+
             for violation in sorted(violations, key=lambda v: v.line):
                 if violation.severity == RuleSeverity.ERROR:
                     color = Colors.RED
@@ -181,16 +187,16 @@ class UnifiedLinter:
                 else:
                     color = Colors.BLUE
                     level = "INFO"
-                
-                print(self._color(color, 
+
+                print(self._color(color,
                     f"  {file_path}:{violation.line}:{violation.column}: "
                     f"{violation.rule_id} {level}: {violation.message}"),
                     file=out)
-        
+
         # Print file errors
         for file_path, error_msg in result.errors.items():
-            print(self._color(Colors.RED, f"\n✗ {file_path}: {error_msg}"), file=out)
-        
+            print(self._color(Colors.RED, f"\nX {file_path}: {error_msg}"), file=out)
+
         # Print summary
         print(f"\n{self._color(Colors.CYAN, '='*80)}", file=out)
         print(f"{self._color(Colors.CYAN, f'{result.linter_name} Summary')}", file=out)
@@ -201,17 +207,17 @@ class UnifiedLinter:
         print(self._color(Colors.RED, f"Errors: {result.error_count}"), file=out)
         print(self._color(Colors.YELLOW, f"Warnings: {result.warning_count}"), file=out)
         print(self._color(Colors.BLUE, f"Info: {result.info_count}"), file=out)
-    
+
     def print_json(self, results: dict, output_file=None):
         """
         Print results in JSON format
-        
+
         Args:
             results: Dictionary of linter results
             output_file: File handle for output (default: stdout)
         """
         out = output_file if output_file else sys.stdout
-        
+
         output = {
             'linters': {},
             'summary': {
@@ -222,7 +228,7 @@ class UnifiedLinter:
                 'total_info': 0
             }
         }
-        
+
         for linter_name, result in results.items():
             output['linters'][linter_name] = {
                 'files_checked': result.files_checked,
@@ -243,31 +249,31 @@ class UnifiedLinter:
                 ],
                 'errors': result.errors
             }
-            
+
             output['summary']['total_files_checked'] += result.files_checked
             output['summary']['total_files_failed'] += result.files_failed
             output['summary']['total_errors'] += result.error_count
             output['summary']['total_warnings'] += result.warning_count
             output['summary']['total_info'] += result.info_count
-        
+
         print(json.dumps(output, indent=2), file=out)
-    
+
     def print_command_info(self, args, files_to_check: List[str], output_file=None):
         """
         Print command line information for tb_lint and each enabled linter
-        
+
         Args:
             args: Command line arguments
             files_to_check: List of files to check
             output_file: File handle for output (default: stdout)
         """
         out = output_file if output_file else sys.stdout
-        
+
         # Print header
         print(f"{self._color(Colors.CYAN, '='*80)}", file=out)
         print(f"{self._color(Colors.CYAN, 'TB_LINT - Unified Linter Framework')}", file=out)
         print(f"{self._color(Colors.CYAN, '='*80)}", file=out)
-        
+
         # Print unified linter command
         cmd_parts = ["python3 tb_lint.py"]
         if args.config:
@@ -286,32 +292,32 @@ class UnifiedLinter:
             cmd_parts.append(f"-o {args.output}")
         if args.files:
             cmd_parts.extend(args.files)
-        
+
         print(f"\n{self._color(Colors.BOLD, 'Unified Linter Command:')}", file=out)
         print(f"  {' '.join(cmd_parts)}", file=out)
-        
+
         # Print config file
         config_display = self.config_manager.config_file or 'configs/lint_config.json (default)'
         print(f"\n{self._color(Colors.BOLD, 'Configuration:')}", file=out)
         print(f"  {config_display}", file=out)
-        
+
         # Print enabled linters and their equivalent commands
         print(f"\n{self._color(Colors.BOLD, 'Enabled Linters:')}", file=out)
         for linter_name in self.list_linters():
             if self.config_manager.is_linter_enabled(linter_name):
                 linter_config = self.config_manager.get_linter_config(linter_name)
                 linter = self.registry.get_linter(linter_name, linter_config)
-                
+
                 # Generate linter-specific command
                 if linter_name == "verible":
                     verible_bin = linter.verible_bin if hasattr(linter, 'verible_bin') else 'verible-verilog-lint'
                     cmd = f"{verible_bin}"
-                    
+
                     # Add config file if present
                     config_file_path = linter_config.get('config_file', '')
                     if config_file_path:
                         cmd += f" [config: {config_file_path}]"
-                    
+
                     # Add file list
                     if args.file_list:
                         cmd += f" $(cat {args.file_list})"
@@ -319,19 +325,19 @@ class UnifiedLinter:
                         cmd += f" {' '.join(files_to_check)}"
                     else:
                         cmd += f" {files_to_check[0]} ... ({len(files_to_check)} files)"
-                    
-                    print(f"  • {self._color(Colors.GREEN, linter_name)}:", file=out)
+
+                    print(f"  - {self._color(Colors.GREEN, linter_name)}:", file=out)
                     print(f"    {cmd}", file=out)
-                    
+
                 elif linter_name == "naturaldocs":
                     verible_bin = linter.verible_bin if hasattr(linter, 'verible_bin') else 'verible-verilog-syntax'
                     cmd = f"{verible_bin} --export_json"
-                    
+
                     # Add config file if present
                     config_file_path = linter_config.get('config_file', '')
                     if config_file_path:
                         cmd += f" [config: {config_file_path}]"
-                    
+
                     # Add file list
                     if args.file_list:
                         cmd += f" $(cat {args.file_list})"
@@ -339,79 +345,81 @@ class UnifiedLinter:
                         cmd += f" {' '.join(files_to_check)}"
                     else:
                         cmd += f" {files_to_check[0]} ... ({len(files_to_check)} files)"
-                    
-                    print(f"  • {self._color(Colors.GREEN, linter_name)}:", file=out)
+
+                    print(f"  - {self._color(Colors.GREEN, linter_name)}:", file=out)
                     print(f"    {cmd}", file=out)
                     print(f"    Note: AST-based linting using Verible parser", file=out)
                 else:
-                    print(f"  • {self._color(Colors.GREEN, linter_name)}", file=out)
-        
+                    print(f"  - {self._color(Colors.GREEN, linter_name)}", file=out)
+
         print(f"{self._color(Colors.CYAN, '='*80)}", file=out)
         print("", file=out)
-    
+
     def print_final_summary(self, results: dict, output_file=None):
         """
         Print final TB_LINT summary with individual linter status
-        
+
         Args:
             results: Dictionary of linter results
             output_file: File handle for output (default: stdout)
         """
         out = output_file if output_file else sys.stdout
-        
+
         # Calculate total errors
         total_errors = sum(r.error_count for r in results.values())
-        
+
         # Print separator line
         print("", file=out)
         print("=" * 80, file=out)
-        
+
         # Print individual linter status
         print(self._color(Colors.BOLD, "Linters Status:"), file=out)
         print("-" * 80, file=out)
-        
+
         for linter_name, result in results.items():
             # Determine linter pass/fail status
             if result.error_count > 0:
                 status = self._color(Colors.RED, "FAILED")
-                status_symbol = "✗"
+                # Use ASCII 'X' instead of unicode cross mark to avoid encoding errors on Windows
+                status_symbol = "X"
             else:
                 status = self._color(Colors.GREEN, "PASSED")
-                status_symbol = "✓"
-            
+                # Use ASCII 'V' instead of unicode check mark to avoid encoding errors on Windows
+                status_symbol = "V"
+
             # Format linter name with padding
             linter_display = f"{linter_name:20}"
-            
+
             # Print linter status with error/warning counts
             print(f"  {status_symbol} {linter_display} : {status}  "
                   f"(Errors: {result.error_count}, "
-                  f"Warnings: {result.warning_count})", 
+                  f"Warnings: {result.warning_count})",
                   file=out)
-        
+
         print("=" * 80, file=out)
-        
+
         # Determine overall pass/fail status
         if total_errors > 0:
             status_msg = self._color(Colors.RED, "TB_LINT : FAILED")
         else:
             status_msg = self._color(Colors.GREEN, "TB_LINT : PASSED")
-        
+
         print(status_msg, file=out)
         print("=" * 80, file=out)
-    
+
     def get_exit_code(self, results: dict) -> int:
         """
         Determine exit code based on results
-        
+
         Args:
             results: Dictionary of linter results
-        
+
         Returns:
             0 if all passed, 1 if violations found
         """
         total_errors = sum(r.error_count for r in results.values())
         total_warnings = sum(r.warning_count for r in results.values())
-        
+
         if total_errors > 0:
             return 1
         elif total_warnings > 0 and self.strict_mode:
@@ -428,20 +436,20 @@ def main():
         if arg in ['-c', '--config'] and i + 1 < len(sys.argv):
             config_file = sys.argv[i + 1]
             break
-    
+
     # Load config to get project info for epilog
     temp_config = ConfigManager(config_file)
     project_info = temp_config.get_project_info()
     company = project_info.get('company', '')
     project_name = project_info.get('name', '')
     epilog_text = f"{company} - {project_name}" if company and project_name else None
-    
+
     parser = argparse.ArgumentParser(
         description='Unified Linting Framework',
         epilog=epilog_text,
         formatter_class=argparse.RawDescriptionHelpFormatter if epilog_text else argparse.HelpFormatter
     )
-    
+
     parser.add_argument('files', nargs='*', help='Files to check')
     parser.add_argument('-f', '--file-list', help='File containing list of files')
     parser.add_argument('-o', '--output', help='Output file (default: stdout)')
@@ -451,26 +459,26 @@ def main():
     parser.add_argument('--strict', action='store_true', help='Treat warnings as errors')
     parser.add_argument('--json', action='store_true', help='Output in JSON format')
     parser.add_argument('--color', action='store_true', help='Enable colored output')
-    
+
     args = parser.parse_args()
-    
+
     # Create unified linter
     unified = UnifiedLinter(
         config_file=args.config,
         use_color=args.color,
         strict_mode=args.strict
     )
-    
+
     # List linters if requested
     if args.list_linters:
         print("Available linters:")
         for linter_name in unified.list_linters():
             print(f"  - {linter_name}")
         return 0
-    
+
     # Collect files to check
     files_to_check = []
-    
+
     if args.files:
         # Check if any positional arguments look like file lists (.txt files)
         # and provide helpful error message
@@ -485,29 +493,29 @@ def main():
                         print(f"Not: python3 tb_lint.py {file_arg}", file=sys.stderr)
                         return 1
         files_to_check.extend(args.files)
-    
+
     if args.file_list:
         if not os.path.exists(args.file_list):
             print(f"ERROR: File list '{args.file_list}' not found", file=sys.stderr)
             return 1
-        
+
         with open(args.file_list, 'r') as f:
             for line in f:
                 line = line.strip()
                 if line and not line.startswith('#'):
                     files_to_check.append(line)
-    
+
     if not files_to_check:
         parser.print_help()
         print("\nERROR: No files specified", file=sys.stderr)
         print("\nTip: Use -f flag for file lists:", file=sys.stderr)
         print("  python3 tb_lint.py -f file_list.txt", file=sys.stderr)
         return 1
-    
+
     # Print command info (not for JSON output)
     if not args.json:
         unified.print_command_info(args, files_to_check)
-    
+
     # Run linter(s)
     if args.linter:
         # Run specific linter
@@ -516,7 +524,7 @@ def main():
     else:
         # Run all linters
         results = unified.run_all_linters(files_to_check)
-    
+
     # Output results
     try:
         if args.output:
@@ -541,7 +549,7 @@ def main():
     except Exception as e:
         print(f"ERROR writing output: {e}", file=sys.stderr)
         return 1
-    
+
     # Return appropriate exit code
     return unified.get_exit_code(results)
 
