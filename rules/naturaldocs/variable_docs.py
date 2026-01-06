@@ -63,7 +63,7 @@ class VariableDocsRule(BaseRule):
                 # This is a member variable
                 var_name = self._extract_variable_name(node)
                 start_line = self._get_line_number(context.file_bytes, node.start)
-                comments = self._extract_preceding_comments(file_content, start_line - 1)
+                comments = self._extract_preceding_comments(file_content, start_line, context=context)
                 
                 # Check for Variable: keyword (optional, so only INFO level)
                 if not self._has_naturaldocs_keyword(comments, ['Variable']):
@@ -98,26 +98,5 @@ class VariableDocsRule(BaseRule):
             return 1
         return file_bytes[:byte_offset].count(b'\n') + 1
     
-    def _extract_preceding_comments(self, file_content: str, start_line: int, max_lines: int = 50) -> list:
-        """Extract comments before a declaration"""
-        lines = file_content.split('\n')
-        comments = []
-        for i in range(start_line - 1, max(0, start_line - max_lines) - 1, -1):
-            line = lines[i].strip()
-            if line.startswith('//') or line.startswith('/*') or line.startswith('*'):
-                comments.insert(0, line)
-            elif not line:
-                continue
-            else:
-                break
-        return comments
     
-    def _has_naturaldocs_keyword(self, comments: list, keywords: list) -> bool:
-        """Check if comments contain any of the NaturalDocs keywords"""
-        import re
-        comment_text = ' '.join(comments)
-        for keyword in keywords:
-            if re.search(r'(?://|/\*|\*)\s*' + re.escape(keyword) + r'\s*:', comment_text, re.IGNORECASE):
-                return True
-        return False
 

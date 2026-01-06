@@ -40,6 +40,7 @@ class ASTContext:
     """Context object containing AST and file data"""
     tree: any
     file_bytes: bytes
+    rawtokens: Optional[List] = None  # Verible rawtokens including comment tokens
 
 
 @register_linter
@@ -154,9 +155,12 @@ class NaturalDocsLinter(BaseLinter):
             with open(file_path, 'rb') as f:
                 file_bytes = f.read()
 
-            # Parse with Verible
+            # Parse with Verible - request both tree and rawtokens (rawtokens include comments)
             parser = verible_verilog_syntax.VeribleVerilogSyntax(executable=self.verible_bin)
-            tree_data = parser.parse_files([file_path], options={'gen_tree': True})
+            tree_data = parser.parse_files([file_path], options={
+                'gen_tree': True,
+                'gen_rawtokens': True  # Request rawtokens to get comment tokens
+            })
 
             if file_path not in tree_data:
                 return None
@@ -166,7 +170,10 @@ class NaturalDocsLinter(BaseLinter):
             if not hasattr(file_data, 'tree') or file_data.tree is None:
                 return None
 
-            return ASTContext(tree=file_data.tree, file_bytes=file_bytes)
+            # Get rawtokens if available (includes comment tokens)
+            rawtokens = getattr(file_data, 'rawtokens', None)
+
+            return ASTContext(tree=file_data.tree, file_bytes=file_bytes, rawtokens=rawtokens)
 
         except Exception as e:
             # Don't print error - just return None and let the linter skip the file
