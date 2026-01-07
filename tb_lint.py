@@ -75,7 +75,7 @@ class UnifiedLinter:
     """
 
     def __init__(self, config_file: Optional[str] = None, use_color: bool = False,
-                 strict_mode: bool = False):
+                 strict_mode: bool = False, json_mode: bool = False):
         """
         Initialize unified linter
 
@@ -83,11 +83,13 @@ class UnifiedLinter:
             config_file: Path to configuration file
             use_color: Enable colored output
             strict_mode: Treat warnings as errors
+            json_mode: If True, suppress all non-JSON output
         """
         self.config_manager = ConfigManager(config_file)
         self.registry = get_registry()
         self.use_color = use_color and sys.stdout.isatty()
         self.strict_mode = strict_mode
+        self.json_mode = json_mode
 
     def _color(self, color: str, text: str) -> str:
         """Apply color if enabled"""
@@ -144,12 +146,16 @@ class UnifiedLinter:
         for linter_name in self.list_linters():
             # Check if linter is enabled in configuration
             if not self.config_manager.is_linter_enabled(linter_name):
-                print(f"\n{self._color(Colors.YELLOW, f'Skipping {linter_name} linter (disabled in config)')}")
+                # Suppress non-JSON output when in JSON mode
+                if not self.json_mode:
+                    print(f"\n{self._color(Colors.YELLOW, f'Skipping {linter_name} linter (disabled in config)')}")
                 continue
 
-            print(f"\n{self._color(Colors.CYAN, '='*80)}")
-            print(f"{self._color(Colors.CYAN, f'Running {linter_name} linter...')}")
-            print(f"{self._color(Colors.CYAN, '='*80)}\n")
+            # Suppress separator lines and progress messages when in JSON mode
+            if not self.json_mode:
+                print(f"\n{self._color(Colors.CYAN, '='*80)}")
+                print(f"{self._color(Colors.CYAN, f'Running {linter_name} linter...')}")
+                print(f"{self._color(Colors.CYAN, '='*80)}\n")
 
             result = self.run_linter(linter_name, file_paths)
             results[linter_name] = result
@@ -466,7 +472,8 @@ def main():
     unified = UnifiedLinter(
         config_file=args.config,
         use_color=args.color,
-        strict_mode=args.strict
+        strict_mode=args.strict,
+        json_mode=args.json
     )
 
     # List linters if requested
