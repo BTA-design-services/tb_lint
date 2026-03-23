@@ -354,13 +354,7 @@ class BaseRule(ABC):
                 else:
                     continue
                 continue
-            
-            # Check for single-line comment (//)
-            if stripped.startswith('//'):
-                comments.insert(0, stripped)
-                collecting_block_comment = False
-                continue
-            
+
             # Check for end of block comment (*/)
             if '*/' in stripped:
                 end_idx = stripped.find('*/')
@@ -390,10 +384,17 @@ class BaseRule(ABC):
                     comments.insert(0, comment_part)
                     collecting_block_comment = False
                 continue
-            
-            # If we're collecting a block comment, include continuation lines
+
+            # Walking upward from */: lines inside the block are prose (including // in examples).
+            # Must run before the bare // check, or example code breaks association with Package:/Class: above.
             if collecting_block_comment:
                 comments.insert(0, stripped)
+                continue
+            
+            # Check for single-line comment (//)
+            if stripped.startswith('//'):
+                comments.insert(0, stripped)
+                collecting_block_comment = False
                 continue
             
             # If we get here, this is not a comment line
