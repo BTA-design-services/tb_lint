@@ -10,9 +10,77 @@ Description: Handles loading and managing hierarchical configuration for linters
 
 import json
 import os
+import sys
 from copy import deepcopy
-from typing import Dict, Optional, Any
+from typing import Any, Dict, Optional, TextIO
 from pathlib import Path
+
+# Environment variable: directory containing project tb_lint JSON configs (e.g. lint_config.json).
+ENV_TB_LINT_PROJECT_CONFIG = "TB_LINT_PROJECT_CONFIG"
+
+# Emit "TB_LINT_PROJECT_CONFIG is not set" at most once per process (ConfigManager may be constructed twice).
+_TB_LINT_PROJECT_CONFIG_WARNED = False
+
+
+def _tb_lint_config_warning_stream() -> TextIO:
+    """Use stderr when --json is present so stdout stays valid JSON; else stdout (visible in more IDEs)."""
+    try:
+        if "--json" in sys.argv:
+            return sys.stderr
+    except AttributeError:
+        pass
+    return sys.stdout
+
+
+def resolve_tb_lint_project_config_dir(*, emit_unset_warning: bool = True) -> Path:
+    """
+    Resolve the project config directory for tb_lint.
+
+    - If TB_LINT_PROJECT_CONFIG is set to an existing directory, use it (resolved).
+    - If unset/empty: default to <tb_lint_root>/configs and optionally warn (once per process).
+    - If set but not a directory: warn and fall back to <tb_lint_root>/configs.
+
+    Warnings go to stdout by default (flush=True) so they show in typical IDE output; with --json,
+    warnings use stderr so stdout remains parseable JSON.
+
+    Args:
+        emit_unset_warning: If False, skip the "env not set" message (internal/testing).
+    """
+    global _TB_LINT_PROJECT_CONFIG_WARNED
+    script_dir = Path(__file__).resolve().parent.parent
+    default_dir = (script_dir / "configs").resolve()
+    warn_stream = _tb_lint_config_warning_stream()
+
+    raw = os.environ.get(ENV_TB_LINT_PROJECT_CONFIG, "").strip()
+    if not raw:
+        if emit_unset_warning and not _TB_LINT_PROJECT_CONFIG_WARNED:
+            print(
+                f"tb_lint: Warning: {ENV_TB_LINT_PROJECT_CONFIG} is not set; using default "
+                f"project config directory {default_dir}",
+                file=warn_stream,
+                flush=True,
+            )
+            _TB_LINT_PROJECT_CONFIG_WARNED = True
+        return default_dir
+
+    candidate = Path(raw).expanduser()
+    try:
+        resolved = candidate.resolve()
+    except (OSError, RuntimeError):
+        resolved = candidate if candidate.is_absolute() else (Path.cwd() / candidate).resolve()
+
+    if not resolved.is_dir():
+        if not _TB_LINT_PROJECT_CONFIG_WARNED:
+            print(
+                f"tb_lint: Warning: {ENV_TB_LINT_PROJECT_CONFIG}={raw!r} is not a directory; "
+                f"using default {default_dir}",
+                file=warn_stream,
+                flush=True,
+            )
+            _TB_LINT_PROJECT_CONFIG_WARNED = True
+        return default_dir
+
+    return resolved
 
 
 class ConfigManager:
@@ -53,16 +121,14 @@ class ConfigManager:
         """
         self.config_file = config_file
         self.base_config_file = base_config_file
-        # If config_file is provided, use its directory
-        # Otherwise, use script's directory (where tb_lint.py is located)
+        # Project config dir: TB_LINT_PROJECT_CONFIG or <tb_lint>/configs (see resolve_tb_lint_project_config_dir).
+        # Always warn when TB_LINT_PROJECT_CONFIG is unset (visible on stdout unless --json).
+        self.project_config_dir = resolve_tb_lint_project_config_dir()
+        # Directory used to resolve relative paths in the loaded root config (linked linter JSON, etc.).
         if config_file:
             self.config_dir = Path(config_file).parent
         else:
-            # Use script directory as base for relative paths
-            # This ensures configs are found regardless of CWD
-            # Path(__file__) works cross-platform (Windows and Linux)
-            script_dir = Path(__file__).parent.parent  # Go up from core/ to tb_lint/
-            self.config_dir = script_dir
+            self.config_dir = self.project_config_dir
         self.loaded_configs = {}  # Cache for loaded linked configs
         self.config = self._load_config()
 
@@ -78,19 +144,32 @@ class ConfigManager:
         project_config = None
         project_config_dir = self.config_dir
 
-        # Try to load from specified file
-        if self.config_file and os.path.exists(self.config_file):
-            project_config = self._load_json_file(self.config_file, "config")
-            project_config_dir = Path(self.config_file).parent
+        # Try to load from explicit -c/--config path
+        if self.config_file:
+            if os.path.exists(self.config_file):
+                project_config = self._load_json_file(self.config_file, "config")
+                project_config_dir = Path(self.config_file).parent
+            else:
+                print(f"Warning: Config file not found: {self.config_file}", file=sys.stderr)
 
-        # Try to find default config in configs directory
+        # Implicit root: $TB_LINT_PROJECT_CONFIG/lint_config.json (default dir is tb_lint/configs)
+        if project_config is None:
+            candidate = self.project_config_dir / "lint_config.json"
+            if candidate.exists():
+                project_config = self._load_json_file(str(candidate), "project lint config")
+                project_config_dir = self.project_config_dir
+                if not self.config_file:
+                    self.config_dir = self.project_config_dir
+
+        # Bundled fallback if project dir has no lint_config.json
         if project_config is None:
             script_dir = Path(__file__).parent.parent
-            default_config = script_dir / 'configs' / 'lint_config.json'
-
-            if default_config.exists():
-                project_config = self._load_json_file(str(default_config), "default config")
-                project_config_dir = default_config.parent
+            bundled = script_dir / "configs" / "lint_config.json"
+            if bundled.exists():
+                project_config = self._load_json_file(str(bundled), "default config")
+                project_config_dir = bundled.parent
+                if not self.config_file:
+                    self.config_dir = bundled.parent
 
         # Return minimal default configuration
         if project_config is None:
@@ -397,6 +476,14 @@ class ConfigManager:
             Project info dictionary
         """
         return self.config.get("project", {})
+
+    def get_project_config_directory(self) -> Path:
+        """
+        Directory from TB_LINT_PROJECT_CONFIG (or default tb_lint/configs).
+
+        Used as the first place to look for lint_config.json when -c is omitted.
+        """
+        return self.project_config_dir
 
     def save_config(self, output_path: str):
         """

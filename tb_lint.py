@@ -22,6 +22,11 @@ Options:
     -f FILE_LIST        File containing list of files (one per line)
     -o OUTPUT_FILE      Output file for results
 
+Environment:
+    TB_LINT_PROJECT_CONFIG   Directory for project lint_config.json when --config is omitted.
+                             If unset, a warning is printed (stdout by default, stderr with --json)
+                             and defaults to <tb_lint>/configs.
+
 Examples:
     # Run all linters
     python3 tb_lint.py -f file_list.txt
@@ -42,7 +47,7 @@ import json
 import argparse
 import fnmatch
 from pathlib import Path
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 # Add script directory to path
 script_dir = Path(__file__).parent
@@ -114,24 +119,60 @@ class UnifiedLinter:
             return []
         return [str(p).strip() for p in patterns if str(p).strip()]
 
+    def match_exclude_pattern(self, file_path: str, exclude_patterns: List[str]) -> Optional[str]:
+        """
+        Return the first global.exclude_paths entry that matches file_path, else None.
+        """
+        if not exclude_patterns:
+            return None
+        normalized = os.path.normpath(file_path)
+        normalized_slash = normalized.replace("\\", "/")
+        for pattern in exclude_patterns:
+            p_norm = os.path.normpath(pattern)
+            p_slash = p_norm.replace("\\", "/")
+            if fnmatch.fnmatch(normalized_slash, p_slash) or fnmatch.fnmatch(
+                normalized_slash, f"*{p_slash}*"
+            ):
+                return pattern
+            if p_slash in normalized_slash:
+                return pattern
+        return None
+
     def should_exclude_file(self, file_path: str, exclude_patterns: List[str]) -> bool:
         """
         Check whether file should be excluded from linting.
 
         Supports exact/prefix path fragments and glob patterns.
         """
-        if not exclude_patterns:
-            return False
-        normalized = os.path.normpath(file_path)
-        normalized_slash = normalized.replace('\\', '/')
-        for pattern in exclude_patterns:
-            p_norm = os.path.normpath(pattern)
-            p_slash = p_norm.replace('\\', '/')
-            if fnmatch.fnmatch(normalized_slash, p_slash) or fnmatch.fnmatch(normalized_slash, f"*{p_slash}*"):
-                return True
-            if p_slash in normalized_slash:
-                return True
-        return False
+        return self.match_exclude_pattern(file_path, exclude_patterns) is not None
+
+    def print_exclude_report(
+        self,
+        exclude_patterns: List[str],
+        excluded_files: List[Dict[str, str]],
+        output_file=None,
+    ) -> None:
+        """
+        Human-readable summary of configured exclude_paths and files skipped (not linted).
+        """
+        out = output_file if output_file else sys.stdout
+        if not exclude_patterns and not excluded_files:
+            return
+        if exclude_patterns:
+            print(
+                f"\n{self._color(Colors.YELLOW, 'global.exclude_paths patterns:')}",
+                file=out,
+            )
+            for p in exclude_patterns:
+                print(f"  {p}", file=out)
+        if excluded_files:
+            print(
+                f"\n{self._color(Colors.YELLOW, 'Excluded from linting (not parsed):')}",
+                file=out,
+            )
+            for e in excluded_files:
+                print(f"  {e['path']}", file=out)
+                print(f"    matched pattern: {e['matched_pattern']}", file=out)
 
     def run_linter(self, linter_name: str, file_paths: List[str]) -> LinterResult:
         """
@@ -246,25 +287,34 @@ class UnifiedLinter:
         print(self._color(Colors.YELLOW, f"Warnings: {result.warning_count}"), file=out)
         print(self._color(Colors.BLUE, f"Info: {result.info_count}"), file=out)
 
-    def print_json(self, results: dict, output_file=None):
+    def print_json(
+        self,
+        results: dict,
+        output_file=None,
+        excluded: Optional[Dict[str, Any]] = None,
+    ):
         """
         Print results in JSON format
 
         Args:
             results: Dictionary of linter results
             output_file: File handle for output (default: stdout)
+            excluded: Optional {'patterns': [...], 'files': [{'path','matched_pattern'}, ...]}
         """
         out = output_file if output_file else sys.stdout
 
-        output = {
-            'linters': {},
-            'summary': {
-                'total_files_checked': 0,
-                'total_files_failed': 0,
-                'total_errors': 0,
-                'total_warnings': 0,
-                'total_info': 0
-            }
+        output: Dict[str, Any] = {
+            "excluded": excluded
+            if excluded is not None
+            else {"patterns": [], "files": []},
+            "linters": {},
+            "summary": {
+                "total_files_checked": 0,
+                "total_files_failed": 0,
+                "total_errors": 0,
+                "total_warnings": 0,
+                "total_info": 0,
+            },
         }
 
         for linter_name, result in results.items():
@@ -559,36 +609,62 @@ def main():
         print("  python3 tb_lint.py -f file_list.txt", file=sys.stderr)
         return 1
 
-    # Apply config-based excludes
+    # Apply config-based excludes (global.exclude_paths: path fragments / globs)
     exclude_patterns = unified.get_exclude_patterns()
+    excluded_files: List[Dict[str, str]] = []
     if exclude_patterns:
-        original_count = len(files_to_check)
-        files_to_check = [
-            file_path for file_path in files_to_check
-            if not unified.should_exclude_file(file_path, exclude_patterns)
-        ]
-        if not args.json and original_count != len(files_to_check):
-            removed = original_count - len(files_to_check)
-            print(f"Info: Skipped {removed} file(s) by exclude_paths config")
+        kept: List[str] = []
+        for file_path in files_to_check:
+            matched = unified.match_exclude_pattern(file_path, exclude_patterns)
+            if matched is not None:
+                excluded_files.append(
+                    {
+                        "path": os.path.abspath(file_path),
+                        "matched_pattern": matched,
+                    }
+                )
+            else:
+                kept.append(file_path)
+        files_to_check = kept
+
+    excluded_meta: Dict[str, Any] = {
+        "patterns": list(exclude_patterns),
+        "files": excluded_files,
+    }
+
     if not files_to_check:
         if args.json:
-            # Empty result is valid when all files are excluded.
-            print(json.dumps({
-                "linters": {},
-                "summary": {
-                    "total_files_checked": 0,
-                    "total_files_failed": 0,
-                    "total_errors": 0,
-                    "total_warnings": 0,
-                    "total_info": 0
-                }
-            }, indent=2))
+            print(
+                json.dumps(
+                    {
+                        "excluded": excluded_meta,
+                        "linters": {},
+                        "summary": {
+                            "total_files_checked": 0,
+                            "total_files_failed": 0,
+                            "total_errors": 0,
+                            "total_warnings": 0,
+                            "total_info": 0,
+                        },
+                    },
+                    indent=2,
+                )
+            )
         else:
+            if exclude_patterns:
+                unified.print_exclude_report(exclude_patterns, excluded_files)
             print("Info: All input files were excluded by config.")
         return 0
 
     # Print command info (not for JSON output)
     if not args.json:
+        if exclude_patterns:
+            unified.print_exclude_report(exclude_patterns, excluded_files)
+            if excluded_files:
+                print(
+                    f"Info: Skipped {len(excluded_files)} file(s) by global.exclude_paths "
+                    "(see list above)."
+                )
         unified.print_command_info(args, files_to_check)
 
     # Run linter(s)
@@ -605,8 +681,18 @@ def main():
         if args.output:
             with open(args.output, 'w') as out_f:
                 if args.json:
-                    unified.print_json(results, out_f)
+                    unified.print_json(results, out_f, excluded=excluded_meta)
                 else:
+                    if exclude_patterns:
+                        unified.print_exclude_report(
+                            exclude_patterns, excluded_files, out_f
+                        )
+                        if excluded_files:
+                            print(
+                                f"Info: Skipped {len(excluded_files)} file(s) by "
+                                f"global.exclude_paths (see list above).",
+                                file=out_f,
+                            )
                     # Print command info to file
                     unified.print_command_info(args, files_to_check, out_f)
                     for linter_name, result in results.items():
@@ -615,7 +701,7 @@ def main():
                     unified.print_final_summary(results, out_f)
         else:
             if args.json:
-                unified.print_json(results)
+                unified.print_json(results, excluded=excluded_meta)
             else:
                 for linter_name, result in results.items():
                     unified.print_result(result)

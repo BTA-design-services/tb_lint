@@ -23,6 +23,16 @@ This is a **modular, plugin-based linting framework** that provides a flexible a
 
 ---
 
+## Environment variables
+
+| Variable | Meaning |
+|----------|---------|
+| `TB_LINT_PROJECT_CONFIG` | Path to a **directory** of project JSON configs (e.g. `lint_config.json`). If **unset**, tb_lint prints a **warning** (defaults to **stdout**, **stderr** when **`--json`** so stdout stays valid JSON) and falls back to **`<tb_lint_install>/configs`**. If set but not a directory, a warning is printed and the same default is used. |
+
+When **`-c` / `--config`** is omitted, the root file **`$TB_LINT_PROJECT_CONFIG/lint_config.json`** is used if it exists; otherwise the bundled **`configs/lint_config.json`**. The “env not set” warning is shown **once per run** even if **`-c`** is passed (so the variable is still optional for path resolution when using an explicit config file).
+
+---
+
 ## Architecture
 
 ### Directory Structure
