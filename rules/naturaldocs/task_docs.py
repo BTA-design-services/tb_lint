@@ -71,7 +71,21 @@ class TaskDocsRule(BaseRule):
         
         task_name = self._extract_task_name(node)
         start_line = self._get_line_number(context.file_bytes, node.start)
-        comments = self._extract_preceding_comments(file_content, start_line, context=context)
+        comments = self._extract_comments_from_text(file_content, start_line)
+        keyword_check = self._validate_naturaldocs_keyword(
+            comments,
+            ['Function', 'Functions', 'Method', 'Methods', 'Procedure', 'Procedures', 'Routine', 'Routines', 'Subroutine', 'Subroutines'],
+            'task'
+        )
+        if keyword_check:
+            violations.append(RuleViolation(
+                file=file_path,
+                line=start_line,
+                column=0,
+                severity=RuleSeverity.ERROR,
+                message=keyword_check['message'],
+                rule_id=keyword_check['rule_id']
+            ))
         
         # NaturalDocs uses 'Function' keyword for tasks
         if not self._has_naturaldocs_keyword(comments, ['Function', 'Func', 'Procedure', 'Proc', 'Method']):

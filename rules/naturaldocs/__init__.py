@@ -16,6 +16,7 @@ from .constraint_docs import ConstraintDocsRule
 from .typedef_docs import TypedefDocsRule
 from .variable_docs import VariableDocsRule
 from .parameter_docs import ParameterDocsRule
+from .named_end_blocks import NamedEndBlocksRule
 
 __all__ = [
     'FileHeaderRule',
@@ -30,6 +31,7 @@ __all__ = [
     'ConstraintDocsRule',
     'TypedefDocsRule',
     'VariableDocsRule',
-    'ParameterDocsRule'
+    'ParameterDocsRule',
+    'NamedEndBlocksRule'
 ]
 

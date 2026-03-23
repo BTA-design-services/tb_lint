@@ -1,0 +1,15 @@
+# Verible rules for the modular tb_lint package (this directory).
+#
+# VeribleLinter always passes --rules_config pointing here. Without this file,
+# nothing was configured and Verible fell back to built-in defaults (including
+# line-length at 100), which ignores project copies of .rules.verible_lint under aero.
+#
+# Disable the line-length rule here so editor runs that use this repo's tb_lint.py
+# match the common request to stop [VB_LINE_LENGTH] / line-length noise.
+-line-length
+
+# UVM projects use `uvm_warning and similar; Verible's forbidden-macro flags them.
+-forbidden-macro
+
+# Allow any parameter/localparam naming (e.g. ALL_CAPS localparams); disable CamelCase/ALL_CAPS enforcement.
+-parameter-name-style

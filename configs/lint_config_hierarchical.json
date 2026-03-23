@@ -1,8 +1,8 @@
 {
   "project": {
-    "name": "Design Verification Environment",
-    "company": "BTA Design Services",
-    "description": "SystemVerilog Design Verification Environment"
+    "name": "<PROJECT_NAME>",
+    "company": "<COMPANY_NAME>",
+    "description": "<PROJECT_DESCRIPTION>"
   },
   "global": {
     "strict_mode": false,
@@ -11,18 +11,18 @@
   "linters": {
     "naturaldocs": {
       "enabled": true,
-      "config_file": "configs/naturaldocs.json"
+      "config_file": "naturaldocs.json"
     },
     "verible": {
       "enabled": true,
-      "config_file": "configs/verible.json"
+      "config_file": "verible.json"
     }
   },
   "metadata": {
     "config_version": "3.0-hierarchical",
-    "last_updated": "2025-10-16",
-    "maintainer": "BTA Design Services",
-    "description": "Hierarchical configuration linking individual linter configs"
+    "last_updated": "<DATE>",
+    "maintainer": "<TEAM_OR_OWNER>",
+    "description": "Hierarchical common configuration linking individual linter configs"
   }
 }
 

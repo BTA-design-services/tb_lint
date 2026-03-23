@@ -426,3 +426,70 @@ class BaseRule(ABC):
                 return True
         return False
 
+    def _validate_naturaldocs_keyword(self, comments: list, expected_keywords: list, node_type: str) -> dict:
+        """
+        Validate NaturalDocs keyword for a declaration comment block.
+
+        Returns:
+            {} if no keyword problem is found, otherwise:
+            {'rule_id': '[ND_INVALID_KW]'|'[ND_WRONG_KW]', 'message': str}
+        """
+        if not comments:
+            return {}
+
+        import re
+        valid_keywords = {
+            'information', 'topic', 'topics', 'about', 'list', 'group', 'section', 'title',
+            'file', 'files', 'program', 'programs', 'script', 'scripts', 'document', 'documents', 'doc', 'docs',
+            'class', 'classes', 'package', 'packages', 'namespace', 'namespaces', 'interface', 'interfaces',
+            'struct', 'structs', 'structure', 'structures', 'module', 'modules',
+            'type', 'types', 'typedef', 'typedefs', 'enum', 'enums', 'enumeration', 'enumerations',
+            'function', 'functions', 'func', 'funcs', 'procedure', 'procedures', 'proc', 'procs',
+            'routine', 'routines', 'subroutine', 'subroutines', 'method', 'methods',
+            'callback', 'callbacks', 'constructor', 'constructors', 'destructor', 'destructors',
+            'property', 'properties', 'prop', 'props', 'variable', 'variables', 'var', 'vars',
+            'field', 'fields', 'constant', 'constants', 'const', 'consts',
+            'integer', 'integers', 'int', 'ints', 'string', 'strings', 'bit', 'bits',
+            'macro', 'macros', 'define', 'defines', 'def', 'defs', 'event', 'events',
+            'operator', 'operators',
+        }
+        skip_keywords = {
+            'company', 'author', 'description', 'created', 'modified', 'date', 'version',
+            'copyright', 'license', 'email', 'project', 'status', 'note', 'notes',
+            'see also', 'see', 'todo', 'fixme', 'bug', 'warning', 'deprecated',
+            'parameters', 'returns', 'return', 'throws', 'example',
+            'group', 'section', 'chapter', 'topic',
+        }
+
+        found_keyword = None
+        for line in comments:
+            match = re.match(r'^\s*([A-Za-z][A-Za-z\s]*?)\s*:\s*\w+', line)
+            if not match:
+                continue
+            candidate = match.group(1).strip()
+            candidate_lower = candidate.lower()
+            if candidate_lower in skip_keywords:
+                continue
+            found_keyword = candidate
+            break
+
+        if not found_keyword:
+            return {}
+
+        found_lower = found_keyword.lower()
+        if found_lower not in valid_keywords:
+            return {
+                'rule_id': '[ND_INVALID_KW]',
+                'message': f"Invalid NaturalDocs keyword '{found_keyword}:'"
+            }
+
+        expected_lower = {k.lower() for k in expected_keywords}
+        if found_lower not in expected_lower:
+            expected_str = "', '".join(expected_keywords)
+            return {
+                'rule_id': '[ND_WRONG_KW]',
+                'message': f"Wrong keyword '{found_keyword}:' for {node_type} (expected: '{expected_str}')"
+            }
+
+        return {}
+

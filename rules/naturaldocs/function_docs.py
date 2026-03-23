@@ -92,8 +92,22 @@ class FunctionDocsRule(BaseRule):
         func_name = self._extract_function_name_from_prototype(node) if is_prototype else self._extract_function_name(node)
         start_line = self._get_line_number(context.file_bytes, node.start)
         
-        # Extract preceding comments using Verible parser tokens
-        comments = self._extract_preceding_comments(file_content, start_line, context=context)
+        # Use nearest comment block only.
+        comments = self._extract_comments_from_text(file_content, start_line)
+        keyword_check = self._validate_naturaldocs_keyword(
+            comments,
+            ['Function', 'Functions', 'Method', 'Methods', 'Procedure', 'Procedures', 'Routine', 'Routines', 'Subroutine', 'Subroutines', 'Operator', 'Operators', 'Callback', 'Callbacks', 'Hook', 'Hooks', 'Macro', 'Macros'],
+            'function'
+        )
+        if keyword_check:
+            violations.append(RuleViolation(
+                file=file_path,
+                line=start_line,
+                column=0,
+                severity=RuleSeverity.ERROR,
+                message=keyword_check['message'],
+                rule_id=keyword_check['rule_id']
+            ))
         
         # Check for Function: keyword
         if not self._has_naturaldocs_keyword(comments, ['Function']):

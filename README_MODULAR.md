@@ -214,6 +214,62 @@ Root config links to individual linter configs for better organization.
 - Better organization for large projects
 - Settings from linked configs are merged automatically
 
+#### Option 3: Common + Project Precedence
+
+Use a shared base config with a project config that overrides it.
+
+**Common config** (`lint_config.common.json`):
+```json
+{
+  "project": {
+    "name": "<PROJECT_NAME>",
+    "description": "<PROJECT_DESCRIPTION>"
+  },
+  "global": {
+    "strict_mode": false,
+    "use_color": true,
+    "exclude_paths": []
+  },
+  "linters": {
+    "naturaldocs": {
+      "enabled": true,
+      "config_file": "configs/naturaldocs.json"
+    },
+    "verible": {
+      "enabled": true,
+      "config_file": "configs/verible.json"
+    }
+  }
+}
+```
+
+**Project config** (`lint_config.project.json`):
+```json
+{
+  "extends": "lint_config.common.json",
+  "project": {
+    "name": "my_project",
+    "description": "Project-specific tb_lint config"
+  },
+  "global": {
+    "exclude_paths": [
+      "dv/tb_common/regmap/sv/uvmreg"
+    ]
+  }
+}
+```
+
+**CLI alternative**:
+```bash
+python3 tb_lint.py --base-config lint_config.common.json --config lint_config.project.json -f files.txt
+```
+
+**Merge semantics (project precedence):**
+- Dict values are merged recursively.
+- Scalar values (string/number/bool) from project replace common values.
+- Lists from project replace common lists.
+- Missing project keys are inherited from common.
+
 ### Per-Rule Configuration
 
 Each rule can be configured independently:

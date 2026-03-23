@@ -10,6 +10,7 @@ Description: Handles loading and managing hierarchical configuration for linters
 
 import json
 import os
+from copy import deepcopy
 from typing import Dict, Optional, Any
 from pathlib import Path
 
@@ -42,14 +43,16 @@ class ConfigManager:
         }
     """
 
-    def __init__(self, config_file: Optional[str] = None):
+    def __init__(self, config_file: Optional[str] = None, base_config_file: Optional[str] = None):
         """
         Initialize configuration manager with hierarchical support
 
         Args:
-            config_file: Path to root configuration file (JSON)
+            config_file: Path to project/root configuration file (JSON)
+            base_config_file: Optional path to common/base configuration file (JSON)
         """
         self.config_file = config_file
+        self.base_config_file = base_config_file
         # If config_file is provided, use its directory
         # Otherwise, use script's directory (where tb_lint.py is located)
         if config_file:
@@ -72,30 +75,111 @@ class ConfigManager:
         Returns:
             Configuration dictionary
         """
+        project_config = None
+        project_config_dir = self.config_dir
+
         # Try to load from specified file
         if self.config_file and os.path.exists(self.config_file):
-            try:
-                with open(self.config_file, 'r') as f:
-                    config = json.load(f)
-                    # Process hierarchical structure if present
-                    return self._process_hierarchical_config(config)
-            except (json.JSONDecodeError, IOError) as e:
-                print(f"Warning: Could not load config from {self.config_file}: {e}")
+            project_config = self._load_json_file(self.config_file, "config")
+            project_config_dir = Path(self.config_file).parent
 
         # Try to find default config in configs directory
-        script_dir = Path(__file__).parent.parent
-        default_config = script_dir / 'configs' / 'lint_config.json'
+        if project_config is None:
+            script_dir = Path(__file__).parent.parent
+            default_config = script_dir / 'configs' / 'lint_config.json'
 
-        if default_config.exists():
-            try:
-                with open(default_config, 'r') as f:
-                    config = json.load(f)
-                    return self._process_hierarchical_config(config)
-            except (json.JSONDecodeError, IOError):
-                pass
+            if default_config.exists():
+                project_config = self._load_json_file(str(default_config), "default config")
+                project_config_dir = default_config.parent
 
         # Return minimal default configuration
-        return self._get_default_config()
+        if project_config is None:
+            return self._get_default_config()
+
+        # Resolve and load base/common config if provided.
+        # Precedence is: --base-config (CLI) > "extends" key in project config.
+        base_reference = self.base_config_file or project_config.get("extends")
+        if base_reference:
+            base_config = self._load_base_config(base_reference, project_config_dir)
+            if base_config is not None:
+                project_config = self._deep_merge_configs(base_config, project_config)
+
+        if "extends" in project_config:
+            project_config.pop("extends")
+
+        # Process hierarchical structure if present
+        return self._process_hierarchical_config(project_config)
+
+    def _load_json_file(self, config_path: str, label: str) -> Optional[dict]:
+        """Load JSON file with warning handling."""
+        try:
+            with open(config_path, 'r') as f:
+                return json.load(f)
+        except (json.JSONDecodeError, IOError) as e:
+            print(f"Warning: Could not load {label} from {config_path}: {e}")
+            return None
+
+    def _resolve_config_path(self, path_value: str, base_dir: Path) -> str:
+        """Resolve config path relative to base_dir unless already absolute."""
+        if os.path.isabs(path_value):
+            return path_value
+        return str((base_dir / path_value).resolve())
+
+    def _load_base_config(self, base_reference: str, reference_dir: Path) -> Optional[dict]:
+        """
+        Load base/common config and normalize linked config_file paths.
+
+        Also supports chained inheritance via "extends" inside base config.
+        """
+        resolved_base_path = self._resolve_config_path(base_reference, reference_dir)
+        base_config = self._load_json_file(resolved_base_path, "base config")
+        if base_config is None:
+            return None
+
+        base_dir = Path(resolved_base_path).parent
+        nested_base_reference = base_config.get("extends")
+        if nested_base_reference:
+            nested_base = self._load_base_config(nested_base_reference, base_dir)
+            if nested_base is not None:
+                base_config = self._deep_merge_configs(nested_base, base_config)
+
+        if "extends" in base_config:
+            base_config.pop("extends")
+
+        # Convert relative linked linter config paths to absolute paths so they
+        # continue to resolve correctly after merging into a project config.
+        normalized = deepcopy(base_config)
+        linters = normalized.get("linters", {})
+        if isinstance(linters, dict):
+            for _, linter_cfg in linters.items():
+                if isinstance(linter_cfg, dict) and "config_file" in linter_cfg:
+                    cfg_path = linter_cfg["config_file"]
+                    if isinstance(cfg_path, str) and not os.path.isabs(cfg_path):
+                        linter_cfg["config_file"] = self._resolve_config_path(cfg_path, base_dir)
+        return normalized
+
+    def _deep_merge_configs(self, base: Any, override: Any) -> Any:
+        """
+        Merge two config values with project-precedence semantics.
+
+        Merge rules:
+        - Dicts: recursively merged.
+        - Scalars/bools/strings: override replaces base.
+        - Lists: override replaces base (predictable, explicit behavior).
+        """
+        if isinstance(base, dict) and isinstance(override, dict):
+            merged = deepcopy(base)
+            for key, value in override.items():
+                if key in merged:
+                    merged[key] = self._deep_merge_configs(merged[key], value)
+                else:
+                    merged[key] = deepcopy(value)
+            return merged
+
+        if isinstance(override, list):
+            return deepcopy(override)
+
+        return deepcopy(override)
 
     def _process_hierarchical_config(self, config: dict) -> dict:
         """
@@ -141,31 +225,53 @@ class ConfigManager:
 
         return config
 
-    def _load_linked_config(self, config_path: str) -> Optional[dict]:
+    def _load_linked_config(self, config_path: str, visited: Optional[set] = None) -> Optional[dict]:
         """
         Load a linked configuration file
 
         Args:
             config_path: Path to linked configuration file
+            visited: Set of visited config paths for cycle detection
 
         Returns:
             Configuration dictionary or None if loading fails
         """
-        # Check cache first
-        if config_path in self.loaded_configs:
-            return self.loaded_configs[config_path]
+        if visited is None:
+            visited = set()
 
-        if not os.path.exists(config_path):
-            print(f"Warning: Linked config file not found: {config_path}")
+        resolved_path = os.path.realpath(config_path)
+        if resolved_path in visited:
+            print(f"Warning: Cyclic linked config inheritance detected: {resolved_path}")
+            return None
+        visited.add(resolved_path)
+
+        # Check cache first
+        if resolved_path in self.loaded_configs:
+            return self.loaded_configs[resolved_path]
+
+        if not os.path.exists(resolved_path):
+            print(f"Warning: Linked config file not found: {resolved_path}")
             return None
 
         try:
-            with open(config_path, 'r') as f:
+            with open(resolved_path, 'r') as f:
                 config = json.load(f)
-                self.loaded_configs[config_path] = config
-                return config
+
+            # Support inheritance for linked linter configs as well.
+            # "extends" path is resolved relative to the current linked config file.
+            extends_ref = config.get("extends")
+            if extends_ref:
+                base_dir = Path(resolved_path).parent
+                base_path = self._resolve_config_path(extends_ref, base_dir)
+                base_config = self._load_linked_config(base_path, visited)
+                if base_config is not None:
+                    config = self._deep_merge_configs(base_config, config)
+                config.pop("extends", None)
+
+            self.loaded_configs[resolved_path] = config
+            return config
         except (json.JSONDecodeError, IOError) as e:
-            print(f"Warning: Could not load linked config from {config_path}: {e}")
+            print(f"Warning: Could not load linked config from {resolved_path}: {e}")
             return None
 
     def _get_default_config(self) -> dict:

@@ -1,6 +1,5 @@
 {
-  "extends": "verible.common.json",
-  "comment": "Verible linter configuration - matches NaturalDocs structure",
+  "comment": "Verible linter common configuration (placeholder baseline)",
   "autofix": false,
   "parse_fatal": false,
   "lint_fatal": false,

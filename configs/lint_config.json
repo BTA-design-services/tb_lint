@@ -1,21 +1,22 @@
 {
   "project": {
-    "name": "Design Verification Environment",
-    "company": "BTA Design Services",
-    "description": "SystemVerilog Design Verification Environment"
+    "name": "<PROJECT_NAME>",
+    "company": "<COMPANY_NAME>",
+    "description": "<PROJECT_DESCRIPTION>"
   },
   "global": {
     "strict_mode": false,
-    "use_color": true
+    "use_color": true,
+    "exclude_paths": []
   },
   "linters": {
     "naturaldocs": {
       "enabled": true,
-      "config_file": "configs/naturaldocs.json"
+      "config_file": "naturaldocs.json"
     },
     "verible": {
       "enabled": true,
-      "config_file": "configs/verible.json"
+      "config_file": "verible.json"
     }
   },
   "metadata": {

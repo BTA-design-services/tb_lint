@@ -47,7 +47,19 @@ class TypedefDocsRule(BaseRule):
         for node in tree.iter_find_all({'tag': 'kTypeDeclaration'}):
             typedef_name = self._extract_typedef_name(node)
             start_line = self._get_line_number(context.file_bytes, node.start)
-            comments = self._extract_preceding_comments(file_content, start_line, context=context)
+            comments = self._extract_comments_from_text(file_content, start_line)
+            keyword_check = self._validate_naturaldocs_keyword(
+                comments, ['Typedef', 'Type', 'Variable'], 'typedef'
+            )
+            if keyword_check:
+                violations.append(RuleViolation(
+                    file=file_path,
+                    line=start_line,
+                    column=0,
+                    severity=RuleSeverity.ERROR,
+                    message=keyword_check['message'],
+                    rule_id=keyword_check['rule_id']
+                ))
             
             # Check for accepted keywords
             if not self._has_naturaldocs_keyword(comments, ['Typedef', 'Type', 'Variable']):

@@ -23,7 +23,8 @@ from rules.naturaldocs import (
     IncludeGuardsRule, IncludeGuardFormatRule,
     PackageDocsRule, ClassDocsRule, FunctionDocsRule,
     TaskDocsRule, ConstraintDocsRule, TypedefDocsRule,
-    VariableDocsRule, ParameterDocsRule
+    VariableDocsRule, ParameterDocsRule,
+    NamedEndBlocksRule
 )
 
 # Try to import verible_verilog_syntax
@@ -134,6 +135,9 @@ class NaturalDocsLinter(BaseLinter):
         self.add_rule(TypedefDocsRule())
         self.add_rule(VariableDocsRule())
         self.add_rule(ParameterDocsRule())
+        # Honor severity_levels for named end blocks (style rule, default WARNING in JSON).
+        _sev = self.config.get('severity_levels', {}).get('[ND_END_NAMED_MISS]')
+        self.add_rule(NamedEndBlocksRule({'severity': _sev} if _sev else {}))
 
     def prepare_context(self, file_path: str, file_content: str) -> Optional[ASTContext]:
         """

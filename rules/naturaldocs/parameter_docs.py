@@ -16,7 +16,7 @@ class ParameterDocsRule(BaseRule):
     Rule: Check parameter documentation
     
     Requirements:
-    - Parameters can be documented with 'Constant:' or 'Property:' keywords
+    - Parameters can be documented with 'Constant:', 'Property:', or 'define:' (NaturalDocs style)
     - Documentation is optional for parameters
     - Skip type parameters in class headers (documented in Parameters: section)
     """
@@ -27,7 +27,7 @@ class ParameterDocsRule(BaseRule):
     
     @property
     def description(self) -> str:
-        return "Parameters can have 'Constant:' or 'Property:' documentation"
+        return "Parameters can have 'Constant:', 'Property:', or 'define:' documentation"
     
     def default_severity(self) -> RuleSeverity:
         # Parameters are typically optional to document
@@ -48,14 +48,40 @@ class ParameterDocsRule(BaseRule):
         for node in tree.iter_find_all({'tag': 'kParamDeclaration'}):
             param_name = self._extract_parameter_name(node)
             start_line = self._get_line_number(context.file_bytes, node.start)
-            comments = self._extract_preceding_comments(file_content, start_line, context=context)
+            comments = self._extract_comments_from_text(file_content, start_line)
             
             # Skip type parameters in class headers (they have Class: keyword)
             if self._has_naturaldocs_keyword(comments, ['Class', 'Classes']):
                 continue
+
+            keyword_check = self._validate_naturaldocs_keyword(
+                comments,
+                [
+                    'Constant', 'Constants', 'Const',
+                    'Property', 'Properties',
+                    'Define', 'Defines', 'Def', 'Defs',
+                ],
+                'parameter',
+            )
+            if keyword_check:
+                violations.append(RuleViolation(
+                    file=file_path,
+                    line=start_line,
+                    column=0,
+                    severity=RuleSeverity.ERROR,
+                    message=keyword_check['message'],
+                    rule_id=keyword_check['rule_id']
+                ))
             
             # Check for accepted keywords (optional)
-            if not self._has_naturaldocs_keyword(comments, ['Constant', 'Property']):
+            if not self._has_naturaldocs_keyword(
+                comments,
+                [
+                    'Constant', 'Constants', 'Const',
+                    'Property', 'Properties',
+                    'Define', 'Defines', 'Def', 'Defs',
+                ],
+            ):
                 # Since parameters are optional, we may not want to report this
                 # Uncomment below to enable reporting:
                 # violations.append(self.create_violation(

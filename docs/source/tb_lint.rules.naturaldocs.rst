@@ -44,6 +44,14 @@ tb\_lint.rules.naturaldocs.include\_guards module
    :undoc-members:
    :show-inheritance:
 
+tb\_lint.rules.naturaldocs.named\_end\_blocks module
+----------------------------------------------------
+
+.. automodule:: tb_lint.rules.naturaldocs.named_end_blocks
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 tb\_lint.rules.naturaldocs.package\_docs module
 -----------------------------------------------
 

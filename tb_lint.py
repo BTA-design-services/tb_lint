@@ -13,6 +13,7 @@ Usage:
 Options:
     --help              Show this help message
     --config FILE       Configuration file (JSON)
+    --base-config FILE  Common/base configuration file (JSON)
     --linter NAME       Run specific linter (default: all)
     --list-linters      List available linters
     --strict            Treat warnings as errors
@@ -30,12 +31,16 @@ Examples:
 
     # Use custom config
     python3 tb_lint.py --config my_config.json -f files.txt
+
+    # Use common + project config (project overrides common)
+    python3 tb_lint.py --base-config common.json --config project.json -f files.txt
 """
 
 import sys
 import os
 import json
 import argparse
+import fnmatch
 from pathlib import Path
 from typing import List, Optional
 
@@ -74,18 +79,19 @@ class UnifiedLinter:
     Manages multiple linters and aggregates results
     """
 
-    def __init__(self, config_file: Optional[str] = None, use_color: bool = False,
-                 strict_mode: bool = False, json_mode: bool = False):
+    def __init__(self, config_file: Optional[str] = None, base_config_file: Optional[str] = None,
+                 use_color: bool = False, strict_mode: bool = False, json_mode: bool = False):
         """
         Initialize unified linter
 
         Args:
             config_file: Path to configuration file
+            base_config_file: Optional path to common/base configuration file
             use_color: Enable colored output
             strict_mode: Treat warnings as errors
             json_mode: If True, suppress all non-JSON output
         """
-        self.config_manager = ConfigManager(config_file)
+        self.config_manager = ConfigManager(config_file, base_config_file)
         self.registry = get_registry()
         self.use_color = use_color and sys.stdout.isatty()
         self.strict_mode = strict_mode
@@ -100,6 +106,32 @@ class UnifiedLinter:
     def list_linters(self) -> List[str]:
         """Get list of available linters"""
         return self.registry.list_linters()
+
+    def get_exclude_patterns(self) -> List[str]:
+        """Get file/path exclude patterns from config."""
+        patterns = self.config_manager.get_global_setting('exclude_paths', [])
+        if not isinstance(patterns, list):
+            return []
+        return [str(p).strip() for p in patterns if str(p).strip()]
+
+    def should_exclude_file(self, file_path: str, exclude_patterns: List[str]) -> bool:
+        """
+        Check whether file should be excluded from linting.
+
+        Supports exact/prefix path fragments and glob patterns.
+        """
+        if not exclude_patterns:
+            return False
+        normalized = os.path.normpath(file_path)
+        normalized_slash = normalized.replace('\\', '/')
+        for pattern in exclude_patterns:
+            p_norm = os.path.normpath(pattern)
+            p_slash = p_norm.replace('\\', '/')
+            if fnmatch.fnmatch(normalized_slash, p_slash) or fnmatch.fnmatch(normalized_slash, f"*{p_slash}*"):
+                return True
+            if p_slash in normalized_slash:
+                return True
+        return False
 
     def run_linter(self, linter_name: str, file_paths: List[str]) -> LinterResult:
         """
@@ -282,6 +314,8 @@ class UnifiedLinter:
 
         # Print unified linter command
         cmd_parts = ["python3 tb_lint.py"]
+        if getattr(args, 'base_config', None):
+            cmd_parts.append(f"--base-config {args.base_config}")
         if args.config:
             cmd_parts.append(f"--config {args.config}")
         if args.linter:
@@ -306,6 +340,8 @@ class UnifiedLinter:
         config_display = self.config_manager.config_file or 'configs/lint_config.json (default)'
         print(f"\n{self._color(Colors.BOLD, 'Configuration:')}", file=out)
         print(f"  {config_display}", file=out)
+        if self.config_manager.base_config_file:
+            print(f"  base: {self.config_manager.base_config_file}", file=out)
 
         # Print enabled linters and their equivalent commands
         print(f"\n{self._color(Colors.BOLD, 'Enabled Linters:')}", file=out)
@@ -435,16 +471,18 @@ class UnifiedLinter:
 
 def main():
     """Main entry point"""
-    # Parse config file argument first to get project info for epilog
+    # Parse config arguments first to get project info for epilog
     import sys
     config_file = None
+    base_config_file = None
     for i, arg in enumerate(sys.argv):
         if arg in ['-c', '--config'] and i + 1 < len(sys.argv):
             config_file = sys.argv[i + 1]
-            break
+        if arg == '--base-config' and i + 1 < len(sys.argv):
+            base_config_file = sys.argv[i + 1]
 
     # Load config to get project info for epilog
-    temp_config = ConfigManager(config_file)
+    temp_config = ConfigManager(config_file, base_config_file)
     project_info = temp_config.get_project_info()
     company = project_info.get('company', '')
     project_name = project_info.get('name', '')
@@ -459,7 +497,8 @@ def main():
     parser.add_argument('files', nargs='*', help='Files to check')
     parser.add_argument('-f', '--file-list', help='File containing list of files')
     parser.add_argument('-o', '--output', help='Output file (default: stdout)')
-    parser.add_argument('-c', '--config', help='Configuration file (JSON)')
+    parser.add_argument('-c', '--config', help='Project/root configuration file (JSON)')
+    parser.add_argument('--base-config', help='Common/base configuration file (JSON). Project config overrides base.')
     parser.add_argument('--linter', help='Run specific linter (default: all)')
     parser.add_argument('--list-linters', action='store_true', help='List available linters')
     parser.add_argument('--strict', action='store_true', help='Treat warnings as errors')
@@ -471,6 +510,7 @@ def main():
     # Create unified linter
     unified = UnifiedLinter(
         config_file=args.config,
+        base_config_file=args.base_config,
         use_color=args.color,
         strict_mode=args.strict,
         json_mode=args.json
@@ -518,6 +558,34 @@ def main():
         print("\nTip: Use -f flag for file lists:", file=sys.stderr)
         print("  python3 tb_lint.py -f file_list.txt", file=sys.stderr)
         return 1
+
+    # Apply config-based excludes
+    exclude_patterns = unified.get_exclude_patterns()
+    if exclude_patterns:
+        original_count = len(files_to_check)
+        files_to_check = [
+            file_path for file_path in files_to_check
+            if not unified.should_exclude_file(file_path, exclude_patterns)
+        ]
+        if not args.json and original_count != len(files_to_check):
+            removed = original_count - len(files_to_check)
+            print(f"Info: Skipped {removed} file(s) by exclude_paths config")
+    if not files_to_check:
+        if args.json:
+            # Empty result is valid when all files are excluded.
+            print(json.dumps({
+                "linters": {},
+                "summary": {
+                    "total_files_checked": 0,
+                    "total_files_failed": 0,
+                    "total_errors": 0,
+                    "total_warnings": 0,
+                    "total_info": 0
+                }
+            }, indent=2))
+        else:
+            print("Info: All input files were excluded by config.")
+        return 0
 
     # Print command info (not for JSON output)
     if not args.json:
