@@ -10,7 +10,7 @@ Description: Adapter for NaturalDocs documentation linting using Verible AST
 import os
 import sys
 import shutil
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from dataclasses import dataclass
 
 # Add parent directory to path for imports
@@ -108,6 +108,24 @@ class NaturalDocsLinter(BaseLinter):
 
         return None
 
+    def _naturaldocs_rule_config(self, linter_toggle_id: str, miss_rule_id: str) -> Dict[str, Any]:
+        """
+        Build BaseRule kwargs from naturaldocs JSON: linter_rules + severity_levels.
+
+        linter_toggle_id:
+            Key in linter_rules (e.g. "[ND_CONST]"). If present and false, rule is disabled.
+        miss_rule_id:
+            Key in severity_levels (e.g. "[ND_CONST_MISS]") for violation severity.
+        """
+        cfg: Dict[str, Any] = {}
+        linter_rules = self.config.get("linter_rules", {})
+        if linter_toggle_id in linter_rules:
+            cfg["enabled"] = bool(linter_rules[linter_toggle_id])
+        sev = self.config.get("severity_levels", {}).get(miss_rule_id)
+        if sev:
+            cfg["severity"] = sev
+        return cfg
+
     def _register_rules(self):
         """Register all NaturalDocs rules"""
         # Skip if linter is not available
@@ -131,7 +149,8 @@ class NaturalDocsLinter(BaseLinter):
         self.add_rule(ClassDocsRule())
         self.add_rule(FunctionDocsRule())
         self.add_rule(TaskDocsRule())
-        self.add_rule(ConstraintDocsRule())
+        # Constraint blocks must have NaturalDocs (Define: or Variable:) before declaration — [ND_CONST_MISS]
+        self.add_rule(ConstraintDocsRule(self._naturaldocs_rule_config("[ND_CONST]", "[ND_CONST_MISS]")))
         self.add_rule(TypedefDocsRule())
         self.add_rule(VariableDocsRule())
         self.add_rule(ParameterDocsRule())

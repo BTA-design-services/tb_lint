@@ -177,7 +177,7 @@ class BaseRule(ABC):
         )
     
     def _extract_preceding_comments(self, file_content: str, start_line: int, 
-                                    context: any = None, max_lines: int = 50) -> List[str]:
+                                    context: any = None, max_lines: int = 512) -> List[str]:
         """
         Extract comments preceding a given line number using Verible parser tokens.
         
@@ -194,7 +194,8 @@ class BaseRule(ABC):
             file_content: Full content of the file as a string
             start_line: Line number to start searching backwards from (1-indexed)
             context: AST context object (should have rawtokens attribute if available)
-            max_lines: Maximum number of lines to search backwards (default: 50)
+            max_lines: Maximum number of lines to search backwards (default: 512;
+                large NaturalDocs blocks can exceed 50 lines)
         
         Returns:
             List of comment lines in forward order (earliest to latest)
@@ -324,11 +325,12 @@ class BaseRule(ABC):
         return comments
     
     def _extract_comments_from_text(self, file_content: str, start_line: int, 
-                                   max_lines: int = 50) -> List[str]:
+                                   max_lines: int = 512) -> List[str]:
         """
         Fallback method: Extract comments using text-based parsing.
         
         This is used when Verible rawtokens are not available.
+        Default scan depth must cover long block comments (e.g. Function:/Class: docs).
         """
         lines = file_content.split('\n')
         comments = []

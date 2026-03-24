@@ -7,17 +7,25 @@ Company: Copyright (c) 2025  BTA Design Services
 Description: Checks for proper constraint documentation
 """
 
-from typing import List
+import re
+from typing import List, Optional
+
 from core.base_rule import BaseRule, RuleViolation, RuleSeverity
 
 
 class ConstraintDocsRule(BaseRule):
     """
-    Rule: Check constraint documentation
-    
-    Requirements:
-    - Constraints should have 'define:' or 'Variable:' documentation
-    - Both formats are acceptable per codebase standards
+    Rule: Require NaturalDocs immediately before each constraint declaration.
+
+    Emit [ND_CONST_MISS] (default ERROR; override via severity_levels) when a
+    ``constraint`` block has no preceding comment block containing ``Define:``
+    or ``Variable:`` (same line/discipline as other NaturalDocs rules).
+
+    When the block includes ``Define: <name>``, ``<name>`` must match the SV
+    constraint identifier; otherwise [ND_NAME_MISMATCH] is reported (was not
+    checked before, so wrong labels like ``Define: b`` above ``constraint c`` passed).
+
+    Enable/disable via naturaldocs ``linter_rules["[ND_CONST]"]`` (default on if omitted).
     """
     @property
     def rule_id(self) -> str:
@@ -54,11 +62,12 @@ class ConstraintDocsRule(BaseRule):
                     file=file_path,
                     line=start_line,
                     column=0,
-                    severity=RuleSeverity.ERROR,
+                    severity=self.severity,
                     message=keyword_check['message'],
                     rule_id=keyword_check['rule_id']
                 ))
-            
+                continue
+
             # Check for accepted keywords: 'define' or 'Variable'
             if not self._has_naturaldocs_keyword(comments, ['define', 'Variable']):
                 violations.append(self.create_violation(
@@ -67,8 +76,38 @@ class ConstraintDocsRule(BaseRule):
                     message=f"Constraint '{constraint_name}' without 'define:' or 'Variable:' documentation"
                            if constraint_name else "Constraint without documentation"
                 ))
-        
+                continue
+
+            # If Define: documents an identifier, it must match the constraint name.
+            documented = self._extract_define_documented_name(comments)
+            if (
+                documented
+                and constraint_name
+                and documented != constraint_name
+            ):
+                violations.append(
+                    RuleViolation(
+                        file=file_path,
+                        line=start_line,
+                        column=0,
+                        severity=self.severity,
+                        rule_id="[ND_NAME_MISMATCH]",
+                        message=(
+                            f"Define: documents '{documented}' but constraint is named "
+                            f"'{constraint_name}'"
+                        ),
+                    )
+                )
+
         return violations
+
+    def _extract_define_documented_name(self, comments: List[str]) -> Optional[str]:
+        """First ``Define: <id>`` identifier in the preceding comment block, if any."""
+        for line in comments:
+            m = re.search(r"(?i)\bDefine\s*:\s*([a-zA-Z_][a-zA-Z0-9_]*)", line)
+            if m:
+                return m.group(1)
+        return None
 
     def _extract_constraint_name(self, node) -> str:
         """Extract constraint name from AST node"""
