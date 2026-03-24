@@ -34,6 +34,10 @@
     "[ND_TYPEDEF]": true,
     "[ND_VAR]": true,
     "[ND_PARAM]": true,
+    "[ND_MEMBER_PREFIX]": false,
+    "[ND_TYPE_SUFFIX]": true,
+    "[ND_ENV_AGENT_INSTANCE_SUFFIX]": true,
+    "[ND_PORT_SUFFIX]": true,
     "[ND_END_NAMED]": true
   },
   "severity_levels": {
@@ -50,6 +54,10 @@
     "[ND_TYPEDEF_MISS]": "ERROR",
     "[ND_VAR_MISS]": "ERROR",
     "[ND_PARAM_MISS]": "ERROR",
+    "[ND_MEMBER_PREFIX_MISS]": "ERROR",
+    "[ND_TYPE_SUFFIX_MISS]": "ERROR",
+    "[ND_ENV_AGENT_INSTANCE_SUFFIX_MISS]": "ERROR",
+    "[ND_PORT_SUFFIX_MISS]": "ERROR",
     "[ND_END_NAMED_MISS]": "ERROR",
     "[ND_NAME_MISMATCH]": "ERROR",
     "[ND_WRONG_KW]": "ERROR",

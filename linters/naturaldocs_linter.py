@@ -24,7 +24,8 @@ from rules.naturaldocs import (
     PackageDocsRule, ClassDocsRule, FunctionDocsRule,
     TaskDocsRule, ConstraintDocsRule, TypedefDocsRule,
     VariableDocsRule, ParameterDocsRule,
-    NamedEndBlocksRule
+    NamedEndBlocksRule,
+    ClassMemberPrefixRule, TypedefSuffixRule, EnvAgentInstanceSuffixRule, UserPortSuffixRule
 )
 
 # Try to import verible_verilog_syntax
@@ -154,6 +155,19 @@ class NaturalDocsLinter(BaseLinter):
         self.add_rule(TypedefDocsRule())
         self.add_rule(VariableDocsRule())
         self.add_rule(ParameterDocsRule())
+        # Naming convention rules
+        self.add_rule(ClassMemberPrefixRule(
+            self._naturaldocs_rule_config("[ND_MEMBER_PREFIX]", "[ND_MEMBER_PREFIX_MISS]")
+        ))
+        self.add_rule(TypedefSuffixRule(
+            self._naturaldocs_rule_config("[ND_TYPE_SUFFIX]", "[ND_TYPE_SUFFIX_MISS]")
+        ))
+        self.add_rule(EnvAgentInstanceSuffixRule(
+            self._naturaldocs_rule_config("[ND_ENV_AGENT_INSTANCE_SUFFIX]", "[ND_ENV_AGENT_INSTANCE_SUFFIX_MISS]")
+        ))
+        self.add_rule(UserPortSuffixRule(
+            self._naturaldocs_rule_config("[ND_PORT_SUFFIX]", "[ND_PORT_SUFFIX_MISS]")
+        ))
         # Honor severity_levels for named end blocks (style rule, default WARNING in JSON).
         _sev = self.config.get('severity_levels', {}).get('[ND_END_NAMED_MISS]')
         self.add_rule(NamedEndBlocksRule({'severity': _sev} if _sev else {}))
