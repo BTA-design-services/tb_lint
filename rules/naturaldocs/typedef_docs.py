@@ -70,6 +70,14 @@ class TypedefDocsRule(BaseRule):
                     message=f"Typedef '{typedef_name}' without documentation"
                            if typedef_name else "Typedef without documentation"
                 ))
+                continue
+
+            mismatch = self._check_name_mismatch(
+                comments, ['Typedef', 'Type', 'Variable'],
+                typedef_name, 'typedef', file_path, start_line,
+            )
+            if mismatch:
+                violations.append(mismatch)
         
         return violations
     
@@ -86,11 +94,5 @@ class TypedefDocsRule(BaseRule):
             pass
         return ""
     
-    def _get_line_number(self, file_bytes: bytes, byte_offset: int) -> int:
-        """Convert byte offset to line number"""
-        if byte_offset is None:
-            return 1
-        return file_bytes[:byte_offset].count(b'\n') + 1
-    
-    
+
 

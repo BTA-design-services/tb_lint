@@ -457,8 +457,9 @@ class UnifiedLinter:
         """
         out = output_file if output_file else sys.stdout
 
-        # Calculate total errors
+        # Calculate totals that must fail the run
         total_errors = sum(r.error_count for r in results.values())
+        total_files_failed = sum(r.files_failed for r in results.values())
 
         # Print separator line
         print("", file=out)
@@ -469,8 +470,9 @@ class UnifiedLinter:
         print("-" * 80, file=out)
 
         for linter_name, result in results.items():
-            # Determine linter pass/fail status
-            if result.error_count > 0:
+            # Determine linter pass/fail status.
+            # File-level failures (e.g. "Failed to prepare context") are hard failures.
+            if result.error_count > 0 or result.files_failed > 0:
                 status = self._color(Colors.RED, "FAILED")
                 # Use ASCII 'X' instead of unicode cross mark to avoid encoding errors on Windows
                 status_symbol = "X"
@@ -485,13 +487,15 @@ class UnifiedLinter:
             # Print linter status with error/warning counts
             print(f"  {status_symbol} {linter_display} : {status}  "
                   f"(Errors: {result.error_count}, "
+                  f"Files failed: {result.files_failed}, "
                   f"Warnings: {result.warning_count})",
                   file=out)
 
         print("=" * 80, file=out)
 
-        # Determine overall pass/fail status
-        if total_errors > 0:
+        # Determine overall pass/fail status.
+        # Any file-level failure should mark TB_LINT as failed.
+        if total_errors > 0 or total_files_failed > 0:
             status_msg = self._color(Colors.RED, "TB_LINT : FAILED")
         else:
             status_msg = self._color(Colors.GREEN, "TB_LINT : PASSED")
@@ -510,9 +514,10 @@ class UnifiedLinter:
             0 if all passed, 1 if violations found
         """
         total_errors = sum(r.error_count for r in results.values())
+        total_files_failed = sum(r.files_failed for r in results.values())
         total_warnings = sum(r.warning_count for r in results.values())
 
-        if total_errors > 0:
+        if total_errors > 0 or total_files_failed > 0:
             return 1
         elif total_warnings > 0 and self.strict_mode:
             return 1

@@ -16,3 +16,4 @@ test/bad_example_valid_syntax_fixed.sv
 test/bad_example_wrong_keywords.sv
 test/bad_example_wrong_name.sv
 test/bad_example_keyword_test.sv
+test/bad_example_name_mismatch.sv

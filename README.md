@@ -269,7 +269,30 @@ See `rules/naturaldocs/*.py` for complete implementations:
 
 ### Python
 - **Required:** Python 3.6+
-- **Modules:** `verible_verilog_syntax`
+- **External runtime packages (for lint execution):**
+  - `anytree` (used by `verible_verilog_syntax.py` for AST tree handling)
+  - `dataclasses` (only for Python 3.6; built-in for Python 3.7+)
+- **External documentation packages (only if building docs):**
+  - `sphinx`
+  - `sphinx-rtd-theme`
+
+#### Install packages locally under `/scratch/tools/external_lib/tb_lint`
+
+```bash
+cd /scratch/tools/external_lib/tb_lint
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install anytree "dataclasses; python_version<'3.7'" sphinx sphinx-rtd-theme
+```
+
+#### Quick validation
+
+```bash
+cd /scratch/tools/external_lib/tb_lint
+source .venv/bin/activate
+python -c "import anytree; print('anytree OK')"
+```
 
 ---
 

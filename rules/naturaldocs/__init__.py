@@ -16,6 +16,9 @@ from .constraint_docs import ConstraintDocsRule
 from .typedef_docs import TypedefDocsRule
 from .variable_docs import VariableDocsRule
 from .parameter_docs import ParameterDocsRule
+from .module_docs import ModuleDocsRule
+from .interface_docs import InterfaceDocsRule
+from .covergroup_docs import CovergroupDocsRule
 from .named_end_blocks import NamedEndBlocksRule
 from .naming_conventions import (
     ClassMemberPrefixRule,
@@ -38,6 +41,9 @@ __all__ = [
     'TypedefDocsRule',
     'VariableDocsRule',
     'ParameterDocsRule',
+    'ModuleDocsRule',
+    'InterfaceDocsRule',
+    'CovergroupDocsRule',
     'NamedEndBlocksRule',
     'ClassMemberPrefixRule',
     'TypedefSuffixRule',

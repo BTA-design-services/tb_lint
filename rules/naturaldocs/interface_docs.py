@@ -1,64 +1,51 @@
 """
-Package documentation rule
+Interface documentation rule
 
 Company: Copyright (c) 2025  BTA Design Services  
          Licensed under the MIT License.
 
-Description: Checks for proper package documentation
+Description: Checks for proper interface documentation
 """
 
 from typing import List
 from core.base_rule import BaseRule, RuleViolation, RuleSeverity
 
 
-class PackageDocsRule(BaseRule):
+class InterfaceDocsRule(BaseRule):
     """
-    Rule: Check package documentation
-    
+    Rule: Check interface documentation
+
     Requirements:
-    - Packages must have 'Package:' documentation
-    - Documented name must match actual package name
+    - Interfaces must have 'Interface:' documentation
+    - Documented name must match actual interface name
     """
-    
+
     @property
     def rule_id(self) -> str:
-        return "[ND_PKG_MISS]"
-    
+        return "[ND_IFACE_MISS]"
+
     @property
     def description(self) -> str:
-        return "Packages must have 'Package:' documentation"
-    
+        return "Interfaces must have 'Interface:' documentation"
+
     def default_severity(self) -> RuleSeverity:
         return RuleSeverity.ERROR
-    
+
     def check(self, file_path: str, file_content: str, context: any) -> List[RuleViolation]:
-        """
-        Check package documentation using AST context
-        
-        Args:
-            file_path: Path to file being checked
-            file_content: Content of the file
-            context: AST context with package nodes
-        
-        Returns:
-            List of violations found
-        """
+        """Check interface documentation using AST context."""
         violations = []
-        
-        # Context should contain AST tree from Verible
+
         if not context or not hasattr(context, 'tree'):
             return violations
-        
+
         tree = context.tree
-        
-        # Find all package declarations in AST
-        for node in tree.iter_find_all({'tag': 'kPackageDeclaration'}):
-            pkg_name = self._extract_package_name(node)
+
+        for node in tree.iter_find_all({'tag': 'kInterfaceDeclaration'}):
+            iface_name = self._extract_name(node)
             start_line = self._get_line_number(context.file_bytes, node.start)
-            
-            # Use nearest comment block only.
+
             comments = self._extract_comments_from_text(file_content, start_line)
-            keyword_check = self._validate_naturaldocs_keyword(comments, ['Package'], 'package')
+            keyword_check = self._validate_naturaldocs_keyword(comments, ['Interface'], 'interface')
             if keyword_check:
                 violations.append(RuleViolation(
                     file=file_path,
@@ -68,33 +55,29 @@ class PackageDocsRule(BaseRule):
                     message=keyword_check['message'],
                     rule_id=keyword_check['rule_id']
                 ))
-            
-            # Check for Package: keyword
-            if not self._has_naturaldocs_keyword(comments, ['Package']):
+
+            if not self._has_naturaldocs_keyword(comments, ['Interface']):
                 violations.append(self.create_violation(
                     file_path=file_path,
                     line=start_line,
-                    message=f"Package '{pkg_name}' without 'Package:' documentation" if pkg_name 
-                           else "Package declaration without 'Package:' documentation"
+                    message=f"Interface '{iface_name}' without 'Interface:' documentation" if iface_name
+                           else "Interface declaration without 'Interface:' documentation"
                 ))
                 continue
 
             mismatch = self._check_name_mismatch(
-                comments, ['Package'], pkg_name, 'package', file_path, start_line
+                comments, ['Interface'], iface_name, 'interface', file_path, start_line
             )
             if mismatch:
                 violations.append(mismatch)
-        
+
         return violations
-    
-    def _extract_package_name(self, node) -> str:
-        """Extract package name from AST node"""
+
+    def _extract_name(self, node) -> str:
+        """Extract interface name from AST node (first SymbolIdentifier)."""
         try:
             for identifier in node.iter_find_all({'tag': 'SymbolIdentifier'}):
                 return identifier.text
         except:
             pass
         return ""
-    
-
-

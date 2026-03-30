@@ -90,6 +90,14 @@ class VariableDocsRule(BaseRule):
                         message=f"Variable '{var_name}' without 'Variable:' documentation"
                                if var_name else "Variable without documentation"
                     ))
+                    continue
+
+                mismatch = self._check_name_mismatch(
+                    comments, ['Variable'],
+                    var_name, 'variable', file_path, start_line,
+                )
+                if mismatch:
+                    violations.append(mismatch)
         
         return violations
 
@@ -106,11 +114,5 @@ class VariableDocsRule(BaseRule):
             pass
         return ""
     
-    def _get_line_number(self, file_bytes: bytes, byte_offset: int) -> int:
-        """Convert byte offset to line number"""
-        if byte_offset is None:
-            return 1
-        return file_bytes[:byte_offset].count(b'\n') + 1
-    
-    
+
 

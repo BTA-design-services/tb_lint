@@ -96,7 +96,7 @@ class FunctionDocsRule(BaseRule):
         comments = self._extract_comments_from_text(file_content, start_line)
         keyword_check = self._validate_naturaldocs_keyword(
             comments,
-            ['Function', 'Functions', 'Method', 'Methods', 'Procedure', 'Procedures', 'Routine', 'Routines', 'Subroutine', 'Subroutines', 'Operator', 'Operators', 'Callback', 'Callbacks', 'Hook', 'Hooks', 'Macro', 'Macros'],
+            ['Function', 'Functions', 'Method', 'Methods', 'Procedure', 'Procedures', 'Routine', 'Routines', 'Subroutine', 'Subroutines', 'Operator', 'Operators', 'Callback', 'Callbacks', 'Macro', 'Macros'],
             'function'
         )
         if keyword_check:
@@ -117,19 +117,38 @@ class FunctionDocsRule(BaseRule):
                 message=f"Function '{func_name}' without 'Function:' documentation" if func_name
                        else "Function without 'Function:' documentation"
             ))
+            return violations
+
+        mismatch = self._check_name_mismatch(
+            comments,
+            ['Function', 'Functions', 'Method', 'Methods', 'Procedure', 'Procedures',
+             'Routine', 'Routines', 'Subroutine', 'Subroutines', 'Operator', 'Operators',
+             'Callback', 'Callbacks', 'Macro', 'Macros'],
+            func_name, 'function', file_path, start_line,
+        )
+        if mismatch:
+            violations.append(mismatch)
         
         return violations
     
     def _extract_function_name(self, node) -> str:
-        """Extract function name from implementation node"""
+        """Extract function name from implementation node.
+
+        Verible uses kQualifiedId for class-scoped implementations
+        (e.g. my_class::my_func) and kUnqualifiedId for simple
+        declarations inside a class body.
+        """
         try:
             for header in node.iter_find_all({'tag': 'kFunctionHeader'}):
-                for qualified_id in header.iter_find_all({'tag': 'kQualifiedId'}):
-                    qual_text = qualified_id.text
-                    if '::' in qual_text:
-                        return qual_text.split('::')[-1].strip()
-                    else:
-                        return qual_text.strip()
+                for child in header.children:
+                    if hasattr(child, 'tag'):
+                        if child.tag == 'kQualifiedId':
+                            qual_text = child.text
+                            if '::' in qual_text:
+                                return qual_text.split('::')[-1].strip()
+                            return qual_text.strip()
+                        if child.tag == 'kUnqualifiedId':
+                            return child.text.strip()
         except:
             pass
         return ""
@@ -159,10 +178,5 @@ class FunctionDocsRule(BaseRule):
             pass
         return ""
     
-    def _get_line_number(self, file_bytes: bytes, byte_offset: int) -> int:
-        """Convert byte offset to line number"""
-        if byte_offset is None:
-            return 1
-        return file_bytes[:byte_offset].count(b'\n') + 1
-    
+
 

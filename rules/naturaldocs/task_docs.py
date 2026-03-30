@@ -95,6 +95,15 @@ class TaskDocsRule(BaseRule):
                 message=f"Task '{task_name}' without 'Function:' documentation (NaturalDocs uses Function for tasks)" 
                        if task_name else "Task without 'Function:' documentation"
             ))
+            return violations
+
+        mismatch = self._check_name_mismatch(
+            comments,
+            ['Function', 'Func', 'Procedure', 'Proc', 'Method'],
+            task_name, 'task', file_path, start_line,
+        )
+        if mismatch:
+            violations.append(mismatch)
         
         return violations
     
@@ -113,10 +122,5 @@ class TaskDocsRule(BaseRule):
             pass
         return ""
     
-    def _get_line_number(self, file_bytes: bytes, byte_offset: int) -> int:
-        """Convert byte offset to line number"""
-        if byte_offset is None:
-            return 1
-        return file_bytes[:byte_offset].count(b'\n') + 1
-    
+
 

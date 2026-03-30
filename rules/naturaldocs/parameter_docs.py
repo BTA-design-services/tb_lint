@@ -16,7 +16,7 @@ class ParameterDocsRule(BaseRule):
     Rule: Check parameter documentation
     
     Requirements:
-    - Parameters can be documented with 'Constant:', 'Property:', or 'define:' (NaturalDocs style)
+    - Parameters (parameter/localparam) are documented with 'Variable:' keyword
     - Documentation is optional for parameters
     - Skip type parameters in class headers (documented in Parameters: section)
     """
@@ -27,7 +27,7 @@ class ParameterDocsRule(BaseRule):
     
     @property
     def description(self) -> str:
-        return "Parameters can have 'Constant:', 'Property:', or 'define:' documentation"
+        return "Parameters can have 'Variable:' documentation"
     
     def default_severity(self) -> RuleSeverity:
         # Parameters are typically optional to document
@@ -56,11 +56,7 @@ class ParameterDocsRule(BaseRule):
 
             keyword_check = self._validate_naturaldocs_keyword(
                 comments,
-                [
-                    'Constant', 'Constants', 'Const',
-                    'Property', 'Properties',
-                    'Define', 'Defines', 'Def', 'Defs',
-                ],
+                ['Variable', 'Variables', 'Var', 'Vars'],
                 'parameter',
             )
             if keyword_check:
@@ -76,11 +72,7 @@ class ParameterDocsRule(BaseRule):
             # Check for accepted keywords (optional)
             if not self._has_naturaldocs_keyword(
                 comments,
-                [
-                    'Constant', 'Constants', 'Const',
-                    'Property', 'Properties',
-                    'Define', 'Defines', 'Def', 'Defs',
-                ],
+                ['Variable', 'Variables', 'Var', 'Vars'],
             ):
                 # Since parameters are optional, we may not want to report this
                 # Uncomment below to enable reporting:
@@ -91,6 +83,14 @@ class ParameterDocsRule(BaseRule):
                 #            if param_name else "Parameter without documentation"
                 # ))
                 pass
+            else:
+                mismatch = self._check_name_mismatch(
+                    comments,
+                    ['Variable', 'Variables', 'Var', 'Vars'],
+                    param_name, 'parameter', file_path, start_line,
+                )
+                if mismatch:
+                    violations.append(mismatch)
         
         return violations
     
@@ -99,19 +99,13 @@ class ParameterDocsRule(BaseRule):
         import re
         try:
             node_text = node.text.strip()
-            # Match parameter name: identifier after type, before equals or semicolon
-            match = re.search(r'\bparameter\b.*?\b(\w+)\s*(?:=|;)', node_text)
+            # Match parameter/localparam name: identifier after type, before equals or semicolon
+            match = re.search(r'\b(?:parameter|localparam)\b.*?\b(\w+)\s*(?:=|;)', node_text)
             if match:
                 return match.group(1)
         except:
             pass
         return ""
     
-    def _get_line_number(self, file_bytes: bytes, byte_offset: int) -> int:
-        """Convert byte offset to line number"""
-        if byte_offset is None:
-            return 1
-        return file_bytes[:byte_offset].count(b'\n') + 1
-    
-    
+
 

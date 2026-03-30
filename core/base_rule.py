@@ -429,6 +429,30 @@ class BaseRule(ABC):
                 return True
         return False
 
+    def _extract_documented_name(self, comments: list, keywords: list) -> Optional[str]:
+        """
+        Extract documented identifier from a NaturalDocs keyword line.
+
+        Examples:
+            Class: my_class
+            Function: build_phase
+            Variable: m_counter
+
+        Returns:
+            First identifier after any keyword in ``keywords``, or None.
+        """
+        import re
+        for line in comments:
+            for keyword in keywords:
+                pattern = (
+                    r'(?i)\b' + re.escape(keyword) +
+                    r'\s*:\s*([a-zA-Z_][a-zA-Z0-9_]*)'
+                )
+                match = re.search(pattern, line)
+                if match:
+                    return match.group(1)
+        return None
+
     def _validate_naturaldocs_keyword(self, comments: list, expected_keywords: list, node_type: str) -> dict:
         """
         Validate NaturalDocs keyword for a declaration comment block.
@@ -441,20 +465,71 @@ class BaseRule(ABC):
             return {}
 
         import re
+        # Complete set of official NaturalDocs keywords from
+        # https://naturaldocs.org/reference/keywords
+        # Database-only keywords (db table, db view, etc.) are omitted
+        # because they are irrelevant for SystemVerilog linting.
         valid_keywords = {
-            'information', 'topic', 'topics', 'about', 'list', 'group', 'section', 'title',
-            'file', 'files', 'program', 'programs', 'script', 'scripts', 'document', 'documents', 'doc', 'docs',
-            'class', 'classes', 'package', 'packages', 'namespace', 'namespaces', 'interface', 'interfaces',
-            'struct', 'structs', 'structure', 'structures', 'module', 'modules',
-            'type', 'types', 'typedef', 'typedefs', 'enum', 'enums', 'enumeration', 'enumerations',
-            'function', 'functions', 'func', 'funcs', 'procedure', 'procedures', 'proc', 'procs',
-            'routine', 'routines', 'subroutine', 'subroutines', 'method', 'methods',
-            'callback', 'callbacks', 'constructor', 'constructors', 'destructor', 'destructors',
-            'property', 'properties', 'prop', 'props', 'variable', 'variables', 'var', 'vars',
-            'field', 'fields', 'constant', 'constants', 'const', 'consts',
-            'integer', 'integers', 'int', 'ints', 'string', 'strings', 'bit', 'bits',
-            'macro', 'macros', 'define', 'defines', 'def', 'defs', 'event', 'events',
+            # General: Information
+            'topic', 'topics', 'about', 'list',
+            # General: Group / Section
+            'group', 'section', 'title',
+            # General: File
+            'file', 'files', 'program', 'programs', 'script', 'scripts',
+            'document', 'documents', 'doc', 'docs', 'header', 'headers',
+            # Code: Class
+            'class', 'classes', 'package', 'packages', 'namespace', 'namespaces',
+            'record', 'records',
+            # Code: Interface
+            'interface', 'interfaces',
+            # Code: Struct
+            'struct', 'structs', 'structure', 'structures',
+            # Code: Module (SystemVerilog only)
+            'module', 'modules', 'macromodule', 'macromodules',
+            # Code: Type
+            'type', 'types', 'typedef', 'typedefs',
+            # Code: Enum
+            'enum', 'enums', 'enumeration', 'enumerations',
+            # Code: Delegate
+            'delegate', 'delegates',
+            # Code: Event
+            'event', 'events',
+            # Code: Function
+            'function', 'functions', 'func', 'funcs',
+            'procedure', 'procedures', 'proc', 'procs',
+            'routine', 'routines', 'subroutine', 'subroutines', 'sub', 'subs',
+            'method', 'methods', 'callback', 'callbacks',
+            'constructor', 'constructors', 'destructor', 'destructors',
+            # Code: Property
+            'property', 'properties', 'prop', 'props',
+            # Code: Constant
+            'constant', 'constants', 'const', 'consts',
+            # Code: Operator
             'operator', 'operators',
+            # Code: Macro
+            'macro', 'macros', 'define', 'defines', 'def', 'defs',
+            # Code: Variable (full family)
+            'variable', 'variables', 'var', 'vars',
+            'integer', 'integers', 'int', 'ints', 'uint', 'uints',
+            'long', 'longs', 'ulong', 'ulongs',
+            'short', 'shorts', 'ushort', 'ushorts',
+            'byte', 'bytes', 'ubyte', 'ubytes', 'sbyte', 'sbytes',
+            'float', 'floats', 'double', 'doubles', 'real', 'reals',
+            'decimal', 'decimals', 'scalar', 'scalars',
+            'array', 'arrays', 'arrayref', 'arrayrefs',
+            'hash', 'hashes', 'hashref', 'hashrefs',
+            'table', 'tables',
+            'bool', 'bools', 'boolean', 'booleans',
+            'flag', 'flags', 'bit', 'bits', 'bitfield', 'bitfields',
+            'field', 'fields',
+            'pointer', 'pointers', 'ptr', 'ptrs',
+            'reference', 'references', 'ref', 'refs',
+            'object', 'objects', 'obj', 'objs',
+            'character', 'characters', 'char', 'chars',
+            'wcharacter', 'wcharacters', 'wchar', 'wchars',
+            'string', 'strings', 'str', 'strs',
+            'wstring', 'wstrings', 'wstr', 'wstrs',
+            'handle', 'handles',
         }
         skip_keywords = {
             'company', 'author', 'description', 'created', 'modified', 'date', 'version',
@@ -495,4 +570,51 @@ class BaseRule(ABC):
             }
 
         return {}
+
+    def _get_line_number(self, file_bytes: bytes, byte_offset: int) -> int:
+        """Convert byte offset to 1-based line number."""
+        if byte_offset is None:
+            return 1
+        return file_bytes[:byte_offset].count(b'\n') + 1
+
+    def _check_name_mismatch(
+        self,
+        comments: list,
+        keywords: list,
+        actual_name: str,
+        construct_type: str,
+        file_path: str,
+        line: int,
+    ) -> Optional[RuleViolation]:
+        """
+        Compare the documented name against the actual declared name.
+
+        Centralised helper so individual rules don't duplicate the same
+        extract-compare-violation pattern.
+
+        Args:
+            comments:       Comment lines preceding the declaration.
+            keywords:       NaturalDocs keywords to search for (e.g. ['Class']).
+            actual_name:    Identifier extracted from the AST node.
+            construct_type: Human-readable label for the message (e.g. 'class').
+            file_path:      Path to the source file.
+            line:           Line number of the declaration.
+
+        Returns:
+            A RuleViolation if a mismatch is found, otherwise None.
+        """
+        documented = self._extract_documented_name(comments, keywords)
+        if documented and actual_name and documented != actual_name:
+            return RuleViolation(
+                file=file_path,
+                line=line,
+                column=0,
+                severity=self.severity,
+                rule_id="[ND_NAME_MISMATCH]",
+                message=(
+                    f"{construct_type.capitalize()} docs name '{documented}' "
+                    f"does not match {construct_type} '{actual_name}'"
+                ),
+            )
+        return None
 

@@ -24,6 +24,7 @@ from rules.naturaldocs import (
     PackageDocsRule, ClassDocsRule, FunctionDocsRule,
     TaskDocsRule, ConstraintDocsRule, TypedefDocsRule,
     VariableDocsRule, ParameterDocsRule,
+    ModuleDocsRule, InterfaceDocsRule, CovergroupDocsRule,
     NamedEndBlocksRule,
     ClassMemberPrefixRule, TypedefSuffixRule, EnvAgentInstanceSuffixRule, UserPortSuffixRule
 )
@@ -155,6 +156,9 @@ class NaturalDocsLinter(BaseLinter):
         self.add_rule(TypedefDocsRule())
         self.add_rule(VariableDocsRule())
         self.add_rule(ParameterDocsRule())
+        self.add_rule(ModuleDocsRule())
+        self.add_rule(InterfaceDocsRule())
+        self.add_rule(CovergroupDocsRule())
         # Naming convention rules
         self.add_rule(ClassMemberPrefixRule(
             self._naturaldocs_rule_config("[ND_MEMBER_PREFIX]", "[ND_MEMBER_PREFIX_MISS]")

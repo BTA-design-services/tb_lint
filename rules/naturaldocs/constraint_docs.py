@@ -7,8 +7,7 @@ Company: Copyright (c) 2025  BTA Design Services
 Description: Checks for proper constraint documentation
 """
 
-import re
-from typing import List, Optional
+from typing import List
 
 from core.base_rule import BaseRule, RuleViolation, RuleSeverity
 
@@ -78,36 +77,15 @@ class ConstraintDocsRule(BaseRule):
                 ))
                 continue
 
-            # If Define: documents an identifier, it must match the constraint name.
-            documented = self._extract_define_documented_name(comments)
-            if (
-                documented
-                and constraint_name
-                and documented != constraint_name
-            ):
-                violations.append(
-                    RuleViolation(
-                        file=file_path,
-                        line=start_line,
-                        column=0,
-                        severity=self.severity,
-                        rule_id="[ND_NAME_MISMATCH]",
-                        message=(
-                            f"Define: documents '{documented}' but constraint is named "
-                            f"'{constraint_name}'"
-                        ),
-                    )
-                )
+            # Reuse centralised helper from BaseRule
+            mismatch = self._check_name_mismatch(
+                comments, ['define', 'Define'],
+                constraint_name, 'constraint', file_path, start_line,
+            )
+            if mismatch:
+                violations.append(mismatch)
 
         return violations
-
-    def _extract_define_documented_name(self, comments: List[str]) -> Optional[str]:
-        """First ``Define: <id>`` identifier in the preceding comment block, if any."""
-        for line in comments:
-            m = re.search(r"(?i)\bDefine\s*:\s*([a-zA-Z_][a-zA-Z0-9_]*)", line)
-            if m:
-                return m.group(1)
-        return None
 
     def _extract_constraint_name(self, node) -> str:
         """Extract constraint name from AST node"""
@@ -118,11 +96,5 @@ class ConstraintDocsRule(BaseRule):
             pass
         return ""
     
-    def _get_line_number(self, file_bytes: bytes, byte_offset: int) -> int:
-        """Convert byte offset to line number"""
-        if byte_offset is None:
-            return 1
-        return file_bytes[:byte_offset].count(b'\n') + 1
-    
-    
+
 
