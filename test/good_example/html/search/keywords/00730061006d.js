@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("sam",["Function"],[["sample_config",,[["bta_config_c",,,,0,"File:good_example.sv:bta_config_c.sample_config","SystemVerilogClass:bta_config_c:sample_config"]]]]);

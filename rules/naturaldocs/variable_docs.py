@@ -69,7 +69,7 @@ class VariableDocsRule(BaseRule):
                 comments = self._extract_comments_from_text(file_content, start_line)
                 keyword_check = self._validate_naturaldocs_keyword(
                     comments,
-                    ['Variable', 'Variables', 'Var', 'Vars', 'Field', 'Fields', 'Property', 'Properties', 'Constant', 'Constants'],
+                    ['Variable'],
                     'variable'
                 )
                 if keyword_check:

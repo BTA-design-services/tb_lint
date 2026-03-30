@@ -15,6 +15,46 @@
 `ifndef GOOD_EXAMPLE_SV
 `define GOOD_EXAMPLE_SV
 
+//Group: Preprocessor Defines
+
+//define: BTA_MAX_BURST_LEN
+//Maximum burst length supported by the DUT (decimal)
+`define BTA_MAX_BURST_LEN 256
+
+//define: BTA_FIFO_DEPTH
+//Depth of the internal FIFO in entries (hex)
+`define BTA_FIFO_DEPTH 32'h0000_0040
+
+//define: BTA_BASE_ADDR
+//Base address of the register block.
+//Aligned to a 4 KB boundary in the system memory map.
+`define BTA_BASE_ADDR 32'hDEAD_0000
+
+//define: BTA_TIMEOUT_CYCLES
+//Number of clock cycles before the watchdog fires.
+//Chosen to be long enough for the slowest expected transaction
+//but short enough to catch real hangs during simulation.
+`define BTA_TIMEOUT_CYCLES 50000
+
+//define: BTA_LOG_INFO
+//Convenience macro for logging an info message with the component name.
+//Uses backslash continuation for a multi-line define (single statement).
+`define BTA_LOG_INFO(MSG) \
+  `uvm_info(get_type_name(), MSG, UVM_MEDIUM)
+
+//define: BTA_CHECK_FIELD
+//Multi-line define that compares a transaction field and reports
+//an error on mismatch. Demonstrates a multi-line macro with
+//hex literal and begin/end block.
+`define BTA_CHECK_FIELD(FIELD, EXP) \
+  begin \
+    if (FIELD !== EXP) begin \
+      `uvm_error(get_type_name(), \
+        $sformatf("Field mismatch: got 0x%0h, expected 0x%0h", \
+                  FIELD, EXP)) \
+    end \
+  end
+
 //Package: bta_example_pkg
 //Example package demonstrating correct NaturalDocs documentation.
 //This package contains properly documented classes, functions, tasks,
@@ -27,7 +67,7 @@ package bta_example_pkg;
 
   //Group: Type Definitions
 
-  //Typedef: state_t
+  //Variable: state_t
   //State machine enumeration type for agent states
   typedef enum {
     IDLE_t,
@@ -36,15 +76,15 @@ package bta_example_pkg;
     DONE_t
   } state_t;
 
-  //Typedef: addr_t
+  //Variable: addr_t
   //Address type for memory operations
   typedef logic [31:0] addr_t;
 
-  //Typedef: data_t
+  //Variable: data_t
   //Data type for transactions
   typedef logic [63:0] data_t;
 
-  //Typedef: ctrl_fields_t
+  //Variable: ctrl_fields_t
   //Packed struct holding transaction control fields
   typedef struct packed {
     logic [3:0] burst_len;
@@ -52,7 +92,7 @@ package bta_example_pkg;
     logic       lock;
   } ctrl_fields_t;
 
-  //Typedef: data_overlay_t
+  //Variable: data_overlay_t
   //Packed union allowing raw or byte-level access to a 16-bit value
   typedef union packed {
     logic [15:0] raw;

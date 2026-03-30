@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("rep",["Function"],[["report_phase",,[["bta_monitor_c",,,,0,"File:good_example.sv:bta_monitor_c.report_phase","SystemVerilogClass:bta_monitor_c:report_phase"]]]]);

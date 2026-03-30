@@ -16,7 +16,7 @@ class TypedefDocsRule(BaseRule):
     Rule: Check typedef documentation
     
     Requirements:
-    - Typedefs can be documented with 'Typedef:', 'Type:', or 'Variable:'
+    - Typedefs must use 'Variable:' documentation
     - Documentation is optional for typedefs (this rule can be configured to WARNING)
     """
     
@@ -26,7 +26,7 @@ class TypedefDocsRule(BaseRule):
     
     @property
     def description(self) -> str:
-        return "Typedefs should have 'Typedef:', 'Type:', or 'Variable:' documentation"
+        return "Typedefs must have 'Variable:' documentation"
     
     def default_severity(self) -> RuleSeverity:
         # Typedefs are often optional to document
@@ -49,7 +49,7 @@ class TypedefDocsRule(BaseRule):
             start_line = self._get_line_number(context.file_bytes, node.start)
             comments = self._extract_comments_from_text(file_content, start_line)
             keyword_check = self._validate_naturaldocs_keyword(
-                comments, ['Typedef', 'Type', 'Variable'], 'typedef'
+                comments, ['Variable'], 'typedef'
             )
             if keyword_check:
                 violations.append(RuleViolation(
@@ -62,7 +62,7 @@ class TypedefDocsRule(BaseRule):
                 ))
             
             # Check for accepted keywords
-            if not self._has_naturaldocs_keyword(comments, ['Typedef', 'Type', 'Variable']):
+            if not self._has_naturaldocs_keyword(comments, ['Variable']):
                 # Only report if rule is enabled (typedefs are often optional)
                 violations.append(self.create_violation(
                     file_path=file_path,
@@ -73,7 +73,7 @@ class TypedefDocsRule(BaseRule):
                 continue
 
             mismatch = self._check_name_mismatch(
-                comments, ['Typedef', 'Type', 'Variable'],
+                comments, ['Variable'],
                 typedef_name, 'typedef', file_path, start_line,
             )
             if mismatch:

@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("ctr",["Variable"],[["ctrl_fields_t",,[["bta_example_pkg",,,,0,"File:good_example.sv:bta_example_pkg.ctrl_fields_t","SystemVerilogPackage:bta_example_pkg:ctrl_fields_t"]]]]);

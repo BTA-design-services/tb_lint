@@ -74,7 +74,7 @@ class TaskDocsRule(BaseRule):
         comments = self._extract_comments_from_text(file_content, start_line)
         keyword_check = self._validate_naturaldocs_keyword(
             comments,
-            ['Function', 'Functions', 'Method', 'Methods', 'Procedure', 'Procedures', 'Routine', 'Routines', 'Subroutine', 'Subroutines'],
+            ['Function'],
             'task'
         )
         if keyword_check:
@@ -88,7 +88,7 @@ class TaskDocsRule(BaseRule):
             ))
         
         # NaturalDocs uses 'Function' keyword for tasks
-        if not self._has_naturaldocs_keyword(comments, ['Function', 'Func', 'Procedure', 'Proc', 'Method']):
+        if not self._has_naturaldocs_keyword(comments, ['Function']):
             violations.append(self.create_violation(
                 file_path=file_path,
                 line=start_line,
@@ -99,7 +99,7 @@ class TaskDocsRule(BaseRule):
 
         mismatch = self._check_name_mismatch(
             comments,
-            ['Function', 'Func', 'Procedure', 'Proc', 'Method'],
+            ['Function'],
             task_name, 'task', file_path, start_line,
         )
         if mismatch:

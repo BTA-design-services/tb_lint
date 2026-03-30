@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("col",["Function"],[["collect_transaction",,[["bta_monitor_c",,,,0,"File:good_example.sv:bta_monitor_c.collect_transaction","SystemVerilogClass:bta_monitor_c:collect_transaction"]]]]);

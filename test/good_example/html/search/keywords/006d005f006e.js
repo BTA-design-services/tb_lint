@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("m_n",["Variable"],[["m_num_items",,[["bta_sequence_c",,,,0,"File:good_example.sv:bta_sequence_c.m_num_items","SystemVerilogClass:bta_sequence_c:m_num_items"]]],["m_num_transactions",,[["bta_config_c",,,,0,"File:good_example.sv:bta_config_c.m_num_transactions","SystemVerilogClass:bta_config_c:m_num_transactions"]]]]);

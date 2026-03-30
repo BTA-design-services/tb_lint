@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("con",["Variable","Function"],[["config_cg",,[["bta_config_c",,,,0,"File:good_example.sv:bta_config_c.config_cg","SystemVerilogClass:bta_config_c:config_cg"]]],["convert2string",,[["bta_transaction_c",,,,1,"File:good_example.sv:bta_transaction_c.convert2string","SystemVerilogClass:bta_transaction_c:convert2string"]]]]);

@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("tim",["Macro"],[["timeout_cycles_c",,[["bta_config_c",,,,0,"File:good_example.sv:bta_config_c.timeout_cycles_c","SystemVerilogClass:bta_config_c:timeout_cycles_c"]]]]);

@@ -31,24 +31,24 @@ package mismatch_test_pkg;
   // 2. Typedef enum mismatch  (kTypeDeclaration / typedef_docs.py)
   // ==========================================================================
 
-  //Typedef: wrong_enum_t
+  //Variable: wrong_enum_t
   //Intentional mismatch
   typedef enum {A_t, B_t, C_t} actual_enum_t;
 
   // ==========================================================================
-  // 3. Typedef simple mismatch  (kTypeDeclaration / typedef_docs.py, Type alias)
+  // 3. Typedef simple mismatch  (kTypeDeclaration / typedef_docs.py)
   // ==========================================================================
 
-  //Type: wrong_data_t
-  //Intentional mismatch with Type keyword
+  //Variable: wrong_data_t
+  //Intentional mismatch
   typedef logic [31:0] actual_data_t;
 
   // ==========================================================================
-  // 4. Typedef with Variable alias  (edge case)
+  // 4. Typedef struct mismatch  (kTypeDeclaration / typedef_docs.py)
   // ==========================================================================
 
   //Variable: wrong_addr_t
-  //Intentional mismatch with Variable keyword on typedef
+  //Intentional mismatch
   typedef logic [15:0] actual_addr_t;
 
   // ==========================================================================
@@ -151,20 +151,20 @@ package mismatch_test_pkg;
     extern task actual_task_proto();
 
     // ========================================================================
-    // 16. Task with Method alias  (edge case)
+    // 16. Task mismatch (additional)
     // ========================================================================
 
-    //Method: wrong_method_task
-    //Intentional mismatch with Method keyword on task
+    //Function: wrong_method_task
+    //Intentional mismatch on additional task
     task actual_method_task();
     endtask : actual_method_task
 
     // ========================================================================
-    // 17. Task with Procedure alias  (edge case)
+    // 17. Task mismatch (additional)
     // ========================================================================
 
-    //Procedure: wrong_proc_task
-    //Intentional mismatch with Procedure keyword on task
+    //Function: wrong_proc_task
+    //Intentional mismatch on additional task
     task actual_proc_task();
     endtask : actual_proc_task
 

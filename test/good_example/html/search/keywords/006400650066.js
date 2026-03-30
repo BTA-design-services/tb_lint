@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("def",["Variable"],[["DEFAULT_TIMEOUT",,[["bta_config_c",,,,0,"File:good_example.sv:bta_config_c.DEFAULT_TIMEOUT","SystemVerilogClass:bta_config_c:DEFAULT_TIMEOUT"]]]]);

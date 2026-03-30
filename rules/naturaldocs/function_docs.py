@@ -96,7 +96,7 @@ class FunctionDocsRule(BaseRule):
         comments = self._extract_comments_from_text(file_content, start_line)
         keyword_check = self._validate_naturaldocs_keyword(
             comments,
-            ['Function', 'Functions', 'Method', 'Methods', 'Procedure', 'Procedures', 'Routine', 'Routines', 'Subroutine', 'Subroutines', 'Operator', 'Operators', 'Callback', 'Callbacks', 'Macro', 'Macros'],
+            ['Function'],
             'function'
         )
         if keyword_check:
@@ -121,9 +121,7 @@ class FunctionDocsRule(BaseRule):
 
         mismatch = self._check_name_mismatch(
             comments,
-            ['Function', 'Functions', 'Method', 'Methods', 'Procedure', 'Procedures',
-             'Routine', 'Routines', 'Subroutine', 'Subroutines', 'Operator', 'Operators',
-             'Callback', 'Callbacks', 'Macro', 'Macros'],
+            ['Function'],
             func_name, 'function', file_path, start_line,
         )
         if mismatch:

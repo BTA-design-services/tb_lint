@@ -1,0 +1,1 @@
+﻿NDMenu.OnSectionLoaded("packages.js",[[1,"bta_example_pkg"]]);

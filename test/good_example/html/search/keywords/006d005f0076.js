@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("m_v",["Variable"],[["m_valid",,[["bta_transaction_c",,,,0,"File:good_example.sv:bta_transaction_c.m_valid","SystemVerilogClass:bta_transaction_c:m_valid"]]],["m_verbosity",,[["bta_config_c",,,,0,"File:good_example.sv:bta_config_c.m_verbosity","SystemVerilogClass:bta_config_c:m_verbosity"]]]]);

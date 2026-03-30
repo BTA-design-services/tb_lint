@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("bod",["Function"],[["body",,[["bta_sequence_c",,,,0,"File:good_example.sv:bta_sequence_c.body","SystemVerilogClass:bta_sequence_c:body"]]]]);

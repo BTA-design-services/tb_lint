@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("res",["Function"],[["reset_driver",,[["bta_driver_c",,,,0,"File:good_example.sv:bta_driver_c.reset_driver","SystemVerilogClass:bta_driver_c:reset_driver"]]]]);

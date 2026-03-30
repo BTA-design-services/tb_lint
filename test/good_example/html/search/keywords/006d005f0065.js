@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("m_e",["Variable"],[["m_enable_coverage",,[["bta_config_c",,,,0,"File:good_example.sv:bta_config_c.m_enable_coverage","SystemVerilogClass:bta_config_c:m_enable_coverage"]]]]);

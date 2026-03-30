@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("wr_",["Variable"],[["wr_en",,[["bta_bus_if",,,,0,"File:good_example.sv:bta_bus_if.wr_en","SystemVerilogClass:bta_bus_if:wr_en"]]]]);
