@@ -71,6 +71,9 @@ Title: "tb_lint test ND example"
 Source Folder: ../../good_example
    Name: sv_nd_example
 
+   GitHub Repository: https://github.com/BTA-design-services/tb_lint
+      Branch: main/test/good_example
+
 
 # This is where you tell Natural Docs which folders it should scan for source
 # files.  If you add any on the command line this section is ignored except
