@@ -3,15 +3,17 @@
  *
  * Company: BTA Design Services
  *
- * Author: contact@btadesign.com
+ * Author: vbesyakov@btadesignservices.com
  *
  * Description: Example SystemVerilog file with correct NaturalDocs documentation
  *              This file demonstrates proper documentation for all constructs
  *              and passes all naturaldocs_lint.py checks.
  *
  * Created: October 2, 2025
+ *
+ * Updated: April 26, 2026 IC Verimeter icshunt.help@gmail.com
  ******************************************************************************/
-
+ 
 `ifndef GOOD_EXAMPLE_SV
 `define GOOD_EXAMPLE_SV
 

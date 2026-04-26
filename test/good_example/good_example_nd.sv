@@ -1,13 +1,13 @@
 /* File: good_example_nd.sv
- *
- * Company: BTA Design Services
- *
- * Author: contact@btadesign.com
- *
- * Date: 2026-04-26
- *
- * Description: End-to-end NaturalDocs example on SystemVerilog and UVM (documentation / training).
- */
+*
+* Company: IC Verimeter
+*
+* Author: icshunt.help@gmail.com
+*
+* Date: 2026-03-29
+*
+* Description: End-to-end NaturalDocs example on SystemVerilog and UVM (documentation / training).
+*/
 
 /* Title: SystemVerilog + UVM + NaturalDocs Example
  *
