@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("nex",["Variable"],[["next_state",,[["svnd_example_pkg",,,,0,"File:good_example_nd.sv:svnd_example_pkg.next_state","SystemVerilogPackage:svnd_example_pkg:next_state"]]]]);

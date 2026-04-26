@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("clk",["Variable"],[["clk",,[["bta_top_wrapper",,,,0,"File:good_example.sv:bta_top_wrapper.clk","SystemVerilogModule:bta_top_wrapper:clk"],["tb_top",,,,0,"File:good_example_nd.sv:tb_top.clk","SystemVerilogModule:tb_top:clk"]]]]);

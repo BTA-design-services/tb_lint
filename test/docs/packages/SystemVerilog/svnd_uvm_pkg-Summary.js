@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("SystemVerilogPackage:svnd_uvm_pkg","svnd_uvm_pkg");NDSummary.OnSummaryLoaded("SystemVerilogPackage:svnd_uvm_pkg",[["SystemVerilog","SystemVerilog"]],[["Packages","Package"]],[[162,0,0,"svnd_uvm_pkg"]]);

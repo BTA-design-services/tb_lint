@@ -3,7 +3,7 @@
  *
  * Company: BTA Design Services
  *
- * Author: vbesyakov@btadesignservices.com
+ * Author: contact@btadesign.com
  *
  * Description: Example SystemVerilog file with correct NaturalDocs documentation
  *              This file demonstrates proper documentation for all constructs
@@ -67,14 +67,14 @@ package bta_example_pkg;
 
   //Group: Type Definitions
 
-  //Variable: state_t
+  //enum: state_e
   //State machine enumeration type for agent states
   typedef enum {
     IDLE_t,
     ACTIVE_t,
     WAIT_t,
     DONE_t
-  } state_t;
+  } state_e;
 
   //Variable: addr_t
   //Address type for memory operations
@@ -84,7 +84,7 @@ package bta_example_pkg;
   //Data type for transactions
   typedef logic [63:0] data_t;
 
-  //Variable: ctrl_fields_t
+  //Struct: ctrl_fields_t
   //Packed struct holding transaction control fields
   typedef struct packed {
     logic [3:0] burst_len;
@@ -92,7 +92,7 @@ package bta_example_pkg;
     logic       lock;
   } ctrl_fields_t;
 
-  //Variable: data_overlay_t
+  //Union: data_overlay_t
   //Packed union allowing raw or byte-level access to a 16-bit value
   typedef union packed {
     logic [15:0] raw;
@@ -135,14 +135,14 @@ package bta_example_pkg;
 
     //Group: Constraints
 
-    //define: num_transactions_c
+    //constraint: num_transactions_c
     //Constrains number of transactions to reasonable range
     constraint num_transactions_c {
       m_num_transactions inside {[1:1000]};
       m_num_transactions > 0;
     }
 
-    //define: timeout_cycles_c
+    //constraint: timeout_cycles_c
     //Constrains timeout to prevent simulation hangs
     constraint timeout_cycles_c {
       m_timeout_cycles inside {[100:10000]};
@@ -151,14 +151,19 @@ package bta_example_pkg;
 
     //Group: Coverage
 
-    //Variable: config_cg
+    //covergroup: config_cg
     //Covergroup that samples configuration parameter combinations
     covergroup config_cg;
+    // coverpoint: cp_num_trans
+    //   Coverpoint that samples the number of transactions
       cp_num_trans: coverpoint m_num_transactions {
         bins low   = {[1:100]};
         bins mid   = {[101:500]};
         bins high  = {[501:1000]};
       }
+
+      // coverpoint: cp_coverage_en
+      //   Coverpoint that samples the coverage enable flag
       cp_coverage_en: coverpoint m_enable_coverage;
     endgroup : config_cg
 
@@ -232,14 +237,14 @@ package bta_example_pkg;
 
     //Group: Constraints
 
-    //define: addr_range_c
+    //constraint: addr_range_c
     //Constrains address to valid memory range
     constraint addr_range_c {
       m_addr inside {[32'h1000:32'h1FFF]};
       m_addr[1:0] == 2'b00;  // Word aligned
     }
 
-    //define: data_non_zero_c
+    //constraint: data_non_zero_c
     //Constrains data to non-zero for testing
     constraint data_non_zero_c {
       m_data != 0;
@@ -322,7 +327,7 @@ package bta_example_pkg;
 
     //Group: Constraints
 
-    //define: num_items_range_c
+    //constraint: num_items_range_c
     //Constrains sequence length to reasonable range
     constraint num_items_range_c {
       m_num_items inside {[1:100]};
@@ -340,7 +345,7 @@ package bta_example_pkg;
       m_num_items = 10;
     endfunction : new
 
-    //Function: body
+    //Task: body
     //Main sequence body that generates transactions.
     //Creates and randomizes the specified number of transactions.
     virtual task body();

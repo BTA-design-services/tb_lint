@@ -1,1 +1,0 @@
-﻿NDSearch.OnPrefixDataLoaded("bui",["Function"],[["build_phase",,[["bta_driver_c",,,,0,"File:good_example.sv:bta_driver_c.build_phase","SystemVerilogClass:bta_driver_c:build_phase"],["bta_monitor_c",,,,0,"File:good_example.sv:bta_monitor_c.build_phase","SystemVerilogClass:bta_monitor_c:build_phase"]]]]);

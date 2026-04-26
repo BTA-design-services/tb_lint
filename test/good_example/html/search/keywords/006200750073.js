@@ -1,1 +1,0 @@
-﻿NDSearch.OnPrefixDataLoaded("bus",["Variable"],[["bus_if",,[["bta_top_wrapper",,,,0,"File:good_example.sv:bta_top_wrapper.bus_if","SystemVerilogModule:bta_top_wrapper:bus_if"]]]]);

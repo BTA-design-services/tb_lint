@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("txn",["Variable","Struct"],[["txn_done_ev",,[["txn_t",,,,0,"File:good_example_nd.sv:txn_t.txn_done_ev"]]],["txn_t",,[[,,,,1,"File:good_example_nd.sv:txn_t"]]]]);

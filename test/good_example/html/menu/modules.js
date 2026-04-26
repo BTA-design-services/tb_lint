@@ -1,1 +1,0 @@
-﻿NDMenu.OnSectionLoaded("modules.js",[[1,"bta_top_wrapper"]]);

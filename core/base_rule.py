@@ -482,8 +482,8 @@ class BaseRule(ABC):
             'record', 'records',
             # Code: Interface
             'interface', 'interfaces',
-            # Code: Struct
-            'struct', 'structs', 'structure', 'structures',
+            # Code: Struct / Union
+            'struct', 'structs', 'structure', 'structures', 'union', 'unions',
             # Code: Module (SystemVerilog only)
             'module', 'modules', 'macromodule', 'macromodules',
             # Code: Type
@@ -496,6 +496,7 @@ class BaseRule(ABC):
             'event', 'events',
             # Code: Function
             'function', 'functions', 'func', 'funcs',
+            'task', 'tasks',
             'procedure', 'procedures', 'proc', 'procs',
             'routine', 'routines', 'subroutine', 'subroutines', 'sub', 'subs',
             'method', 'methods', 'callback', 'callbacks',
@@ -508,6 +509,10 @@ class BaseRule(ABC):
             'operator', 'operators',
             # Code: Macro
             'macro', 'macros', 'define', 'defines', 'def', 'defs',
+            # Code: Coverage (SystemVerilog)
+            'coverage', 'coverages', 'covergroup', 'covergroups', 'coverpoint', 'coverpoints', 'cross', 'crosses',
+            # Code: Constraint (SystemVerilog)
+            'constraint', 'constraints',
             # Code: Variable (full family)
             'variable', 'variables', 'var', 'vars',
             'integer', 'integers', 'int', 'ints', 'uint', 'uints',
@@ -541,7 +546,8 @@ class BaseRule(ABC):
 
         found_keyword = None
         for line in comments:
-            match = re.match(r'^\s*([A-Za-z][A-Za-z\s]*?)\s*:\s*\w+', line)
+            # Match NaturalDocs keyword line, accounting for comment markers: //, /*, or *
+            match = re.match(r'^\s*(?://|/\*|\*|)\s*([A-Za-z][A-Za-z\s]*?)\s*:\s*\w+', line)
             if not match:
                 continue
             candidate = match.group(1).strip()

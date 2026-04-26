@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("reg",["Variable"],[["reg_data",,[["svnd_example_pkg",,,,0,"File:good_example_nd.sv:svnd_example_pkg.reg_data","SystemVerilogPackage:svnd_example_pkg:reg_data"]]]]);

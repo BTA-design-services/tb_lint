@@ -18,7 +18,7 @@ from .variable_docs import VariableDocsRule
 from .parameter_docs import ParameterDocsRule
 from .module_docs import ModuleDocsRule
 from .interface_docs import InterfaceDocsRule
-from .covergroup_docs import CovergroupDocsRule
+from .covergroup_docs import CovergroupDocsRule, CoverpointDocsRule, CrossDocsRule
 from .named_end_blocks import NamedEndBlocksRule
 from .naming_conventions import (
     ClassMemberPrefixRule,
@@ -44,6 +44,8 @@ __all__ = [
     'ModuleDocsRule',
     'InterfaceDocsRule',
     'CovergroupDocsRule',
+    'CoverpointDocsRule',
+    'CrossDocsRule',
     'NamedEndBlocksRule',
     'ClassMemberPrefixRule',
     'TypedefSuffixRule',

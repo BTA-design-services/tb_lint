@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("ini",["Process"],[["initial",,[["svnd_example_pkg",,,,0,"File:good_example_nd.sv:svnd_example_pkg.initial","SystemVerilogPackage:svnd_example_pkg:initial"]]]]);

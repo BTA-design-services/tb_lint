@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("bac",["Function"],[["back_to_back_valid_s",,[["bus_if",,,,0,"File:good_example_nd.sv:bus_if.back_to_back_valid_s","SystemVerilogClass:bus_if:back_to_back_valid_s"]]]]);
