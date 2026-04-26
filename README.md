@@ -3,7 +3,7 @@
 # TB_LINT - Modular Linting Framework
 
 **[BTA Design Services](https://www.linkedin.com/company/bta-design-services-inc-/about/) | DV Environment**  
-**Version:** 3.0-hierarchical | **Date:** October 16, 2025
+**Version:** 3.1- NaturalDocs linter update | **Date:** April 26, 2026
 ---
 ## About BTA  Design Services
 
