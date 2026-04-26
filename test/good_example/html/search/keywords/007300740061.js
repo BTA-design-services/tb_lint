@@ -1,1 +1,0 @@
-﻿NDSearch.OnPrefixDataLoaded("sta",["Variable"],[["state_t",,[["bta_example_pkg",,,,0,"File:good_example.sv:bta_example_pkg.state_t","SystemVerilogPackage:bta_example_pkg:state_t"]]]]);

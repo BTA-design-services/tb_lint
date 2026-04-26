@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("SystemVerilogPackage:uvm_pkg",{163:"<div class=\"NDToolTip TPackage LSystemVerilog\"><div id=\"NDPrototype163\" class=\"NDPrototype PContent\"><div class=\"PSection PPlainSection\"><span class=\"SHKeyword\">import</span> uvm_pkg::*</div></div><div class=\"TTSummary\">Standard UVM package.</div></div>"});

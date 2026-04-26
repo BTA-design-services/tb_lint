@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("m_a",["Variable"],[["m_addr",,[[,,,,0,"File:good_example_nd.sv:m_addr"],["bta_transaction_c",,,,0,"File:good_example.sv:bta_transaction_c.m_addr","SystemVerilogClass:bta_transaction_c:m_addr"]]],["m_analysis_port",,[["bta_monitor_c",,,,0,"File:good_example.sv:bta_monitor_c.m_analysis_port","SystemVerilogClass:bta_monitor_c:m_analysis_port"]]]]);

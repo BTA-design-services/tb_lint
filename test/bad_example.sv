@@ -176,8 +176,42 @@ module test_module;
 
 endmodule
 
+// ❌ VIOLATION: Missing covergroup documentation
+// ❌ VIOLATION: Missing coverpoint documentation
+// ❌ VIOLATION: Missing cross documentation
+covergroup missing_docs_cg @(posedge clk);
+  coverpoint valid;
+  coverpoint ready;
+  cross valid, ready;
+endgroup
+
+// ❌ VIOLATION: Wrong keyword for covergroup
+// Coverage: wrong_kw_cg
+covergroup wrong_kw_cg @(posedge clk);
+  coverpoint valid;
+endgroup
+
+// ❌ VIOLATION: Wrong enum suffix (should be _e)
+typedef enum {E_IDLE, E_BUSY} bad_state_t;
+
 // ❌ VIOLATION: No closing comment for package
 // ❌ VIOLATION: Missing include guard closing (`endif // FILENAME_SV)
+
+// ❌ VIOLATION: Missing Struct documentation
+typedef struct {
+  logic a;
+} bad_struct_t;
+
+// ❌ VIOLATION: Missing Union documentation
+typedef union {
+  logic a;
+  logic b;
+} bad_union_t;
+
+// ❌ VIOLATION: Missing Task documentation
+task bad_task();
+  #10;
+endtask
 
 /*
 SUMMARY OF ALL VIOLATIONS IN THIS FILE:
@@ -219,6 +253,11 @@ DOCUMENTATION VIOLATIONS (NaturalDocs Patterns):
 29. ❌ No Groups used for organization
 30. ❌ No cross-references using angle brackets
 31. ❌ No code examples in documentation
+32. ❌ Missing Covergroup: documentation
+33. ❌ Missing Coverpoint: documentation
+34. ❌ Missing Cross: documentation
+35. ❌ Wrong keyword for Covergroup (e.g. using 'Coverage:')
+36. ❌ Wrong enum suffix (should be '_e')
 
 UVM/SYSTEMVERILOG BEST PRACTICES VIOLATIONS:
 32. ❌ Missing factory registration macros

@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("sin",["Variable"],[["sink_mp",,[["bus_if",,,,0,"File:good_example_nd.sv:bus_if.sink_mp","SystemVerilogClass:bus_if:sink_mp"]]]]);

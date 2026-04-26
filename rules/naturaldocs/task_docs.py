@@ -72,9 +72,10 @@ class TaskDocsRule(BaseRule):
         task_name = self._extract_task_name(node)
         start_line = self._get_line_number(context.file_bytes, node.start)
         comments = self._extract_comments_from_text(file_content, start_line)
+        task_keywords = ['Function', 'Task']
         keyword_check = self._validate_naturaldocs_keyword(
             comments,
-            ['Function'],
+            task_keywords,
             'task'
         )
         if keyword_check:
@@ -87,19 +88,19 @@ class TaskDocsRule(BaseRule):
                 rule_id=keyword_check['rule_id']
             ))
         
-        # NaturalDocs uses 'Function' keyword for tasks
-        if not self._has_naturaldocs_keyword(comments, ['Function']):
+        # NaturalDocs uses 'Function' keyword for tasks, but we also support 'Task'
+        if not self._has_naturaldocs_keyword(comments, task_keywords):
             violations.append(self.create_violation(
                 file_path=file_path,
                 line=start_line,
-                message=f"Task '{task_name}' without 'Function:' documentation (NaturalDocs uses Function for tasks)" 
-                       if task_name else "Task without 'Function:' documentation"
+                message=f"Task '{task_name}' without 'Task:' or 'Function:' documentation" 
+                       if task_name else "Task without documentation"
             ))
             return violations
 
         mismatch = self._check_name_mismatch(
             comments,
-            ['Function'],
+            task_keywords,
             task_name, 'task', file_path, start_line,
         )
         if mismatch:

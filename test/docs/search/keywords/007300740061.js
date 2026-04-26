@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("sta",["Variable","Enum"],[["state",,[["svnd_example_pkg",,,,0,"File:good_example_nd.sv:svnd_example_pkg.state","SystemVerilogPackage:svnd_example_pkg:state"]]],["state_e",,[["bta_example_pkg",,,,1,"File:good_example.sv:bta_example_pkg.state_e","SystemVerilogPackage:bta_example_pkg:state_e"]]]]);

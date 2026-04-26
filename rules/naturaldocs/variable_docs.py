@@ -16,7 +16,7 @@ class VariableDocsRule(BaseRule):
     Rule: Check variable documentation
     
     Requirements:
-    - Member variables use a preceding block with the 'Variable:' keyword
+    - Member variables use a preceding block with the 'Variable:', 'Enum:', 'Struct:', or 'Union:' keyword
     - Only checks member variables (not locals in function/task/initial/always)
     - Default severity is ERROR (overridable via NaturalDocs rule_severity map)
     """
@@ -26,7 +26,7 @@ class VariableDocsRule(BaseRule):
     
     @property
     def description(self) -> str:
-        return "Variables can have 'Variable:' documentation"
+        return "Variables can have 'Variable:', 'Enum:', 'Struct:', or 'Union:' documentation"
     
     def default_severity(self) -> RuleSeverity:
         # Aligns with naturaldocs.common.json "[ND_VAR_MISS]": "ERROR" when config omits override
@@ -67,9 +67,10 @@ class VariableDocsRule(BaseRule):
                 # Use nearest comment block only; accumulated historical comments
                 # can hide invalid local keywords.
                 comments = self._extract_comments_from_text(file_content, start_line)
+                var_keywords = ['Variable', 'Enum', 'Struct', 'Union']
                 keyword_check = self._validate_naturaldocs_keyword(
                     comments,
-                    ['Variable'],
+                    var_keywords,
                     'variable'
                 )
                 if keyword_check:
@@ -82,8 +83,8 @@ class VariableDocsRule(BaseRule):
                         rule_id=keyword_check['rule_id']
                     ))
                 
-                # Check for Variable: keyword (mandatory)
-                if not self._has_naturaldocs_keyword(comments, ['Variable']):
+                # Check for Variable: (or Enum/Struct/Union) keyword (mandatory)
+                if not self._has_naturaldocs_keyword(comments, var_keywords):
                     violations.append(self.create_violation(
                         file_path=file_path,
                         line=start_line,
@@ -93,7 +94,7 @@ class VariableDocsRule(BaseRule):
                     continue
 
                 mismatch = self._check_name_mismatch(
-                    comments, ['Variable'],
+                    comments, var_keywords,
                     var_name, 'variable', file_path, start_line,
                 )
                 if mismatch:

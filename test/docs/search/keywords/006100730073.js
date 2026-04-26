@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("ass",["Function"],[["assume_word_aligned_p",,[["bus_if",,,,0,"File:good_example_nd.sv:bus_if.assume_word_aligned_p","SystemVerilogClass:bus_if:assume_word_aligned_p"]]]]);

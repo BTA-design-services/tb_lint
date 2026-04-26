@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("rst",["Variable"],[["rst_n",,[["bta_top_wrapper",,,,0,"File:good_example.sv:bta_top_wrapper.rst_n","SystemVerilogModule:bta_top_wrapper:rst_n"],["tb_top",,,,0,"File:good_example_nd.sv:tb_top.rst_n","SystemVerilogModule:tb_top:rst_n"]]]]);

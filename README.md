@@ -25,8 +25,12 @@ Released under the MIT License. See [LICENSE](https://github.com/BTA-design-serv
 ## Included Linters
 
 **NaturalDocs Linter**
-Validates [NaturalDocs-style](https://en.wikipedia.org/wiki/Natural_Docs) comments in SystemVerilog (modules, classes, functions, tasks, typedefs, parameters, constraints), flagging missing or mismatched tags and descriptions.
-
+Validates [NaturalDocs-style](https://en.wikipedia.org/wiki/Natural_Docs) comments in SystemVerilog (modules, interfaces, classes, packages, functions, tasks, typedefs, enums, structs, unions, parameters, constraints, covergroups, coverpoints, crosses), flagging missing or mismatched tags and descriptions.
+- **Version Compatibility:** `tb_lint` is aligned with **Natural Docs 2.4 Development Release 2**.
+- **Configuration:** For full compatibility (including `Task:`, `Struct:`, `Union:`, and `Enum:` keywords), the linter relies on the specific configuration patterns defined in:
+  - `test/docs/nd_config/Comments.txt`
+  - `test/docs/nd_config/Languages.txt`
+  
 **Verible Linter**
 Uses [Verible’s](https://chipsalliance.github.io/verible/) AST to enforce SystemVerilog syntax and style (indentation, line length, naming, formatting) with precise rule-based reporting
 
@@ -101,15 +105,20 @@ This index provides quick navigation to all documentation for the modular lintin
 | `include_guards.py` | 2 rules | Include guard validation |
 | `package_docs.py` | 1 rule | Package documentation |
 | `class_docs.py` | 1 rule | Class documentation |
+| `interface_docs.py` | 1 rule | Interface documentation |
+| `module_docs.py` | 1 rule | Module documentation |
 | `function_docs.py` | 1 rule | Function documentation |
 | `task_docs.py` | 1 rule | Task documentation |
 | `constraint_docs.py` | 1 rule | Constraint documentation |
 | `typedef_docs.py` | 1 rule | Typedef documentation |
 | `variable_docs.py` | 1 rule | Variable documentation |
 | `parameter_docs.py` | 1 rule | Parameter documentation |
+| `covergroup_docs.py` | 3 rules | Covergroup/Point/Cross documentation |
+| `naming_conventions.py` | 4 rules | Naming convention rules (m_ prefix, _t/_e suffixes, etc) |
+| `named_end_blocks.py` | 1 rule | Required end-labels for blocks |
 | `__init__.py` | - | Package exports |
 
-**Total: 13 individual rules**
+**Total: 23 individual rules**
 
 ### Main Scripts
 
@@ -265,7 +274,7 @@ See `rules/naturaldocs/*.py` for complete implementations:
 ### NaturalDocs
 - **Location:** https://www.naturaldocs.org/
 - **Documentation:** https://www.naturaldocs.org/reference/
-- **Purpose:** Natural Docs is an open source documentation generator for multiple programming languages
+- **Purpose:** Natural Docs is an open source documentation generator for multiple programming languages.
 
 ### Python
 - **Required:** Python 3.6+

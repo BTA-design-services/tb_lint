@@ -1,8 +1,8 @@
 {
   "project": {
-    "name": "<PROJECT_NAME>",
-    "company": "<COMPANY_NAME>",
-    "description": "<PROJECT_DESCRIPTION>"
+    "name": "TB_LINT_REF",
+    "company": "BTA Design Services",
+    "description": "Reference implementation for Unified Linter Framework"
   },
   "global": {
     "strict_mode": false,

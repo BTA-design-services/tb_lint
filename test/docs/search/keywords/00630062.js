@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("cb",["Variable"],[["cb",,[["bus_if",,,,0,"File:good_example_nd.sv:bus_if.cb","SystemVerilogClass:bus_if:cb"]]]]);

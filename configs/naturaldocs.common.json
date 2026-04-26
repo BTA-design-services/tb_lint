@@ -12,9 +12,9 @@
       "Company",
       "Author"
     ],
-    "company_name": "<COMPANY_NAME>",
-    "company_pattern": "<COMPANY_PATTERN>",
-    "email_domain": "<EMAIL_DOMAIN>",
+    "company_name": "BTA Design Services",
+    "company_pattern": "BTA Design Services",
+    "email_domain": "btadesign.com",
     "file_header_template": [
       "// File: <filename>",
       "// Company: <company>",

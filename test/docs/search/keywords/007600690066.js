@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("vif",["Variable"],[["vif",,[["svnd_driver",,,,0,"File:good_example_nd.sv:svnd_driver.vif","SystemVerilogClass:svnd_driver:vif"]]]]);

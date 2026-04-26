@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("wai",["Function"],[["wait_cycles",,[["txn_t",,,,0,"File:good_example_nd.sv:txn_t.wait_cycles"]]]]);

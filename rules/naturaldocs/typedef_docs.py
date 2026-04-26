@@ -16,7 +16,7 @@ class TypedefDocsRule(BaseRule):
     Rule: Check typedef documentation
     
     Requirements:
-    - Typedefs must use 'Variable:' documentation
+    - Typedefs must use 'Typedef:', 'Variable:', 'Enum:', 'Struct:', or 'Union:' documentation
     - Documentation is optional for typedefs (this rule can be configured to WARNING)
     """
     
@@ -26,7 +26,7 @@ class TypedefDocsRule(BaseRule):
     
     @property
     def description(self) -> str:
-        return "Typedefs must have 'Variable:' documentation"
+        return "Typedefs must have 'Typedef:', 'Variable:', 'Enum:', 'Struct:', or 'Union:' documentation"
     
     def default_severity(self) -> RuleSeverity:
         # Typedefs are often optional to document
@@ -48,8 +48,9 @@ class TypedefDocsRule(BaseRule):
             typedef_name = self._extract_typedef_name(node)
             start_line = self._get_line_number(context.file_bytes, node.start)
             comments = self._extract_comments_from_text(file_content, start_line)
+            typedef_keywords = ['Typedef', 'Variable', 'Enum', 'Struct', 'Union', 'Type']
             keyword_check = self._validate_naturaldocs_keyword(
-                comments, ['Variable'], 'typedef'
+                comments, typedef_keywords, 'typedef'
             )
             if keyword_check:
                 violations.append(RuleViolation(
@@ -62,7 +63,7 @@ class TypedefDocsRule(BaseRule):
                 ))
             
             # Check for accepted keywords
-            if not self._has_naturaldocs_keyword(comments, ['Variable']):
+            if not self._has_naturaldocs_keyword(comments, typedef_keywords):
                 # Only report if rule is enabled (typedefs are often optional)
                 violations.append(self.create_violation(
                     file_path=file_path,
@@ -73,7 +74,7 @@ class TypedefDocsRule(BaseRule):
                 continue
 
             mismatch = self._check_name_mismatch(
-                comments, ['Variable'],
+                comments, typedef_keywords,
                 typedef_name, 'typedef', file_path, start_line,
             )
             if mismatch:
@@ -82,14 +83,15 @@ class TypedefDocsRule(BaseRule):
         return violations
     
     def _extract_typedef_name(self, node) -> str:
-        """Extract typedef name from AST node"""
+        """Extract typedef name from AST node."""
         import re
         try:
+            # A more robust regex for typedef names
+            # It matches the word right before the semicolon at the end of the node text.
             node_text = node.text.strip()
-            # Match typedef name: word before semicolon, after any closing brace or keyword
-            match = re.search(r'\}\s*(\w+)\s*;|typedef\s+\w+(?:\s*\[.*?\])?\s*(\w+)\s*;', node_text)
+            match = re.search(r'(\w+)\s*;$', node_text)
             if match:
-                return match.group(1) if match.group(1) else match.group(2)
+                return match.group(1)
         except:
             pass
         return ""

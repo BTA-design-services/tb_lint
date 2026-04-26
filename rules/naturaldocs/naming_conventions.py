@@ -12,7 +12,6 @@ Description:
   - user-defined port handles must end with "_port"
   - env/agent handle names must end with "_env"/"_agent" based on handle type
 """
-
 from typing import List, Set, Tuple
 import re
 
@@ -224,7 +223,7 @@ class TypedefSuffixRule(BaseRule):
 
     @property
     def description(self) -> str:
-        return "Typedef names must end with '_t'"
+        return "Typedef names must end with '_t' (enums must end with '_e')"
 
     def default_severity(self) -> RuleSeverity:
         return RuleSeverity.ERROR
@@ -237,21 +236,46 @@ class TypedefSuffixRule(BaseRule):
         for node in context.tree.iter_find_all({"tag": "kTypeDeclaration"}):
             line = _line_from_offset(context.file_bytes, node.start)
             typedef_name = self._extract_typedef_name(node)
-            if typedef_name and not typedef_name.endswith("_t"):
-                violations.append(
-                    self.create_violation(
-                        file_path=file_path,
-                        line=line,
-                        message=f"Typedef '{typedef_name}' should use '_t' suffix",
-                        context=node.text.strip(),
+            if not typedef_name:
+                continue
+
+            # Check if it's an enum
+            is_enum = any(node.iter_find_all({"tag": "kEnumType"}))
+
+            if is_enum:
+                if not typedef_name.endswith("_e"):
+                    violations.append(
+                        self.create_violation(
+                            file_path=file_path,
+                            line=line,
+                            message=f"Enum typedef '{typedef_name}' should use '_e' suffix",
+                            context=node.text.strip(),
+                        )
                     )
-                )
+            else:
+                if not typedef_name.endswith("_t"):
+                    violations.append(
+                        self.create_violation(
+                            file_path=file_path,
+                            line=line,
+                            message=f"Typedef '{typedef_name}' should use '_t' suffix",
+                            context=node.text.strip(),
+                        )
+                    )
         return violations
 
     def _extract_typedef_name(self, node) -> str:
-        """Best-effort typedef name extraction from AST symbols."""
-        symbols = [sym.text for sym in node.iter_find_all({"tag": "SymbolIdentifier"}) if getattr(sym, "text", "")]
-        return symbols[0] if symbols else ""
+        """Extract the actual name being defined by the typedef."""
+        import re
+        try:
+            node_text = node.text.strip()
+            # Match typedef name: word before semicolon, after any closing brace or keyword
+            match = re.search(r"\}\s*(\w+)\s*;|typedef\s+\w+(?:\s*\[.*?\])?\s*(\w+)\s*;", node_text)
+            if match:
+                return match.group(1) if match.group(1) else match.group(2)
+        except:
+            pass
+        return ""
 
 
 class EnvAgentInstanceSuffixRule(BaseRule):

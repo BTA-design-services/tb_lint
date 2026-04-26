@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("cg_",["Coverage"],[["cg_bus",,[["bus_if",,,,0,"File:good_example_nd.sv:bus_if.cg_bus","SystemVerilogClass:bus_if:cg_bus"]]]]);

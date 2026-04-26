@@ -14,17 +14,9 @@ from core.base_rule import BaseRule, RuleViolation, RuleSeverity
 
 class ConstraintDocsRule(BaseRule):
     """
-    Rule: Require NaturalDocs immediately before each constraint declaration.
-
-    Emit [ND_CONST_MISS] (default ERROR; override via severity_levels) when a
-    ``constraint`` block has no preceding comment block containing ``define:``
-    (same line/discipline as other NaturalDocs rules).
-
-    When the block includes ``Define: <name>``, ``<name>`` must match the SV
-    constraint identifier; otherwise [ND_NAME_MISMATCH] is reported (was not
-    checked before, so wrong labels like ``Define: b`` above ``constraint c`` passed).
-
-    Enable/disable via naturaldocs ``linter_rules["[ND_CONST]"]`` (default on if omitted).
+    Requirements:
+    - Constraints must have 'Constraint:' documentation
+    - Documented name must match actual constraint name
     """
     @property
     def rule_id(self) -> str:
@@ -32,7 +24,7 @@ class ConstraintDocsRule(BaseRule):
     
     @property
     def description(self) -> str:
-        return "Constraints must have 'define:' documentation"
+        return "Constraints must have 'Constraint:' documentation"
     
     def default_severity(self) -> RuleSeverity:
         return RuleSeverity.ERROR
@@ -55,7 +47,7 @@ class ConstraintDocsRule(BaseRule):
             # Use nearest comment block only to avoid accidental matches from earlier comments.
             comments = self._extract_comments_from_text(file_content, start_line)
 
-            keyword_check = self._validate_naturaldocs_keyword(comments, ['define'], 'constraint')
+            keyword_check = self._validate_naturaldocs_keyword(comments, ['constraint', 'constraints'], 'constraint')
             if keyword_check:
                 violations.append(RuleViolation(
                     file=file_path,
@@ -67,18 +59,18 @@ class ConstraintDocsRule(BaseRule):
                 ))
                 continue
 
-            if not self._has_naturaldocs_keyword(comments, ['define']):
+            if not self._has_naturaldocs_keyword(comments, ['constraint', 'constraints']):
                 violations.append(self.create_violation(
                     file_path=file_path,
                     line=start_line,
-                    message=f"Constraint '{constraint_name}' without 'define:' documentation"
+                    message=f"Constraint '{constraint_name}' without 'Constraint:' documentation"
                            if constraint_name else "Constraint without documentation"
                 ))
                 continue
 
             # Reuse centralised helper from BaseRule
             mismatch = self._check_name_mismatch(
-                comments, ['define'],
+                comments, ['constraint', 'constraints'],
                 constraint_name, 'constraint', file_path, start_line,
             )
             if mismatch:
