@@ -28,8 +28,8 @@ Released under the MIT License. See [LICENSE](https://github.com/BTA-design-serv
 Validates [NaturalDocs-style](https://en.wikipedia.org/wiki/Natural_Docs) comments in SystemVerilog (modules, interfaces, classes, packages, functions, tasks, typedefs, enums, structs, unions, parameters, constraints, covergroups, coverpoints, crosses), flagging missing or mismatched tags and descriptions.
 - **Version Compatibility:** `tb_lint` is aligned with **Natural Docs 2.4 Development Release 2**.
 - **Configuration:** For full compatibility (including `Task:`, `Struct:`, `Union:`, and `Enum:` keywords), the linter relies on the specific configuration patterns defined in:
-  - `test/docs/nd_config/Comments.txt`
-  - `test/docs/nd_config/Languages.txt`
+  - [test/docs/nd_config/Comments.txt](test/docs/nd_config/Comments.txt)
+  - [test/docs/nd_config/Languages.txt](test/docs/nd_config/Languages.txt)
   
 **Verible Linter**
 Uses [Verible’s](https://chipsalliance.github.io/verible/) AST to enforce SystemVerilog syntax and style (indentation, line length, naming, formatting) with precise rule-based reporting
